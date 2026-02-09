@@ -1,14 +1,19 @@
 {
   "name": "basecamp-alpine-art",
+  "homepage": "https://si-ni.github.io/Basecamp-Alpine-Art/",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "deploy": "astro build && gh-pages -d dist"
   },
   "dependencies": {
     "astro": "^5.17.1"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
