@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Über mich - Art Portfolio" description="Erfahren Sie mehr über den Künstler">
+  <article class="about-content">
+    <div class="about-header">
+      <h1>Über den Künstler</h1>
+    </div>
+
+    <div class="about-body">
+      <div class="about-image">
+        <img 
+          src="https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80" 
+          alt="Künstlerporträt"
+        />
+      </div>
+
+      <div class="about-text">
+        <p>
+          Ich bin ein zeitgenössischer Künstler, der hauptsächlich mit Öl und Acryl auf Leinwand arbeitet. 
+          Meine Arbeit erforscht das empfindliche Gleichgewicht zwischen Abstraktion und Darstellung 
+          und versucht, flüchtige Momente von Emotion und Atmosphäre einzufangen.
+        </p>
+
+        <p>
+          Mit Sitz in [Ihre Stadt] ziehe ich Inspiration aus dem Zusammenspiel von Licht und Schatten 
+          in städtischen Umgebungen, dem Rhythmus natürlicher Landschaften und den Komplexitäten 
+          menschlicher Erfahrung. Jedes Werk ist eine Einladung zum Innehalten und Nachdenken.
+        </p>
+
+        <p>
+          Meine Arbeiten wurden in Galerien in [Region/Land] ausgestellt, und ich erkunde weiterhin 
+          neue Techniken und Medien, um die unbeschreiblichen Qualitäten unserer gelebten Erfahrungen 
+          auszudrücken.
+        </p>
+
+        <div class="credentials">
+          <h2>Ausbildung & Ausstellungen</h2>
+          <ul>
+            <li>MFA in Bildende Kunst, [Universität], 2020</li>
+            <li>BFA in Malerei, [Universität], 2018</li>
+            <li>Einzelausstellung, [Galerie], 2023</li>
+            <li>Gruppenausstellung, [Galerie], 2022</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .about-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .about-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-header h1 {
+    margin-bottom: 0;
+  }
+
+  .about-body {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .about-image {
+    position: sticky;
+    top: 120px;
+  }
+
+  .about-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+  }
+
+  .about-text p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    opacity: 0.9;
+  }
+
+  .credentials {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .credentials h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+  }
+
+  .credentials ul {
+    list-style: none;
+  }
+
+  .credentials li {
+    padding: 0.5rem 0;
+    opacity: 0.8;
+  }
+
+  .credentials li::before {
+    content: '—';
+    margin-right: 0.75rem;
+    opacity: 0.5;
+  }
+
+  @media (max-width: 768px) {
+    .about-body {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .about-image {
+      position: relative;
+      top: 0;
+    }
+
+    .about-text p {
+      font-size: 1rem;
+    }
+  }
+</style>

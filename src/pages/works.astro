@@ -1,0 +1,569 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ArtworkCard from '../components/ArtworkCard.astro';
+
+const artworks = [
+  {
+    title: 'Ethereal Dreams',
+    image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=800&q=80',
+    year: '2024',
+    medium: 'Öl auf Leinwand',
+    dimensions: '100 × 80 cm',
+    category: 'painting',
+    contentCategory: 'flowers',
+    format: 'vertical',
+    price: 2500,
+    sold: false,
+    tags: ['blumen', 'abstrakt', 'farben']
+  },
+  {
+    title: 'Urban Solitude',
+    image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=800&q=80',
+    year: '2024',
+    medium: 'Acryl',
+    dimensions: '120 × 90 cm',
+    category: 'painting',
+    contentCategory: 'mountains',
+    format: 'vertical',
+    price: 3200,
+    sold: false,
+    tags: ['berge', 'landschaft', 'natur']
+  },
+  {
+    title: 'Abstract Emotions',
+    image: 'https://images.unsplash.com/photo-1561214115-f2f134cc4912?w=800&q=80',
+    year: '2023',
+    medium: 'Mischtechnik',
+    dimensions: '90 × 90 cm',
+    category: 'abstract',
+    contentCategory: 'flowers',
+    format: 'square',
+    price: 1800,
+    sold: true,
+    tags: ['abstrakt', 'emotion', 'geometrisch']
+  },
+  {
+    title: 'Nature\'s Whisper',
+    image: 'https://images.unsplash.com/photo-1578926288207-a90a5366759d?w=800&q=80',
+    year: '2023',
+    medium: 'Aquarell',
+    dimensions: '60 × 80 cm',
+    category: 'painting',
+    contentCategory: 'flowers',
+    format: 'horizontal',
+    price: 1200,
+    sold: false,
+    tags: ['blumen', 'aquarell', 'zart']
+  },
+  {
+    title: 'Silent Reflections',
+    image: 'https://images.unsplash.com/photo-1549887534-1541e9326642?w=800&q=80',
+    year: '2023',
+    medium: 'Öl auf Leinwand',
+    dimensions: '100 × 100 cm',
+    category: 'painting',
+    contentCategory: 'mountains',
+    format: 'square',
+    price: 2800,
+    sold: false,
+    tags: ['berge', 'reflexion', 'see']
+  },
+  {
+    title: 'Color Symphony',
+    image: 'https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=800&q=80',
+    year: '2022',
+    medium: 'Acryl',
+    dimensions: '150 × 100 cm',
+    category: 'abstract',
+    contentCategory: 'flowers',
+    format: 'horizontal',
+    price: 3500,
+    sold: false,
+    tags: ['farben', 'symphonie', 'lebhaft']
+  },
+  {
+    title: 'Digital Dreams',
+    image: 'https://images.unsplash.com/photo-1557672172-298e090bd0f1?w=800&q=80',
+    year: '2024',
+    medium: 'Digitale Kunst',
+    dimensions: 'Digital',
+    category: 'digital',
+    contentCategory: 'mountains',
+    format: 'vertical',
+    price: 800,
+    sold: false,
+    tags: ['digital', 'modern', 'technologie']
+  },
+  {
+    title: 'Minimalist Study',
+    image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=800&q=80',
+    year: '2022',
+    medium: 'Mischtechnik',
+    dimensions: '80 × 80 cm',
+    category: 'abstract',
+    contentCategory: 'flowers',
+    format: 'square',
+    price: 1500,
+    sold: true,
+    tags: ['minimalistisch', 'einfach', 'formen']
+  }
+];
+
+const categories = [...new Set(artworks.map(a => a.category))];
+const mediums = [...new Set(artworks.map(a => a.medium))];
+const years = [...new Set(artworks.map(a => a.year))].sort().reverse();
+const contentCategories = [...new Set(artworks.map(a => a.contentCategory))];
+---
+
+<Layout title="Werke - Art Portfolio" description="Durchsuchen Sie meine Kunstwerke">
+  <section class="works-page">
+    <div class="works-header">
+      <h1>Werke</h1>
+      <p class="subtitle">Eine Sammlung von Gemälden, die das Zusammenspiel von Emotion, Farbe und Form erkunden.</p>
+    </div>
+
+    <div class="filters">
+      <div class="filter-row">
+        <div class="filter-group">
+          <label for="category-filter">Kategorie:</label>
+          <select id="category-filter" class="filter-select">
+            <option value="all">Alle Kategorien</option>
+            {categories.map(category => (
+              <option value={category}>
+                {category === 'painting' ? 'Malerei' : 
+                 category === 'abstract' ? 'Abstrakt' : 
+                 category === 'digital' ? 'Digital' : category}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="content-category-filter">Inhalt:</label>
+          <select id="content-category-filter" class="filter-select">
+            <option value="all">Alle Inhalte</option>
+            {contentCategories.map(cat => (
+              <option value={cat}>
+                {cat === 'flowers' ? 'Blumen' : 
+                 cat === 'mountains' ? 'Berge' : cat}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="medium-filter">Medium:</label>
+          <select id="medium-filter" class="filter-select">
+            <option value="all">Alle Medien</option>
+            {mediums.map(medium => (
+              <option value={medium}>{medium}</option>
+            ))}
+          </select>
+        </div>
+
+        <div class="filter-group">
+          <label for="format-filter">Format:</label>
+          <select id="format-filter" class="filter-select">
+            <option value="all">Alle Formate</option>
+            <option value="vertical">Vertikal</option>
+            <option value="horizontal">Horizontal</option>
+            <option value="square">Quadratisch</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="filter-row">
+        <div class="filter-group search-group">
+          <label for="search-input">Suche:</label>
+          <input 
+            type="text" 
+            id="search-input" 
+            class="filter-input" 
+            placeholder="Suche nach Titel, Tags, Größe..."
+          />
+        </div>
+
+        <div class="filter-group checkbox-group">
+          <label>
+            <input type="checkbox" id="available-only" />
+            <span>Nur Verfügbare</span>
+          </label>
+        </div>
+
+        <div class="filter-group">
+          <label for="sort-by">Sortieren nach:</label>
+          <select id="sort-by" class="filter-select">
+            <option value="none">Keine Sortierung</option>
+            <option value="year-desc">Jahr (Neueste zuerst)</option>
+            <option value="year-asc">Jahr (Älteste zuerst)</option>
+            <option value="price-asc">Preis (Niedrigste zuerst)</option>
+            <option value="price-desc">Preis (Höchste zuerst)</option>
+          </select>
+        </div>
+
+        <button id="reset-filters" class="reset-button">Filter zurücksetzen</button>
+      </div>
+    </div>
+
+    <div id="results-count" class="results-count"></div>
+
+    <section class="gallery" id="gallery">
+      {artworks.map((artwork) => (
+        <div 
+          class="artwork-item" 
+          data-category={artwork.category}
+          data-content-category={artwork.contentCategory}
+          data-medium={artwork.medium}
+          data-year={artwork.year}
+          data-format={artwork.format}
+          data-sold={artwork.sold}
+          data-price={artwork.price}
+          data-tags={artwork.tags.join(',')}
+          data-title={artwork.title.toLowerCase()}
+          data-dimensions={artwork.dimensions.toLowerCase()}
+        >
+          <ArtworkCard {...artwork} />
+        </div>
+      ))}
+    </section>
+
+    <div id="no-results" class="no-results" style="display: none;">
+      <p>Keine Kunstwerke entsprechen Ihren Filterkriterien.</p>
+      <button class="reset-button" onclick="document.getElementById('reset-filters').click()">
+        Filter löschen
+      </button>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .works-page {
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .works-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .works-header h1 {
+    margin-bottom: 1rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    line-height: 1.6;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+
+  .filters {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.02);
+    border-radius: 2px;
+  }
+
+  .filter-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    align-items: flex-end;
+  }
+
+  .filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+    min-width: 150px;
+  }
+
+  .search-group {
+    flex: 2;
+    min-width: 250px;
+  }
+
+  .checkbox-group {
+    flex-direction: row;
+    align-items: center;
+    padding-top: 1.5rem;
+    flex: 0 0 auto;
+    min-width: auto;
+  }
+
+  .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    margin-bottom: 0;
+    text-transform: none;
+    font-size: 0.95rem;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    width: auto;
+    cursor: pointer;
+  }
+
+  .filter-group label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  .filter-select,
+  .filter-input {
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    transition: border-color 0.3s ease;
+  }
+
+  .filter-select {
+    cursor: pointer;
+  }
+
+  .filter-input {
+    width: 100%;
+  }
+
+  .filter-select:hover,
+  .filter-select:focus,
+  .filter-input:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  .reset-button {
+    padding: 0.75rem 1.5rem;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    align-self: flex-end;
+  }
+
+  .reset-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+  }
+
+  .results-count {
+    margin-bottom: 2rem;
+    font-size: 0.95rem;
+    opacity: 0.6;
+    text-align: center;
+  }
+
+  .gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 3rem 2rem;
+  }
+
+  .artwork-item {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .artwork-item.hidden {
+    display: none;
+  }
+
+  .no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    opacity: 0.6;
+  }
+
+  .no-results p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .filters {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+  }
+
+  @media (max-width: 968px) {
+    .filter-row {
+      flex-direction: column;
+    }
+
+    .filter-group,
+    .search-group {
+      width: 100%;
+    }
+
+    .checkbox-group {
+      padding-top: 0;
+      width: 100%;
+      justify-content: flex-start;
+    }
+
+    .reset-button {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .filters {
+      padding: 1.5rem;
+    }
+
+    .gallery {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 2rem 1.5rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .gallery {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script>
+  const categoryFilter = document.getElementById('category-filter') as HTMLSelectElement;
+  const contentCategoryFilter = document.getElementById('content-category-filter') as HTMLSelectElement;
+  const mediumFilter = document.getElementById('medium-filter') as HTMLSelectElement;
+  const formatFilter = document.getElementById('format-filter') as HTMLSelectElement;
+  const searchInput = document.getElementById('search-input') as HTMLInputElement;
+  const availableOnly = document.getElementById('available-only') as HTMLInputElement;
+  const sortBy = document.getElementById('sort-by') as HTMLSelectElement;
+  const resetButton = document.getElementById('reset-filters') as HTMLButtonElement;
+  const artworkItems = document.querySelectorAll('.artwork-item');
+  const resultsCount = document.getElementById('results-count') as HTMLElement;
+  const noResults = document.getElementById('no-results') as HTMLElement;
+  const gallery = document.getElementById('gallery') as HTMLElement;
+
+  function filterAndSortArtworks() {
+    const categoryValue = categoryFilter.value;
+    const contentCategoryValue = contentCategoryFilter.value;
+    const mediumValue = mediumFilter.value;
+    const formatValue = formatFilter.value;
+    const searchValue = searchInput.value.toLowerCase();
+    const onlyAvailable = availableOnly.checked;
+    const sortValue = sortBy.value;
+
+    let visibleItems: HTMLElement[] = [];
+
+    artworkItems.forEach((item) => {
+      const element = item as HTMLElement;
+      const category = element.getAttribute('data-category');
+      const contentCategory = element.getAttribute('data-content-category');
+      const medium = element.getAttribute('data-medium');
+      const format = element.getAttribute('data-format');
+      const sold = element.getAttribute('data-sold') === 'true';
+      const tags = element.getAttribute('data-tags') || '';
+      const title = element.getAttribute('data-title') || '';
+      const dimensions = element.getAttribute('data-dimensions') || '';
+
+      const matchesCategory = categoryValue === 'all' || category === categoryValue;
+      const matchesContentCategory = contentCategoryValue === 'all' || contentCategory === contentCategoryValue;
+      const matchesMedium = mediumValue === 'all' || medium === mediumValue;
+      const matchesFormat = formatValue === 'all' || format === formatValue;
+      const matchesAvailability = !onlyAvailable || !sold;
+      
+      const searchableText = `${title} ${tags} ${dimensions}`.toLowerCase();
+      const matchesSearch = searchValue === '' || searchableText.includes(searchValue);
+
+      if (matchesCategory && matchesContentCategory && matchesMedium && matchesFormat && matchesAvailability && matchesSearch) {
+        element.classList.remove('hidden');
+        visibleItems.push(element);
+      } else {
+        element.classList.add('hidden');
+      }
+    });
+    
+    if (sortValue !== 'none') {
+      visibleItems.sort((a, b) => {
+        const priceA = parseInt(a.getAttribute('data-price') || '0');
+        const priceB = parseInt(b.getAttribute('data-price') || '0');
+        const yearA = parseInt(a.getAttribute('data-year') || '0');
+        const yearB = parseInt(b.getAttribute('data-year') || '0');
+
+        switch (sortValue) {
+          case 'year-desc':
+            return yearB - yearA;
+          case 'year-asc':
+            return yearA - yearB;
+          case 'price-asc':
+            return priceA - priceB;
+          case 'price-desc':
+            return priceB - priceA;
+          default:
+            return 0;
+        }
+      });
+
+      visibleItems.forEach(item => {
+        gallery.appendChild(item);
+      });
+    }
+
+    const totalCount = artworkItems.length;
+    const visibleCount = visibleItems.length;
+    
+    if (categoryValue === 'all' && contentCategoryValue === 'all' && mediumValue === 'all' && 
+        formatValue === 'all' && searchValue === '' && !onlyAvailable && sortValue === 'none') {
+      resultsCount.textContent = `Alle ${totalCount} Werke werden angezeigt`;
+    } else {
+      resultsCount.textContent = `${visibleCount} von ${totalCount} Werken werden angezeigt`;
+    }
+
+    if (visibleCount === 0) {
+      noResults.style.display = 'block';
+    } else {
+      noResults.style.display = 'none';
+    }
+  }
+
+  function resetFilters() {
+    categoryFilter.value = 'all';
+    contentCategoryFilter.value = 'all';
+    mediumFilter.value = 'all';
+    formatFilter.value = 'all';
+    searchInput.value = '';
+    availableOnly.checked = false;
+    sortBy.value = 'none';
+    filterAndSortArtworks();
+  }
+
+  categoryFilter.addEventListener('change', filterAndSortArtworks);
+  contentCategoryFilter.addEventListener('change', filterAndSortArtworks);
+  mediumFilter.addEventListener('change', filterAndSortArtworks);
+  formatFilter.addEventListener('change', filterAndSortArtworks);
+  searchInput.addEventListener('input', filterAndSortArtworks);
+  availableOnly.addEventListener('change', filterAndSortArtworks);
+  sortBy.addEventListener('change', filterAndSortArtworks);
+  resetButton.addEventListener('click', resetFilters);
+
+  filterAndSortArtworks();
+</script>

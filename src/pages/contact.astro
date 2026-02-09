@@ -1,0 +1,215 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Kontakt - Art Portfolio" description="Kontaktieren Sie mich">
+  <article class="contact-content">
+    <div class="contact-header">
+      <h1>Kontakt aufnehmen</h1>
+      <p class="subtitle">
+        Interessiert an meiner Arbeit? Ich freue mich von Ihnen zu hören.
+      </p>
+    </div>
+
+    <div class="contact-body">
+      <div class="contact-info">
+        <div class="info-block">
+          <h3>E-Mail</h3>
+          <a href="mailto:ihre@email.de">ihre@email.de</a>
+        </div>
+
+        <div class="info-block">
+          <h3>Atelier</h3>
+          <p>
+            [Ihre Atelieradresse]<br>
+            [Stadt, Bundesland/Land]
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>Folgen</h3>
+          <div class="social-links">
+            <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+            <a href="https://twitter.com" target="_blank" rel="noopener">Twitter</a>
+            <a href="https://linkedin.com" target="_blank" rel="noopener">LinkedIn</a>
+          </div>
+        </div>
+
+        <div class="info-block">
+          <h3>Verfügbarkeit</h3>
+          <p>
+            Derzeit nehme ich Aufträge und Kooperationsanfragen entgegen.
+            Bitte erlauben Sie 2-3 Werktage für eine Antwort.
+          </p>
+        </div>
+      </div>
+
+      <form class="contact-form" name="contact" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="contact">
+        
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">E-Mail</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Betreff</label>
+          <input type="text" id="subject" name="subject" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Nachricht</label>
+          <textarea id="message" name="message" rows="6" required></textarea>
+        </div>
+
+        <button type="submit" class="submit-btn">Nachricht senden</button>
+      </form>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .contact-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .contact-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    opacity: 0.7;
+    margin-top: 1rem;
+  }
+
+  .contact-body {
+    display: grid;
+    grid-template-columns: 1fr 1.5fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .info-block h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+  }
+
+  .info-block p {
+    line-height: 1.6;
+    opacity: 0.8;
+  }
+
+  .info-block a {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+    text-decoration: underline;
+    text-decoration-color: var(--color-border);
+    text-underline-offset: 3px;
+  }
+
+  .social-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .contact-form {
+    background-color: rgba(0, 0, 0, 0.02);
+    padding: 2.5rem;
+    border-radius: 2px;
+  }
+
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.7;
+  }
+
+  input,
+  textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+  }
+
+  input:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  .submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border: none;
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+  }
+
+  .submit-btn:hover {
+    opacity: 0.8;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .contact-form {
+      background-color: rgba(255, 255, 255, 0.02);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-body {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .contact-form {
+      padding: 2rem;
+    }
+  }
+</style>

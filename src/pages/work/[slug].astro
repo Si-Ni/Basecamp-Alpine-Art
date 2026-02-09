@@ -1,0 +1,350 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export async function getStaticPaths() {
+  const artworks = [
+    {
+      slug: 'ethereal-dreams',
+      title: 'Ethereal Dreams',
+      image: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=1200&q=80',
+      year: '2024',
+      medium: 'Öl auf Leinwand',
+      dimensions: '100 × 80 cm',
+      category: 'painting',
+      contentCategory: 'flowers',
+      format: 'vertical',
+      price: 2500,
+      sold: false,
+      description: 'Ein faszinierendes Werk...',
+      tags: ['blumen', 'abstrakt', 'farben']
+    },
+    {
+      slug: 'urban-solitude',
+      title: 'Urban Solitude',
+      image: 'https://images.unsplash.com/photo-1547826039-bfc35e0f1ea8?w=1200&q=80',
+      year: '2024',
+      medium: 'Acryl',
+      dimensions: '120 × 90 cm',
+      category: 'painting',
+      contentCategory: 'mountains',
+      format: 'vertical',
+      price: 3200,
+      sold: false,
+      description: 'Eine kraftvolle Darstellung...',
+      tags: ['berge', 'landschaft', 'natur']
+    }
+  ];
+
+  return artworks.map((artwork) => ({
+    params: { slug: artwork.slug },
+    props: { artwork }
+  }));
+}
+
+const { artwork } = Astro.props;
+---
+
+
+
+<Layout title={`${artwork.title} - Art Portfolio`} description={artwork.description}>
+  <article class="artwork-detail">
+    <div class="artwork-images">
+      <div class="main-image">
+        <img src={artwork.image} alt={artwork.title} />
+        {artwork.sold && <div class="sold-badge">Verkauft</div>}
+      </div>
+    </div>
+
+    <div class="artwork-content">
+      <div class="artwork-header">
+        <h1>{artwork.title}</h1>
+        <div class="artwork-meta">
+          <span>{artwork.year}</span>
+          <span>{artwork.medium}</span>
+          <span>{artwork.dimensions}</span>
+        </div>
+      </div>
+
+      <div class="artwork-price-section">
+        {artwork.sold ? (
+          <div class="price sold">
+            <span class="label">Status:</span>
+            <span class="value">Verkauft</span>
+          </div>
+        ) : (
+          <div class="price">
+            <span class="label">Preis:</span>
+            <span class="value">€{artwork.price.toLocaleString('de-DE')}</span>
+          </div>
+        )}
+      </div>
+
+      <div class="artwork-description">
+        <h2>Über dieses Werk</h2>
+        <p>{artwork.description}</p>
+      </div>
+
+      <div class="artwork-details">
+        <h2>Details</h2>
+        <dl>
+          <dt>Kategorie</dt>
+          <dd>{artwork.category === 'painting' ? 'Malerei' : artwork.category === 'abstract' ? 'Abstrakt' : 'Digital'}</dd>
+          
+          <dt>Motiv</dt>
+          <dd>{artwork.contentCategory === 'flowers' ? 'Blumen' : 'Berge'}</dd>
+          
+          <dt>Format</dt>
+          <dd>{artwork.format === 'vertical' ? 'Vertikal' : artwork.format === 'horizontal' ? 'Horizontal' : 'Quadratisch'}</dd>
+          
+          <dt>Medium</dt>
+          <dd>{artwork.medium}</dd>
+          
+          <dt>Abmessungen</dt>
+          <dd>{artwork.dimensions}</dd>
+          
+          <dt>Jahr</dt>
+          <dd>{artwork.year}</dd>
+        </dl>
+      </div>
+
+      {!artwork.sold && (
+        <div class="artwork-actions">
+          <a href="/contact" class="contact-button">Kaufanfrage stellen</a>
+        </div>
+      )}
+
+      <div class="back-link">
+        <a href="/works">← Zurück zu allen Werken</a>
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .artwork-detail {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    gap: 4rem;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+
+  .artwork-images {
+    position: sticky;
+    top: 120px;
+    align-self: start;
+  }
+
+  .main-image {
+    position: relative;
+    width: 100%;
+    background-color: var(--color-border);
+  }
+
+  .main-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .sold-badge {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    backdrop-filter: blur(5px);
+  }
+
+  .artwork-content {
+    padding: 2rem 0;
+  }
+
+  .artwork-header {
+    margin-bottom: 2rem;
+    min-height: 140px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .artwork-header h1 {
+    font-size: clamp(2rem, 4vw, 3rem);
+    margin-bottom: 1rem;
+  }
+
+  .artwork-meta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    font-size: 0.95rem;
+    opacity: 0.7;
+  }
+
+  .artwork-meta span:not(:last-child)::after {
+    content: '·';
+    margin-left: 1rem;
+  }
+
+  .artwork-price-section {
+    padding: 2rem 0;
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: 3rem;
+  }
+
+  .price {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .price .label {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+  }
+
+  .price .value {
+    font-weight: 500;
+    font-size: 1.8rem;
+  }
+
+  .price.sold .value {
+    opacity: 0.5;
+  }
+
+  .artwork-description {
+    margin-bottom: 3rem;
+  }
+
+  .artwork-description h2,
+  .artwork-details h2 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .artwork-description p {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    opacity: 0.9;
+  }
+
+  .artwork-details {
+    margin-bottom: 3rem;
+  }
+
+  .artwork-details dl {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 1rem;
+  }
+
+  .artwork-details dt {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    opacity: 0.6;
+  }
+
+  .artwork-details dd {
+    font-size: 1rem;
+    opacity: 0.9;
+  }
+
+  .artwork-actions {
+    margin-bottom: 3rem;
+  }
+
+  .contact-button {
+    display: inline-block;
+    padding: 1rem 2.5rem;
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    transition: opacity 0.3s ease;
+    text-align: center;
+  }
+
+  .contact-button:hover {
+    opacity: 0.8;
+  }
+
+  .back-link {
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .back-link a {
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+  }
+
+  .back-link a:hover {
+    opacity: 1;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .sold-badge {
+      background-color: rgba(255, 255, 255, 0.9);
+      color: black;
+    }
+  }
+
+  @media (max-width: 968px) {
+    .artwork-detail {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .artwork-images {
+      position: relative;
+      top: 0;
+    }
+
+    .artwork-content {
+      padding: 0;
+    }
+
+    .artwork-details dl {
+      grid-template-columns: 120px 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sold-badge {
+      top: 1rem;
+      right: 1rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .price {
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .artwork-details dl {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+
+    .artwork-details dt {
+      margin-top: 1rem;
+    }
+
+    .artwork-details dd {
+      margin-bottom: 0.5rem;
+    }
+  }
+</style>
