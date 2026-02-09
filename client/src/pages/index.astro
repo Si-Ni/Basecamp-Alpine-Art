@@ -1,6 +1,7 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import ArtworkCard from '../components/ArtworkCard.astro';
+// pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ArtworkCard from '../components/ArtworkCard';
 import '../styles/index.css';
 
 const artworks = [
@@ -37,15 +38,17 @@ const artworks = [
 ];
 ---
 
-<Layout title="Art Portfolio - Startseite">
+<BaseLayout title="Art Portfolio - Startseite">
   <section class="hero">
     <h1>Ausgewählte Werke</h1>
-    <p class="subtitle">Eine Sammlung von Gemälden, die das Zusammenspiel von Emotion, Farbe und Form erkunden.</p>
+    <p class="subtitle">
+      Eine Sammlung von Gemälden, die das Zusammenspiel von Emotion, Farbe und Form erkunden.
+    </p>
   </section>
 
   <section class="gallery">
     {artworks.map((artwork) => (
-      <ArtworkCard {...artwork} />
+      <ArtworkCard client:load {...artwork} />
     ))}
   </section>
-</Layout>
+</BaseLayout>

@@ -1,9 +1,10 @@
 ---
-import Layout from '../layouts/Layout.astro';
+// pages/about.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/about.css';
 ---
 
-<Layout title="Über mich - Art Portfolio" description="Erfahren Sie mehr über den Künstler">
+<BaseLayout title="Über mich - Art Portfolio" description="Erfahren Sie mehr über den Künstler">
   <article class="about-content">
     <div class="about-header">
       <h1>Über den Künstler</h1>
@@ -48,4 +49,4 @@ import '../styles/about.css';
       </div>
     </div>
   </article>
-</Layout>
+</BaseLayout>
