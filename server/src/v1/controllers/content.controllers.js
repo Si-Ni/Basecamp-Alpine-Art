@@ -1,4 +1,4 @@
-const filterCriteria = require("../services/filterCriteria.service");
+const contentServices = require("../services/content.services");
 
 async function handleRequest(handler, req, res, next) {
   try {
@@ -12,5 +12,6 @@ async function handleRequest(handler, req, res, next) {
 }
 
 module.exports = {
-  getAllFilterCriteria: async (req, res, next) => await handleRequest(filterCriteria.getAllFilterCriteria, req, res, next),
+  getAllFilterCriteria: async (req, res, next) =>
+    await handleRequest(contentServices.getAllFilterCriteria, req, res, next),
 };

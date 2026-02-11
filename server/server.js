@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
 const path = require("path");
-const connectDB = require("./src/services/db.service");
-const contentRouter = require("./src/routes/content.route");
+const swaggerConfig = require("./src/v1/configs/swagger.configs");
+const connectDB = require("./src/v1/services/db.services");
 
 dotenv.config();
 
@@ -11,8 +11,11 @@ const app = express();
 const PORT = process.env.PORT || 4000;
 
 app.use(cors());
-app.use("/", contentRouter);
+app.use(express.json());
 
+swaggerConfig(app);
+
+app.use("/api/v1", require("./src/v1/routes"));
 app.use(express.static(path.join(__dirname, "../client/dist")));
 
 connectDB();
@@ -23,4 +26,5 @@ app.get(/.*/, (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
+  console.log(`API Docs available at http://localhost:${PORT}/api-docs`);
 });

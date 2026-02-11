@@ -1,4 +1,4 @@
-const contentTypeModel = require("../models/contentType.model");
+const contentTypeModel = require("../models/content.models");
 
 async function getAllFilterCriteria(req) {
     const contentTypes = await contentTypeModel.find();
