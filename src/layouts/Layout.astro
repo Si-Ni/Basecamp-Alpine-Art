@@ -6,7 +6,7 @@ export interface Props {
   description?: string;
 }
 
-const { title, description = 'Hannah Pilack – Kunst & Fotografie' } = Astro.props;
+const { title, description = 'Hannah Milena Pilack – Kunst & Fotografie' } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -14,10 +14,11 @@ const { title, description = 'Hannah Pilack – Kunst & Fotografie' } = Astro.pr
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
   <meta name="description" content={description} />
-  <title>BasecampAlpineArt</title>
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
   <link rel="icon" type="image/svg+xml" href="/images/logo.jpg" />
-  <link rel="stylesheet" href="/src/styles/global.css" />
 </head>
 <body>
   <slot name="header-overlay" />
