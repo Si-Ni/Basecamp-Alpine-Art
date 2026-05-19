@@ -78,11 +78,13 @@ function buildText(p: ContactPayload): string {
 }
 
 // ── Send ──────────────────────────────────────────────────────────────────────
+import { env as cfEnv } from "cloudflare:workers";
+interface RuntimeEnv extends Env {
+  RESEND_API_KEY: string;
+}
+const env = cfEnv as RuntimeEnv;
 
-export async function sendContactMail(
-  p: ContactPayload,
-  env: Record<string, string | undefined>,
-): Promise<void> {
+export async function sendContactMail(p: ContactPayload): Promise<void> {
   const apiKey = env.RESEND_API_KEY;
   if (!apiKey) throw new Error("Mailer: RESEND_API_KEY must be set.");
 

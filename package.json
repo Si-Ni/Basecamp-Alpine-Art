@@ -24,6 +24,7 @@
     "resend": "^6.12.3"
   },
   "devDependencies": {
+    "@types/node": "^25.9.0",
     "gh-pages": "^6.3.0",
     "wrangler": "^4.92.0"
   }

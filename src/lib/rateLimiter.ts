@@ -105,11 +105,13 @@ export async function checkRateLimit(
  * Checks both IP and email limits.
  * Returns the first failure, or the IP result if both pass.
  */
+import { env } from "cloudflare:workers";
+
 export async function checkContactLimits(
-  kv: KVNamespace,
   ip: string,
   email: string,
 ): Promise<RateLimitResult & { blockedBy?: "ip" | "email" }> {
+  const kv = env.RATE_LIMIT as unknown as KVNamespace;
   const ipResult = await checkRateLimit(kv, IP_CONFIG, ip);
   if (!ipResult.allowed) return { ...ipResult, blockedBy: "ip" };
 

@@ -19,6 +19,7 @@
 
 import type { APIContext } from "astro";
 export const prerender = false;
+import { env as cfEnv } from "cloudflare:workers";
 import { ContactSchema } from "../../types/contact";
 import type { ApiResponse } from "../../types/contact";
 import { checkContactLimits } from "../../lib/rateLimiter";
@@ -76,10 +77,6 @@ function getClientIp(request: Request): string {
 export async function POST(context: APIContext): Promise<Response> {
   const { request } = context;
 
-  // Cloudflare exposes env bindings here at request time (not module init time)
-  const cfEnv: Record<string, string | undefined> =
-    (context.locals as any)?.runtime?.env ?? {};
-
   // 1. Content-Type guard
   const ct = request.headers.get("content-type") ?? "";
   if (!ct.includes("application/json")) {
@@ -132,7 +129,7 @@ export async function POST(context: APIContext): Promise<Response> {
   }
 
   if (kv) {
-    const rlResult = await checkContactLimits(kv, ip, data.email);
+    const rlResult = await checkContactLimits(ip, data.email);
     if (!rlResult.allowed) {
       return json(
         {
@@ -156,7 +153,7 @@ export async function POST(context: APIContext): Promise<Response> {
 
   // 8. Send email via Resend
   try {
-    await sendContactMail(sanitized, cfEnv);
+    await sendContactMail(sanitized);
     return ok("Nachricht gesendet.");
   } catch (error) {
     console.error("[contact API] sendMail failed:", error);

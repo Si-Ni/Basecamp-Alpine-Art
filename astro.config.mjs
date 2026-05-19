@@ -5,12 +5,5 @@ import cloudflare from "@astrojs/cloudflare";
 export default defineConfig({
   output: "server",
   integrations: [react()],
-  adapter: cloudflare({
-    platformProxy: {
-      enabled: true,
-    },
-    assets: {
-      binding: "STATIC_ASSETS",
-    },
-  }),
+  adapter: cloudflare(),
 });
