@@ -1,0 +1,381 @@
+---
+// src/pages/contact.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Contact page for Hannah Milena Pilack.
+//
+// Architecture:
+//   • This file: Astro page shell — layout, hero, closing quote (static HTML)
+//   • ContactInfo.tsx  — static sidebar (client:idle — hydrates when idle)
+//   • ContactForm.tsx  — interactive form (client:load — hydrates immediately)
+//   • /api/contact.ts  — Astro API route handling POST with full security stack
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import ContactInfo from '../components/ContactInfo.astro';
+import ContactForm from '../components/ContactForm';
+---
+
+<Layout title="Kontakt – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO
+  ════════════════════════════════════════════════════════ -->
+  <section class="hero" aria-labelledby="hero-heading">
+
+    <!-- Decorative tilted strokes (same technique as index.astro collage pieces) -->
+    <div class="hero-bg" aria-hidden="true">
+      <div class="hero-stroke hero-stroke--1"></div>
+      <div class="hero-stroke hero-stroke--2"></div>
+    </div>
+
+    <!-- Noise grain overlay (matches index.astro) -->
+    <div class="hero-noise" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hannah Milena Pilack</p>
+      <h1 class="hero-title" id="hero-heading">
+        <span class="hero-title__em">Schreib</span>
+        <span class="hero-title__main">mir</span>
+      </h1>
+      <p class="hero-tagline">
+        Für Anfragen, Auftragsarbeiten oder einfach um Hallo zu sagen.
+      </p>
+    </div>
+
+    <div class="scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACT GRID
+  ════════════════════════════════════════════════════════ -->
+  <section class="contact-section" aria-label="Kontaktbereich">
+
+    <div class="contact-grid">
+
+      <!-- Left: static contact information (React, idle hydration) -->
+      <div class="col-info">
+        <ContactInfo client:idle />
+      </div>
+
+      <!-- Vertical ornamental divider -->
+      <div class="col-divider" aria-hidden="true">
+        <span class="divider-line"></span>
+        <span class="divider-diamond">✦</span>
+        <span class="divider-line"></span>
+      </div>
+
+      <!-- Right: interactive form (React, immediate hydration) -->
+      <div class="col-form">
+        <header class="form-header">
+          <p class="form-overline">Direkte Nachricht</p>
+          <h2 class="form-heading">Stell dich vor</h2>
+          <p class="form-sub">
+            Alle mit <span class="req-star">*</span> markierten Felder sind Pflichtfelder.
+          </p>
+        </header>
+        <ContactForm client:load />
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════
+       CLOSING QUOTE
+  ════════════════════════════════════════════════════════ -->
+  <section class="quote-section" aria-label="Zitat">
+    <blockquote class="quote">
+      <p class="quote__text">
+        „Kunst ist nicht, was du siehst,<br />
+        sondern was du andere sehen lässt."
+      </p>
+      <footer class="quote__footer">
+        <span class="quote__dash" aria-hidden="true">—</span>
+        <cite>Edgar Degas</cite>
+      </footer>
+    </blockquote>
+  </section>
+
+</Layout>
+
+<style>
+  /* ═══════════════════════════════════════════════════════════
+     HERO
+  ════════════════════════════════════════════════════════════ */
+
+  .hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 54vh;
+    padding: 7rem 2rem 4.5rem;
+    overflow: hidden;
+    text-align: center;
+    background: var(--color-bg);
+  }
+
+  /* ── Decorative tilted strokes ── */
+  .hero-bg { position: absolute; inset: 0; pointer-events: none; }
+
+  .hero-stroke {
+    position: absolute;
+    border-radius: 2px;
+    background: var(--color-accent);
+    opacity: 0.04;
+  }
+  .hero-stroke--1 {
+    top: -15%; left: -6%;
+    width: 32%; height: 110%;
+    transform: rotate(-8deg);
+  }
+  .hero-stroke--2 {
+    bottom: -20%; right: -4%;
+    width: 24%; height: 80%;
+    transform: rotate(6deg);
+    opacity: 0.03;
+  }
+
+  /* ── Noise (copied from index.astro) ── */
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  /* ── Hero text ── */
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1.4rem;
+    animation: fadeUp 1s 0.2s both;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.22em;
+  }
+
+  .hero-title__em {
+    font-style: italic;
+    color: var(--color-muted);
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    animation: fadeUp 1s 0.4s both;
+  }
+
+  .hero-title__main {
+    font-size: clamp(4rem, 11vw, 9rem);
+    animation: fadeUp 1s 0.6s both;
+  }
+
+  .hero-tagline {
+    font-size: 0.9rem;
+    letter-spacing: 0.05em;
+    color: var(--color-muted);
+    font-weight: 300;
+    margin: 0 auto;
+    line-height: 1.65;
+    animation: fadeUp 1s 0.8s both;
+  }
+
+  /* ── Scroll hint (same as index.astro) ── */
+  .scroll-hint {
+    position: relative;
+    z-index: 2;
+    margin-top: 2.5rem;
+    animation: fadeUp 1s 1.1s both;
+  }
+
+  .scroll-line {
+    display: block;
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, transparent, var(--color-accent));
+    margin: 0 auto;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(0.6); }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     CONTACT SECTION
+  ════════════════════════════════════════════════════════════ */
+
+  .contact-section {
+    position: relative;
+    padding: 5rem 2rem 7rem;
+    max-width: 1140px;
+    margin: 0 auto;
+  }
+
+  /* ── Three-column grid: info | divider | form ── */
+  .contact-grid {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 230px 1px 1fr;
+    gap: 0 4rem;
+    align-items: start;
+  }
+
+  .col-info {
+    padding-top: 0.5rem;
+    animation: fadeUp 0.9s 0.2s both;
+  }
+
+  /* Ornamental divider */
+  .col-divider {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: stretch;
+    padding: 1.5rem 0;
+    gap: 0.4rem;
+  }
+
+  .divider-line {
+    flex: 1;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.2), transparent);
+  }
+
+  .divider-diamond {
+    font-size: 0.55rem;
+    color: var(--color-accent, #c9a96e);
+    flex-shrink: 0;
+  }
+
+  /* Form column */
+  .col-form {
+    animation: fadeUp 0.9s 0.35s both;
+  }
+
+  .form-header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .form-overline {
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 0.55rem;
+  }
+
+  .form-heading {
+    font-family: var(--font-display);
+    font-size: 2.3rem;
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--color-text);
+    margin-bottom: 0.55rem;
+    letter-spacing: -0.01em;
+  }
+
+  .form-sub {
+    font-size: 0.9rem;
+    color: var(--color-muted);
+    font-weight: 300;
+  }
+
+  .req-star { color: var(--color-accent); }
+
+  /* ── Responsive collapse ── */
+  @media (max-width: 860px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    /* Rotate the divider to horizontal */
+    .col-divider {
+      flex-direction: row;
+      align-self: auto;
+      padding: 2.5rem 0;
+    }
+
+    .divider-line {
+      flex: 1;
+      height: 1px;
+      width: auto;
+      background: linear-gradient(to right, transparent, rgba(201,169,110,0.2), transparent);
+    }
+  }
+
+  /* ═══════════════════════════════════════════════════════════
+     CLOSING QUOTE
+  ════════════════════════════════════════════════════════════ */
+
+  .quote-section {
+    padding: 5rem 2rem 6rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+  }
+
+  .quote {
+    max-width: 660px;
+    margin: 0 auto;
+  }
+
+  .quote__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--color-muted);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.01em;
+  }
+
+  .quote__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,118,112,0.45);
+    font-style: normal;
+  }
+
+  .quote__dash { color: var(--color-accent); opacity: 0.5; }
+
+  cite { font-style: normal; }
+
+  /* ═══════════════════════════════════════════════════════════
+     SHARED KEYFRAMES
+  ════════════════════════════════════════════════════════════ */
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

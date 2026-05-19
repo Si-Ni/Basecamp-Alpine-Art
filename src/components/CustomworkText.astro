@@ -1,0 +1,242 @@
+---
+// src/components/CustomworkText.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Editorial text section for the Auftragsarbeiten page.
+// Layout mirrors AboutBio: chapter sidebar left, body text right.
+// The commission description flows with pull-quote and inline ornament.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="cwt-root" aria-labelledby="cwt-heading">
+  <div class="cwt-inner">
+
+    <!-- ── Sidebar: chapter marker + pull quote ── -->
+    <aside class="cwt-sidebar">
+      <div class="cwt-chapter">
+        <span class="cwt-chapter__num" aria-hidden="true">II</span>
+        <span class="cwt-chapter__rule" aria-hidden="true"></span>
+        <p class="cwt-chapter__label" id="cwt-heading">Dein Auftrag</p>
+      </div>
+      <blockquote class="cwt-pullquote">
+        <p>„Gemeinsam übersetzen wir Erinnerungen in ein Bild, das bleibt."</p>
+      </blockquote>
+    </aside>
+
+    <!-- ── Body ── -->
+    <div class="cwt-body">
+
+      <p class="cwt-lead">
+        Ich nehme auch individuelle Aufträge an.
+      </p>
+
+      <p class="cwt-text">
+        Wenn du zum Beispiel ein besonderes Erlebnis, eine Tour oder ein persönliches
+        Abenteuer künstlerisch festhalten möchtest, entwickle ich daraus ein einzigartiges
+        Werk in Öl- oder Aquarellmalerei.
+      </p>
+
+      <div class="cwt-divider" aria-hidden="true">
+        <span class="cwt-divider__line"></span>
+        <span class="cwt-divider__glyph">✦</span>
+        <span class="cwt-divider__line cwt-divider__line--rev"></span>
+      </div>
+
+      <p class="cwt-text">
+        Gemeinsam übersetzen wir Erinnerungen, Stimmungen und Details in ein Bild, das bleibt.
+      </p>
+
+      <!-- Medium types listed as editorial pills -->
+      <ul class="cwt-media" aria-label="Verfügbare Maltechniken">
+        <li class="cwt-media__item">
+          <span class="cwt-media__dot" aria-hidden="true"></span>
+          Ölmalerei
+        </li>
+        <li class="cwt-media__item">
+          <span class="cwt-media__dot" aria-hidden="true"></span>
+          Aquarellmalerei
+        </li>
+        <li class="cwt-media__item">
+          <span class="cwt-media__dot" aria-hidden="true"></span>
+          Individuelle Formate
+        </li>
+      </ul>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .cwt-root {
+    padding: 5rem 2rem 4rem;
+    max-width: 1140px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .cwt-inner {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 0 5rem;
+    align-items: start;
+  }
+
+  /* ── Sidebar ── */
+  .cwt-sidebar {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  .cwt-chapter { display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .cwt-chapter__num {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.18;
+    letter-spacing: -0.03em;
+  }
+
+  .cwt-chapter__rule {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .cwt-chapter__label {
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .cwt-pullquote {
+    margin: 0;
+    padding: 0 0 0 1.2rem;
+    border-left: 1px solid rgba(201,169,110,0.25);
+  }
+
+  .cwt-pullquote p {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  /* ── Body ── */
+  .cwt-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+    padding-top: 0.4rem;
+  }
+
+  .cwt-lead {
+    font-family: var(--font-display);
+    font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--color-text);
+    letter-spacing: -0.01em;
+    margin: 0;
+  }
+
+  .cwt-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--color-muted);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  /* ── Inline ornamental divider ── */
+  .cwt-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .cwt-divider__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.18));
+  }
+
+  .cwt-divider__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.18));
+  }
+
+  .cwt-divider__glyph {
+    font-size: 0.52rem;
+    color: var(--color-accent);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* ── Media type pills ── */
+  .cwt-media {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+  }
+
+  .cwt-media__item {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.55);
+    font-weight: 400;
+  }
+
+  .cwt-media__dot {
+    display: block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .cwt-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .cwt-sidebar {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .cwt-chapter {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+</style>

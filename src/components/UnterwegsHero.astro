@@ -1,0 +1,297 @@
+---
+// src/components/UnterwegsHero.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Hero section for the Unterwegs page.
+// Static presentational component — no props, no state.
+// Mirrors the aesthetic of AboutHero with a journey/travel theme.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="uh-root" aria-labelledby="uh-heading">
+
+  <!-- Decorative background brushstrokes -->
+  <div class="uh-bg" aria-hidden="true">
+    <div class="uh-stroke uh-stroke--1"></div>
+    <div class="uh-stroke uh-stroke--2"></div>
+    <div class="uh-stroke uh-stroke--3"></div>
+    <div class="uh-stroke uh-stroke--4"></div>
+  </div>
+
+  <!-- Noise grain overlay -->
+  <div class="uh-noise" aria-hidden="true"></div>
+
+  <!-- Ornamental top rule -->
+  <div class="uh-ornament" aria-hidden="true">
+    <span class="uh-ornament__line"></span>
+    <span class="uh-ornament__glyph">✦</span>
+    <span class="uh-ornament__line uh-ornament__line--rev"></span>
+  </div>
+
+  <div class="uh-content">
+    <p class="uh-eyebrow">Hannah Milena Pilack</p>
+
+    <h1 class="uh-title" id="uh-heading">
+      <span class="uh-title__sub">Unter</span>
+      <span class="uh-title__main">wegs</span>
+    </h1>
+
+    <p class="uh-tagline">
+      Schritt für Schritt,<br />
+      <em>Gipfel für Gipfel.</em>
+    </p>
+  </div>
+
+  <!-- Vertical elevation line decoration -->
+  <div class="uh-elevation" aria-hidden="true">
+    <span class="uh-elevation__label">0 m</span>
+    <span class="uh-elevation__track">
+      <span class="uh-elevation__fill"></span>
+    </span>
+    <span class="uh-elevation__label_infinity uh-elevation__label">∞</span>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="uh-scroll" aria-hidden="true">
+    <span class="uh-scroll__line"></span>
+  </div>
+
+</section>
+
+<style>
+  .uh-root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 68vh;
+    padding: 5rem 2rem 5rem;
+    overflow: hidden;
+    text-align: center;
+    background: var(--color-bg);
+  }
+
+  /* ── Decorative brushstrokes ── */
+  .uh-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .uh-stroke {
+    position: absolute;
+    border-radius: 2px;
+    background: var(--color-accent);
+  }
+
+  .uh-stroke--1 {
+    top: -15%;
+    left: -6%;
+    width: 32%;
+    height: 110%;
+    transform: rotate(-8deg);
+    opacity: 0.03;
+  }
+
+  .uh-stroke--2 {
+    bottom: -20%;
+    right: -4%;
+    width: 22%;
+    height: 80%;
+    transform: rotate(6deg);
+    opacity: 0.025;
+  }
+
+  .uh-stroke--3 {
+    top: 8%;
+    right: 12%;
+    width: 1px;
+    height: 65%;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.15), transparent);
+    opacity: 1;
+  }
+
+  .uh-stroke--4 {
+    top: 20%;
+    left: 8%;
+    width: 1px;
+    height: 50%;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.08), transparent);
+    opacity: 1;
+  }
+
+  /* ── Noise overlay ── */
+  .uh-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  /* ── Ornamental rule ── */
+  .uh-ornament {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: min(320px, 80%);
+    margin-bottom: 2.5rem;
+    animation: uh-fadeUp 0.9s 0.1s both;
+  }
+
+  .uh-ornament__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.25));
+  }
+
+  .uh-ornament__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.25));
+  }
+
+  .uh-ornament__glyph {
+    font-size: 0.55rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Content ── */
+  .uh-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .uh-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 1.6rem;
+    animation: uh-fadeUp 0.9s 0.2s both;
+  }
+
+  .uh-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin: 0 0 1.8rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.2em;
+  }
+
+  .uh-title__sub {
+    font-style: italic;
+    color: var(--color-muted);
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    animation: uh-fadeUp 0.9s 0.35s both;
+  }
+
+  .uh-title__main {
+    font-size: clamp(5rem, 14vw, 11rem);
+    animation: uh-fadeUp 0.9s 0.5s both;
+  }
+
+  .uh-tagline {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--color-muted);
+    letter-spacing: 0.03em;
+    margin: 0;
+    animation: uh-fadeUp 0.9s 0.65s both;
+  }
+
+  .uh-tagline em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  /* ── Elevation indicator ── */
+  .uh-elevation {
+    position: absolute;
+    right: 3.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: uh-fadeUp 0.9s 0.8s both;
+  }
+
+  .uh-elevation__label {
+    font-size: 0.55rem;
+    letter-spacing: 0.18em;
+    color: rgba(201,169,110,0.35);
+    text-transform: uppercase;
+    writing-mode: horizontal-tb;
+  }
+
+  .uh-elevation__label_infinity {
+    font-size: 0.9rem;
+  }
+
+  .uh-elevation__track {
+    width: 1px;
+    height: 80px;
+    background: rgba(201,169,110,0.1);
+    position: relative;
+    overflow: visible;
+  }
+
+  .uh-elevation__fill {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 1px;
+    background: linear-gradient(to top, var(--color-accent), transparent);
+    animation: uh-elevate 2.4s 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes uh-elevate {
+    from { height: 0; opacity: 0; }
+    to   { height: 100%; opacity: 1; }
+  }
+
+  /* ── Scroll indicator ── */
+  .uh-scroll {
+    position: relative;
+    z-index: 2;
+    margin-top: 3rem;
+    animation: uh-fadeUp 0.9s 0.9s both;
+  }
+
+  .uh-scroll__line {
+    display: block;
+    width: 1px;
+    height: 60px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, transparent, var(--color-accent));
+    animation: uh-scrollPulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes uh-fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes uh-scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(0.65); }
+  }
+
+  @media (max-width: 640px) {
+    .uh-elevation { display: none; }
+  }
+</style>

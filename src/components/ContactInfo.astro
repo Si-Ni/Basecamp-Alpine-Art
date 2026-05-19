@@ -1,0 +1,225 @@
+---
+// src/components/ContactInfo.astro
+// Static contact information sidebar.
+// Pure presentational component — no props required, no state, no side effects.
+---
+
+<aside class="ci-root">
+  {/* Decorative rule */}
+  <div class="ci-rule" aria-hidden="true">
+    <span class="ci-rule__line"></span>
+    <span class="ci-rule__diamond">✦</span>
+    <span class="ci-rule__line ci-rule__line--rev"></span>
+  </div>
+
+  {/* Atelier address */}
+  <div class="ci-block">
+    <p class="ci-overline">Atelier</p>
+    <address class="ci-address">
+      Hannah Milena Pilack
+      <br />
+      Musterstraße 12
+      <br />
+      80331 München, Deutschland
+    </address>
+  </div>
+
+  {/* E-Mail */}
+  <div class="ci-block">
+    <p class="ci-overline">E-Mail</p>
+    <a class="ci-link" href="mailto:hallo@hannahmilenapilack.de">
+      basecampalpineart@gmx.de
+    </a>
+  </div>
+
+  {/* Response time */}
+  <div class="ci-block">
+    <p class="ci-overline">Antwortzeit</p>
+    <p class="ci-text">In der Regel innerhalb von 2–3 Werktagen.</p>
+  </div>
+
+  {/* Social links */}
+  <div class="ci-block">
+    <p class="ci-overline">Folge mir</p>
+    <nav class="ci-socials" aria-label="Soziale Medien">
+      <a
+        class="ci-social"
+        href="https://www.instagram.com/basecampalpineart/"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <svg
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.5"
+          aria-hidden="true"
+        >
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+          <circle cx="12" cy="12" r="4" />
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
+        </svg>
+        Instagram
+      </a>
+    </nav>
+  </div>
+
+  {/* Availability badge */}
+  <div class="ci-badge" role="status" aria-label="Verfügbarkeitsstatus">
+    <span class="ci-badge__dot" aria-hidden="true"></span>
+    <span class="ci-badge__text">
+      Derzeit verfügbar für Auftragsarbeiten
+    </span>
+  </div>
+</aside>
+
+<style>
+  .ci-root {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* ── Decorative rule ── */
+  .ci-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+  }
+  .ci-rule__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(201, 169, 110, 0.28)
+    );
+  }
+  .ci-rule__line--rev {
+    background: linear-gradient(
+      to left,
+      transparent,
+      rgba(201, 169, 110, 0.28)
+    );
+  }
+  .ci-rule__diamond {
+    font-size: 0.55rem;
+    color: var(--color-accent, #c9a96e);
+  }
+
+  /* ── Info blocks ── */
+  .ci-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+  .ci-overline {
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent, #c9a96e);
+    margin: 0;
+  }
+  .ci-address {
+    font-style: normal;
+    font-size: 1rem;
+    line-height: 1.75;
+    color: var(--color-muted, #7a7670);
+    font-weight: 300;
+    margin: 0;
+  }
+  .ci-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--color-muted, #7a7670);
+    font-weight: 300;
+    margin: 0;
+  }
+  .ci-link {
+    font-size: 1rem;
+    color: var(--color-text, #e8e4dc);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.1em;
+    transition: color 0.2s, border-color 0.2s;
+    width: fit-content;
+    text-decoration: none;
+  }
+  .ci-link:hover {
+    color: var(--color-accent, #c9a96e);
+    border-color: var(--color-accent, #c9a96e);
+  }
+
+  /* ── Social links ── */
+  .ci-socials {
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+  }
+  .ci-social {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    color: var(--color-muted, #7a7670);
+    font-weight: 300;
+    text-decoration: none;
+    transition: color 0.2s, gap 0.2s;
+  }
+  .ci-social:hover {
+    color: var(--color-accent, #c9a96e);
+    gap: 0.75rem;
+  }
+  .ci-social svg {
+    flex-shrink: 0;
+    opacity: 0.65;
+    transition: opacity 0.2s;
+  }
+  .ci-social:hover svg {
+    opacity: 1;
+  }
+
+  /* ── Availability badge ── */
+  .ci-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    padding: 0.6rem 1rem;
+    border: 1px solid rgba(201, 169, 110, 0.15);
+    border-radius: 50px;
+    background: rgba(201, 169, 110, 0.04);
+    width: fit-content;
+  }
+  .ci-badge__dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #7aad80;
+    flex-shrink: 0;
+    animation: ci-pulse 2.5s ease infinite;
+  }
+  .ci-badge__text {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted, #7a7670);
+    font-weight: 300;
+  }
+
+  @keyframes ci-pulse {
+    0% {
+      box-shadow: 0 0 0 0 rgba(122, 173, 128, 0.55);
+    }
+    70% {
+      box-shadow: 0 0 0 6px rgba(122, 173, 128, 0);
+    }
+    100% {
+      box-shadow: 0 0 0 0 rgba(122, 173, 128, 0);
+    }
+  }
+</style>

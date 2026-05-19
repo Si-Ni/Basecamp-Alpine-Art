@@ -1,0 +1,162 @@
+---
+// src/components/AboutImageDivider.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Full-width cinematic image divider.
+// Used between major page sections as a horizontal visual break.
+// Props:
+//   src       — image path
+//   alt       — accessible description
+//   width     — intrinsic image width
+//   height    — intrinsic image height
+//   caption?  — optional small editorial caption (overline style)
+//   align?    — "left" | "center" | "right" — which part of image to show
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface Props {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+  caption?: string;
+  align?: 'left' | 'center' | 'right';
+}
+
+const {
+  src,
+  alt,
+  width,
+  height,
+  caption,
+  align = 'center',
+} = Astro.props;
+
+const posMap = { left: '20% center', center: 'center center', right: '80% center' };
+const objectPosition = posMap[align];
+---
+
+<div class="aid-root">
+
+  <!-- Top fade into section above -->
+  <div class="aid-fade aid-fade--top" aria-hidden="true"></div>
+
+  <figure class="aid-figure">
+    <div class="aid-frame" style={`--obj-pos: ${objectPosition}`}>
+      <img
+        src={src}
+        alt={alt}
+        loading="lazy"
+        decoding="async"
+        width={width}
+        height={height}
+        class="aid-img"
+      />
+      <!-- Subtle vignette overlay -->
+      <div class="aid-vignette" aria-hidden="true"></div>
+    </div>
+
+    {caption && (
+      <figcaption class="aid-caption">
+        <span class="aid-caption__diamond" aria-hidden="true">✦</span>
+        {caption}
+      </figcaption>
+    )}
+  </figure>
+
+  <!-- Bottom fade into section below -->
+  <div class="aid-fade aid-fade--bottom" aria-hidden="true"></div>
+
+</div>
+
+<style>
+  .aid-root {
+    position: relative;
+    width: 100%;
+    /* Break out of any max-width containers */
+    margin-left: calc(-50vw + 50%);
+    width: 100vw;
+  }
+
+  /* ── Top / bottom gradient fades — blends image into page bg ── */
+  .aid-fade {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  .aid-fade--top {
+    top: 0;
+    background: linear-gradient(to bottom, var(--color-bg), transparent);
+  }
+
+  .aid-fade--bottom {
+    bottom: 0;
+    background: linear-gradient(to top, var(--color-bg), transparent);
+  }
+
+  .aid-figure {
+    margin: 0;
+    position: relative;
+  }
+
+  /* ── The clipped image strip ── */
+  .aid-frame {
+    position: relative;
+    width: 100%;
+    height: clamp(260px, 42vw, 560px);
+    overflow: hidden;
+  }
+
+  .aid-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: var(--obj-pos, center center);
+    filter: brightness(0.72) contrast(1.06) saturate(0.85);
+    /* Parallax feel: slightly oversized so parallax JS could optionally hook in */
+    transform: scale(1.04);
+    transition: transform 8s ease;
+  }
+
+  /* Subtle vignette so edges bleed into surrounding sections */
+  .aid-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 40%, rgba(10,10,9,0.55) 100%),
+      linear-gradient(to right, rgba(10,10,9,0.35) 0%, transparent 20%, transparent 80%, rgba(10,10,9,0.35) 100%);
+    pointer-events: none;
+  }
+
+  /* ── Caption ── */
+  .aid-caption {
+    position: absolute;
+    bottom: 2rem;
+    right: 2.5rem;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: rgba(201,169,110,0.65);
+    text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+  }
+
+  .aid-caption__diamond {
+    font-size: 0.5rem;
+    opacity: 0.7;
+  }
+
+  /* ── Parallax: subtle zoom on scroll (CSS only, no JS needed) ── */
+  @media (prefers-reduced-motion: no-preference) {
+    .aid-frame:hover .aid-img {
+      transform: scale(1.06);
+    }
+  }
+</style>

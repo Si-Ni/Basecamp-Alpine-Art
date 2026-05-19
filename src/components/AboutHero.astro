@@ -1,0 +1,225 @@
+---
+// src/components/AboutHero.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Hero section for the Über mich page.
+// Static presentational component — no props, no state.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="ah-root" aria-labelledby="ah-heading">
+
+  <!-- Decorative background elements -->
+  <div class="ah-bg" aria-hidden="true">
+    <div class="ah-stroke ah-stroke--1"></div>
+    <div class="ah-stroke ah-stroke--2"></div>
+    <div class="ah-stroke ah-stroke--3"></div>
+  </div>
+
+  <!-- Noise grain overlay -->
+  <div class="ah-noise" aria-hidden="true"></div>
+
+  <!-- Ornamental top rule -->
+  <div class="ah-ornament" aria-hidden="true">
+    <span class="ah-ornament__line"></span>
+    <span class="ah-ornament__glyph">✦</span>
+    <span class="ah-ornament__line ah-ornament__line--rev"></span>
+  </div>
+
+  <div class="ah-content">
+    <p class="ah-eyebrow">Hannah Milena Pilack</p>
+
+    <h1 class="ah-title" id="ah-heading">
+      <span class="ah-title__sub">Über</span>
+      <span class="ah-title__main">mich</span>
+    </h1>
+
+    <p class="ah-tagline">
+      Berge im Gepäck,<br />
+      <em>Farbe in der Hand.</em>
+    </p>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="ah-scroll" aria-hidden="true">
+    <span class="ah-scroll__line"></span>
+  </div>
+
+</section>
+
+<style>
+  .ah-root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 62vh;
+    padding: 5rem 2rem 5rem;
+    overflow: hidden;
+    text-align: center;
+    background: var(--color-bg);
+  }
+
+  /* ── Decorative strokes ── */
+  .ah-bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .ah-stroke {
+    position: absolute;
+    border-radius: 2px;
+    background: var(--color-accent);
+  }
+
+  .ah-stroke--1 {
+    top: -20%;
+    left: -8%;
+    width: 28%;
+    height: 115%;
+    transform: rotate(-9deg);
+    opacity: 0.035;
+  }
+
+  .ah-stroke--2 {
+    bottom: -25%;
+    right: -5%;
+    width: 20%;
+    height: 85%;
+    transform: rotate(7deg);
+    opacity: 0.025;
+  }
+
+  .ah-stroke--3 {
+    top: 10%;
+    right: 15%;
+    width: 1px;
+    height: 60%;
+    background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.15), transparent);
+    opacity: 1;
+  }
+
+  /* ── Noise overlay ── */
+  .ah-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.03;
+    pointer-events: none;
+  }
+
+  /* ── Ornamental rule ── */
+  .ah-ornament {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: min(320px, 80%);
+    margin-bottom: 2.5rem;
+    animation: ah-fadeUp 0.9s 0.1s both;
+  }
+
+  .ah-ornament__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.25));
+  }
+
+  .ah-ornament__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.25));
+  }
+
+  .ah-ornament__glyph {
+    font-size: 0.55rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Content ── */
+  .ah-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .ah-eyebrow {
+    font-size: 0.7rem;
+    font-weight: 400;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 1.6rem;
+    animation: ah-fadeUp 0.9s 0.2s both;
+  }
+
+  .ah-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin: 0 0 1.8rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.25em;
+  }
+
+  .ah-title__sub {
+    font-style: italic;
+    color: var(--color-muted);
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    animation: ah-fadeUp 0.9s 0.35s both;
+  }
+
+  .ah-title__main {
+    font-size: clamp(5rem, 14vw, 11rem);
+    animation: ah-fadeUp 0.9s 0.5s both;
+  }
+
+  .ah-tagline {
+    font-family: var(--font-display);
+    font-size: clamp(1.1rem, 2.5vw, 1.55rem);
+    font-weight: 300;
+    font-style: normal;
+    line-height: 1.6;
+    color: var(--color-muted);
+    letter-spacing: 0.03em;
+    margin: 0;
+    animation: ah-fadeUp 0.9s 0.65s both;
+  }
+
+  .ah-tagline em {
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  /* ── Scroll indicator ── */
+  .ah-scroll {
+    position: relative;
+    z-index: 2;
+    margin-top: 3rem;
+    animation: ah-fadeUp 0.9s 0.9s both;
+  }
+
+  .ah-scroll__line {
+    display: block;
+    width: 1px;
+    height: 60px;
+    margin: 0 auto;
+    background: linear-gradient(to bottom, transparent, var(--color-accent));
+    animation: ah-scrollPulse 2.2s ease-in-out infinite;
+  }
+
+  @keyframes ah-fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes ah-scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(0.65); }
+  }
+</style>

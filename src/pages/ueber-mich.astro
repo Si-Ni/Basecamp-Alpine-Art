@@ -1,0 +1,94 @@
+---
+// src/pages/ueber-mich.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Über mich page for Hannah Milena Pilack.
+//
+// Architecture & image placement:
+//   • AboutHero.astro        — animated hero section
+//   • AboutImageDivider.astro — image 1 as full-width cinematic divider
+//                               (transitions hero → biography)
+//   • AboutBio.astro         — biography with image 2 woven mid-text
+//   • AboutWorks.astro       — "Zu meinen Werken" with image 3 as pull-image
+//   • AboutClosing.astro     — closing quote + contact nudge
+//
+// All components are pure Astro (zero client-side JS beyond the lightweight
+// scroll observer below).
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import AboutHero from '../components/AboutHero.astro';
+import AboutImageDivider from '../components/AboutImageDivider.astro';
+import AboutBio from '../components/AboutBio.astro';
+import AboutWorks from '../components/AboutWorks.astro';
+import AboutClosing from '../components/AboutClosing.astro';
+---
+
+<Layout title="Über mich – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — animated title, eyebrow, tagline
+  ════════════════════════════════════════════════════════ -->
+  <AboutHero />
+
+  <!-- ═══════════════════════════════════════════════════════
+       IMAGE 1 — full-width cinematic divider strip
+       Visually bridges the hero into the biography.
+       Fades into the page bg above and below.
+  ════════════════════════════════════════════════════════ -->
+  <AboutImageDivider
+    src="/images/about/1.jpg"
+    alt="Hannah Milena Pilack unterwegs in den Bergen"
+    width={5472}
+    height={3382}
+    caption="Unterwegs in den Bergen"
+    align="center"
+  />
+
+  <!-- ═══════════════════════════════════════════════════════
+       BIOGRAPHY — story, philosophy, personal reflection
+       Image 2 is woven as an offset inline panel mid-text.
+  ════════════════════════════════════════════════════════ -->
+  <AboutBio />
+
+  <!-- ═══════════════════════════════════════════════════════
+       WORKS — "Zu meinen Werken" + gallery CTA
+       Image 3 appears as a large dramatic pull-image
+       alongside the text (portrait crop, overflows section).
+  ════════════════════════════════════════════════════════ -->
+  <AboutWorks />
+
+  <!-- ═══════════════════════════════════════════════════════
+       CLOSING — artist quote + contact nudge
+  ════════════════════════════════════════════════════════ -->
+  <AboutClosing />
+
+</Layout>
+
+<style>
+  :global(.am-revealed) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+
+<script>
+  /*
+   * Lightweight intersection observer: adds .am-revealed to sections as they
+   * enter the viewport. Provides scroll-triggered reveal for lazy sections.
+   */
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('am-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.07, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document
+    .querySelectorAll<HTMLElement>('.aid-root, .ab-root, .aw-root, .ac-root')
+    .forEach((el) => observer.observe(el));
+</script>

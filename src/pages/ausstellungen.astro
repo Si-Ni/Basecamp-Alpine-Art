@@ -1,0 +1,87 @@
+---
+// src/pages/ausstellungen.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Ausstellungen (Exhibitions) page for Hannah Milena Pilack.
+//
+// Architecture & layout:
+//   • ExhibitionHero.astro    — animated hero with gallery-frame decoration
+//   • ExhibitionBanner.astro  — "Basecamp Alpine Art" feature image (1050×600),
+//                               inset-framed with gold corner accents
+//   • ExhibitionPast.astro    — past exhibition: sidebar + flyer card with
+//                               structured meta (date, venue, address)
+//   • ExhibitionFuture.astro  — upcoming exhibitions placeholder with animated
+//                               "stay tuned" badge and contact nudge
+//   • ExhibitionClosing.astro — closing quote + dual CTA (gallery / contact)
+//
+// All components are pure Astro (zero client-side JS beyond the scroll observer).
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import ExhibitionHero from '../components/ExhibitionHero.astro';
+import ExhibitionBanner from '../components/ExhibitionBanner.astro';
+import ExhibitionPast from '../components/ExhibitionPast.astro';
+import ExhibitionFuture from '../components/ExhibitionFuture.astro';
+import ExhibitionClosing from '../components/ExhibitionClosing.astro';
+---
+
+<Layout title="Ausstellungen – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — animated title with gallery-frame decoration
+  ════════════════════════════════════════════════════════ -->
+  <ExhibitionHero />
+
+  <!-- ═══════════════════════════════════════════════════════
+       BANNER — "Basecamp Alpine Art" feature image (1050×600)
+       Inset-framed, gold corners, cinematic vignette.
+  ════════════════════════════════════════════════════════ -->
+  <ExhibitionBanner />
+
+  <!-- ═══════════════════════════════════════════════════════
+       PAST EXHIBITIONS — sidebar + exhibition card with flyer
+       DAV Kletterzentrum Waldkraiburg, 8. März 2026
+  ════════════════════════════════════════════════════════ -->
+  <ExhibitionPast />
+
+  <!-- ═══════════════════════════════════════════════════════
+       FUTURE EXHIBITIONS — stay tuned placeholder
+       Animated pulse badge + contact nudge
+  ════════════════════════════════════════════════════════ -->
+  <ExhibitionFuture />
+
+  <!-- ═══════════════════════════════════════════════════════
+       CLOSING — artist quote + gallery & contact CTAs
+  ════════════════════════════════════════════════════════ -->
+  <ExhibitionClosing />
+
+</Layout>
+
+<style>
+  :global(.ex-revealed) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+
+<script>
+  /*
+   * Lightweight intersection observer: adds .ex-revealed to sections as they
+   * enter the viewport, providing scroll-triggered reveals.
+   * Targets all Exhibition section roots except the hero (which self-animates).
+   */
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('ex-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.07, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document
+    .querySelectorAll<HTMLElement>('.exp-root, .exf-root, .exc-root')
+    .forEach((el) => observer.observe(el));
+</script>

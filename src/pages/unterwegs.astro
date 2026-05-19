@@ -1,0 +1,215 @@
+---
+// src/pages/unterwegs.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Unterwegs page for Hannah Milena Pilack.
+//
+// Architecture & component map:
+//   • UnterwegsHero.astro    — animated hero section ("Unter·wegs")
+//   • UnterwegsEntry.astro   — reusable journey-entry block (title + text + images)
+//                              rendered once per tour, scroll-revealed on enter
+//   • UnterwegsClosing.astro — closing quote + navigation nudge
+//
+// Each entry receives:
+//   index      — ordinal (drives Roman numeral, scroll-reveal class)
+//   title      — tour title
+//   body       — tour body text (HTML safe)
+//   images[]   — { src, alt, width, height }
+//   layout     — image grid variant: 'landscape' | 'portrait' | 'mixed' | 'single'
+//   pullQuote  — optional sidebar pull-quote
+//   reversed   — alternates sidebar position for visual rhythm
+//
+// All components are pure Astro. A single lightweight IntersectionObserver
+// handles scroll-reveal for every entry and the closing section.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import UnterwegsHero from '../components/UnterwegsHero.astro';
+import UnterwegsEntry from '../components/UnterwegsEntry.astro';
+import UnterwegsClosing from '../components/UnterwegsClosing.astro';
+
+// ─── Journey data ────────────────────────────────────────────────────────────
+const entries = [
+  {
+    index: 1,
+    title: 'Zugspitze, Aufstieg durchs Höllental – jedes Mal anders',
+    body: `Kaum ein Ort hat mich so geprägt wie der Weg durch das Höllental auf die Zugspitze.
+Über die Jahre habe ich diese Route unter den unterschiedlichsten Bedingungen erlebt –
+das erste Mal inmitten eines heftigen Schneesturms, später bei einem plötzlich aufziehenden
+Gewitter und ebenso bei strahlendem Kaiserwetter. Aber auch in Situationen, in denen ich bei
+fehlender Sicht auf Unterstützung angewiesen war und ein anderes Mal am Fels Erste Hilfe
+leisten musste.
+<br /><br />
+Jede dieser Touren hat ihre eigenen Erinnerungen hinterlassen: die erste wegen der körperlichen
+Schmerzen durch Überanstrengung, die letzte aufgrund der Leichtigkeit des Aufstiegs –
+mit mehr körperlicher Stärke und wachsender Erfahrung.
+<br /><br />
+Und doch zeigt sich der Berg fast immer anders. Licht, Wetter und Stimmung verändern die
+Landschaft ständig und machen jeden Aufstieg einzigartig. Dazu kommt die Begleitung, mit der
+man einem gemeinsamen Ziel Schritt für Schritt näherkommt.
+<br /><br />
+Mittlerweile gehört diese Tagestour durch die abwechslungsreiche Landschaft jedes Jahr fest dazu.`,
+    images: [
+      { src: '/images/on_the_road/zugspitze_aufstieg_durchs_hoellental/1.jpg', alt: 'Aufstieg durchs Höllental zur Zugspitze', width: 2048, height: 1536 },
+      { src: '/images/on_the_road/zugspitze_aufstieg_durchs_hoellental/2.jpg', alt: 'Wegabschnitt im Höllental', width: 2048, height: 1536 },
+      { src: '/images/on_the_road/zugspitze_aufstieg_durchs_hoellental/3.jpg', alt: 'Hochalpines Gelände am Höllental', width: 1536, height: 2048 },
+    ],
+    layout: 'landscape' as const,
+    pullQuote: 'Jeder Aufstieg ist einzigartig.',
+    reversed: false,
+  },
+  {
+    index: 2,
+    title: 'Von Nord nach Süd',
+    body: `So viel in so kurzer Zeit. Tag für Tag bergauf, bergab – durch drei Länder von Nord nach Süd.
+Mit dem Gedanken gestartet, den E5 zu laufen, wurde der Weg schnell mehr als nur eine
+klassische Alpenüberquerung. Viele zusätzliche Gipfel machten aus der Route mein ganz eigenes
+Unterwegssein.
+<br /><br />
+Vorbei an reißenden Flüssen, auf süßen Waldwegen und wilderen ausgesetzten Pfaden eröffnete
+sich hinter jeder Etappe eine neue Landschaft. Knapp vorbei an Gletschern, durch Schneefelder
+und über steinige Höhenwege führte der Weg immer weiter Richtung Süden.
+<br /><br />
+Begleitet von Gämsen, Steinböcken, Ziegen, Pferden, Murmeltieren, Kühen und Alpendohlen tanzte
+ich glücklich durch die Bergwelt und dachte oft, das ist zu gut um wahr zu sein.
+Ich fühlte mich berauscht, wild und frei.`,
+    images: [
+      { src: '/images/on_the_road/von_nord_nach_sued/1.jpg', alt: 'Alpenüberquerung – weites Bergpanorama', width: 4608, height: 3456 },
+      { src: '/images/on_the_road/von_nord_nach_sued/2.jpg', alt: 'Hochalpiner Pfad Richtung Süden', width: 3456, height: 4608 },
+      { src: '/images/on_the_road/von_nord_nach_sued/3.jpg', alt: 'Stille Berglandschaft auf dem E5', width: 3456, height: 4608 },
+      { src: '/images/on_the_road/von_nord_nach_sued/4.jpg', alt: 'Licht und Weite in den Alpen', width: 4608, height: 3456 },
+    ],
+    layout: 'mixed' as const,
+    pullQuote: 'Berauscht, wild und frei.',
+    reversed: true,
+  },
+  {
+    index: 3,
+    title: 'An Höhe gewinnen',
+    body: `Als mein Bergsteigerleben alpiner wurde, begann alles mit meiner ersten Mehrseillänge und
+Hochtour in den Bernina-Alpen. Dort machte ich die ersten Erfahrungen im alpinen Gelände
+zwischen Fels und Eis.
+<br /><br />
+Es folgten Touren in den Ostalpen: der Großglockner über den wunderschönen Stüdlgrat und
+später der Großvenediger.
+<br /><br />
+Schon während jeder Bergtour entstanden neue Ideen für weitere Gipfeltouren, wie zum Beispiel
+über den malerisch schönen Biancograt auf den Piz Bernina.`,
+    images: [
+      { src: '/images/on_the_road/an_hoehe_gewinnen/1.jpg', alt: 'Alpines Gelände zwischen Fels und Eis', width: 4000, height: 3000 },
+    ],
+    layout: 'single' as const,
+    pullQuote: 'Zwischen Fels und Eis – neue Welten.',
+    reversed: false,
+  },
+  {
+    index: 4,
+    title: 'Zweites Zuhause Slowenien oder Arco?',
+    body: `Sowohl das Camping im grünen Triglavtal in den Julischen Alpen als auch das Klettern in Arco
+sind immer wieder eine Reise wert. Zwischen schroffen Gipfeln und der vom Lauf der Soča geprägten
+grünen Landschaft fühlt sich jeder Aufenthalt dort schon wie ein zweites Zuhause an.
+<br /><br />
+Ebenso wie die Mehrseillängen in den eindrucksvollen Wänden am Gardasee jedes Mal aufs Neue
+ein Highlight sind und auch ein zweites Zuhause sein könnten.`,
+    images: [
+      { src: '/images/on_the_road/zweites_zuhause_slowenien_oder_arco/1.jpg', alt: 'Julische Alpen – Triglavtal', width: 5472, height: 5472 },
+      { src: '/images/on_the_road/zweites_zuhause_slowenien_oder_arco/2.jpg', alt: 'Klettern in Arco am Gardasee', width: 1600, height: 1200 },
+    ],
+    layout: 'landscape' as const,
+    pullQuote: 'Jeder Aufenthalt fühlt sich wie Heimkommen an.',
+    reversed: true,
+  },
+  {
+    index: 5,
+    title: 'Enrosadira',
+    body: `Die Dolomiten beeindruckten mich mit ihrer Mischung aus schroffen Türmen und warmem Gestein.
+Besonders die Besteigung der Drei Zinnen zählt zu den eindrucksvollsten Erlebnissen in dieser
+faszinierenden Bergwelt.`,
+    images: [
+      { src: '/images/on_the_road/enrosadira/1.jpg', alt: 'Enrosadira – die Dolomiten im Abendlicht', width: 1600, height: 1200 },
+    ],
+    layout: 'single' as const,
+    pullQuote: 'Das Leuchten der Dolomiten.',
+    reversed: false,
+  },
+  {
+    index: 6,
+    title: 'Gewaltige Dimensionen',
+    body: `Die hohen Berge der Schweiz beeindrucken durch ihre gewaltigen Dimensionen. Ein besonders
+erlebnisreicher Tag war die Besteigung des Matterhorn, dessen markante Form und exponierte Grate
+jeden Schritt zu einem intensiven und unvergesslichen Abenteuer machten.`,
+    images: [
+      { src: '/images/on_the_road/gewaltige_dimensionen/1.jpg', alt: 'Matterhorn – markante Silhouette', width: 1600, height: 1200 },
+      { src: '/images/on_the_road/gewaltige_dimensionen/2.jpg', alt: 'Exponierte Grate am Matterhorn', width: 2048, height: 1536 },
+    ],
+    layout: 'landscape' as const,
+    pullQuote: 'Jeden Schritt intensiv spüren.',
+    reversed: true,
+  },
+] as const;
+---
+
+<Layout title="Unterwegs – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — "Unter·wegs" animated title
+  ════════════════════════════════════════════════════════ -->
+  <UnterwegsHero />
+
+  <!-- ═══════════════════════════════════════════════════════
+       JOURNEY ENTRIES — one per tour
+       Alternates reversed layout for visual rhythm.
+  ════════════════════════════════════════════════════════ -->
+  {entries.map((entry) => (
+    <UnterwegsEntry
+      index={entry.index}
+      title={entry.title}
+      body={entry.body}
+      images={[...entry.images]}
+      layout={entry.layout}
+      pullQuote={entry.pullQuote}
+      reversed={entry.reversed}
+    />
+  ))}
+
+  <!-- ═══════════════════════════════════════════════════════
+       CLOSING — quote + navigation nudge
+  ════════════════════════════════════════════════════════ -->
+  <UnterwegsClosing />
+
+</Layout>
+
+<style>
+  /* Hide divider after last entry */
+  :global(.ue-root:last-of-type .ue-divider) {
+    display: none;
+  }
+
+  /* Scroll-reveal: entries & closing get opacity/transform via JS */
+  :global(.ur-revealed) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+
+<script>
+  /*
+   * Lightweight IntersectionObserver:
+   * Adds .ur-revealed to each .ue-root and .uc-root as they enter the viewport,
+   * triggering the CSS opacity + translateY transition defined in each component.
+   */
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('ur-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.06, rootMargin: '0px 0px -60px 0px' }
+  );
+
+  document
+    .querySelectorAll<HTMLElement>('.ue-root, .uc-root')
+    .forEach((el) => observer.observe(el));
+</script>

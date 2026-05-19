@@ -1,0 +1,185 @@
+---
+// src/components/UnterwegsClosing.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Closing section for the Unterwegs page.
+// Mirrors the pattern of AboutClosing with a journey-themed quote.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="uc-root" aria-label="Abschluss">
+
+  <!-- Decorative full-width rule -->
+  <div class="uc-rule" aria-hidden="true">
+    <span class="uc-rule__line"></span>
+    <span class="uc-rule__diamond">✦</span>
+    <span class="uc-rule__line uc-rule__line--rev"></span>
+  </div>
+
+  <blockquote class="uc-quote">
+    <p class="uc-quote__text">
+      „Der Berg ruft nicht –<br />
+      er wartet. Und ich<br />
+      <em>gehe</em>."
+    </p>
+    <footer class="uc-quote__footer">
+      <span class="uc-quote__dash" aria-hidden="true">—</span>
+      <cite>Hannah Milena Pilack</cite>
+    </footer>
+  </blockquote>
+
+  <!-- Navigation nudge -->
+  <nav class="uc-nav" aria-label="Weiternavigation">
+    <div class="uc-nav__item">
+      <p class="uc-nav__label">Zurück zum Anfang</p>
+      <a href="/ueber-mich" class="uc-nav__link">
+        Über mich
+        <span class="uc-nav__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+    <div class="uc-nav__item">
+      <p class="uc-nav__label">Meine Bilder ansehen</p>
+      <a href="/werke" class="uc-nav__link">
+        Galerie
+        <span class="uc-nav__arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </nav>
+
+</section>
+
+<style>
+  .uc-root {
+    padding: 5rem 2rem 7rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3.5rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.85s ease, transform 0.85s ease;
+  }
+
+  /* ── Rule ── */
+  .uc-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: min(440px, 80%);
+  }
+
+  .uc-rule__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.18));
+  }
+
+  .uc-rule__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.18));
+  }
+
+  .uc-rule__diamond {
+    font-size: 0.55rem;
+    color: var(--color-accent);
+    opacity: 0.55;
+    flex-shrink: 0;
+  }
+
+  /* ── Quote ── */
+  .uc-quote {
+    max-width: 560px;
+    margin: 0;
+  }
+
+  .uc-quote__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.2vw, 2.25rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.6;
+    color: var(--color-muted);
+    margin: 0 0 1.3rem;
+    letter-spacing: 0.01em;
+  }
+
+  .uc-quote__text em {
+    font-style: normal;
+    color: var(--color-accent);
+  }
+
+  .uc-quote__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,118,112,0.4);
+    font-style: normal;
+  }
+
+  .uc-quote__dash {
+    color: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  cite { font-style: normal; }
+
+  /* ── Navigation ── */
+  .uc-nav {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .uc-nav__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.7rem;
+  }
+
+  .uc-nav__label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,118,112,0.45);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .uc-nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-accent);
+    text-decoration: none;
+    padding: 0.7rem 1.6rem;
+    border: 1px solid rgba(201,169,110,0.28);
+    border-radius: 3px;
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  }
+
+  .uc-nav__link:hover {
+    background: rgba(201,169,110,0.06);
+    border-color: rgba(201,169,110,0.5);
+    transform: translateY(-2px);
+  }
+
+  .uc-nav__arrow {
+    transition: transform 0.25s;
+  }
+
+  .uc-nav__link:hover .uc-nav__arrow {
+    transform: translateX(4px);
+  }
+
+</style>

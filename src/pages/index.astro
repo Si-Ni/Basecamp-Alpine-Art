@@ -1,0 +1,278 @@
+---
+// src/pages/index.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Home">
+  <div class="hero">
+    <!-- Collage of art images -->
+    <!-- <div class="collage" aria-hidden="true">
+      <div class="collage-piece collage-piece--1"></div>
+      <div class="collage-piece collage-piece--2"></div>
+      <div class="collage-piece collage-piece--3"></div>
+      <div class="collage-piece collage-piece--4"></div>
+    </div> -->
+
+    <!-- Noise texture overlay -->
+    <div class="hero-noise" aria-hidden="true"></div>
+
+    <!-- Central text -->
+    <div class="hero-content">
+      <p class="hero-eyebrow">Hannah Milena Pilack</p>
+      <h1 class="hero-title">
+        <span class="hero-title-line hero-title-line--1">Kunst trifft</span>
+        <span class="hero-title-line hero-title-line--2">Abenteuer</span>
+      </h1>
+      <p class="hero-sub">Ölgemälde · Aquarelle · Fotografie</p>
+      <div class="hero-cta">
+        <a href="/werke" class="btn-primary">Werke entdecken</a>
+        <a href="/ueber-mich" class="btn-ghost">Über mich</a>
+      </div>
+    </div>
+
+    <!-- Scroll hint -->
+    <div class="scroll-hint" aria-hidden="true">
+      <span class="scroll-line"></span>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* Override main padding for full bleed */
+  :global(#main-content) {
+    padding-top: 0 !important;
+  }
+
+  .hero {
+    position: relative;
+    width: 100%;
+    height: 100dvh;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--color-bg);
+  }
+
+  /* ── Collage ── */
+  .collage {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .collage-piece {
+    position: absolute;
+    background-size: cover;
+    background-position: center;
+    border-radius: 2px;
+  }
+
+  /* top left */
+  .collage-piece--1 {
+    top: -5%;
+    left: -4%;
+    width: 38%;
+    height: 64%;
+    background-image: url('/images/oil/monochrome_einsamkeit.jpg');
+    background-color: #1a1208;
+    transform: rotate(-2.5deg);
+    filter: brightness(0.7) saturate(0.85);
+  }
+
+  /* bottom right */
+  .collage-piece--2 {
+    bottom: -8%;
+    right: -3%;
+    width: 37.5%;
+    height: 65%;
+    background-image: url('/images/background_rope.png');
+    background-color: #1a1008;
+    transform: rotate(1.8deg);
+    filter: brightness(0.5) saturate(0.9);
+  }
+
+  /* top right */
+  .collage-piece--3 {
+    top: -2%;
+    right: -1%;
+    width: 38.5%;
+    height: 48%;
+    background-image: url('/images/photography/taubenstein_2021.jpg');
+    background-color: #100a18;
+    transform: rotate(3deg);
+    filter: brightness(1) saturate(1);
+  }
+
+  /* bottom left */
+  .collage-piece--4 {
+    bottom: -4%;
+    left: 0;
+    width: 29%;
+    height: 45.5%;
+    background-image: url('/images/customwork/1.jpg');
+    background-color: #0a100e;
+    transform: rotate(-1.2deg);
+    filter: brightness(0.7) saturate(0.7);
+  }
+
+  /* ── Noise texture ── */
+  .hero-noise {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.035;
+    pointer-events: none;
+  }
+
+  /* Gradient vignette over collage */
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background:
+      radial-gradient(ellipse 60% 70% at 50% 50%, rgba(10,10,9,0.3) 0%, rgba(10,10,9,0.88) 100%),
+      linear-gradient(to bottom, rgba(10,10,9,0.7) 0%, transparent 30%, transparent 70%, rgba(10,10,9,0.8) 100%);
+    pointer-events: none;
+  }
+
+  /* ── Hero Content ── */
+  .hero-content {
+    position: relative;
+    z-index: 3;
+    text-align: center;
+    max-width: 800px;
+    padding: 0 2rem;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1.5rem;
+    animation: fadeUp 1s 0.2s both;
+  }
+
+  .hero-title {
+    font-family: var(--font-display);
+    font-size: clamp(3.5rem, 10vw, 8rem);
+    font-weight: 300;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-title-line--1 {
+    animation: fadeUp 1s 0.4s both;
+    font-style: italic;
+    color: var(--color-muted);
+    font-size: 0.7em;
+  }
+
+  .hero-title-line--2 {
+    animation: fadeUp 1s 0.6s both;
+  }
+
+  .hero-sub {
+    font-size: 0.8rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    margin-bottom: 2.5rem;
+    animation: fadeUp 1s 0.8s both;
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    animation: fadeUp 1s 1s both;
+  }
+
+  .btn-primary {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-bg);
+    background: var(--color-accent);
+    padding: 0.85rem 2rem;
+    border-radius: var(--radius-sm);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  .btn-primary:hover {
+    opacity: 0.85;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    font-size: 0.75rem;
+    font-weight: 400;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    padding: 0.85rem 2rem;
+    border-radius: var(--radius-sm);
+    transition: border-color var(--transition-base), color var(--transition-base), transform var(--transition-base);
+  }
+
+  .btn-ghost:hover {
+    border-color: rgba(255,255,255,0.25);
+    color: var(--color-accent);
+    transform: translateY(-1px);
+  }
+
+  /* ── Scroll hint ── */
+  .scroll-hint {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    animation: fadeUp 1s 1.4s both;
+  }
+
+  .scroll-line {
+    display: block;
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--color-accent));
+    margin: 0 auto;
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50%       { opacity: 1;   transform: scaleY(0.6); }
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .hero-cta {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .btn-primary, .btn-ghost {
+      text-align: center;
+    }
+  }
+</style>

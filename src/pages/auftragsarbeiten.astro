@@ -1,0 +1,77 @@
+---
+// src/pages/auftragsarbeiten.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Auftragsarbeiten (Custom Commissions) page for Hannah Milena Pilack.
+//
+// Architecture & layout:
+//   • CustomworkHero.astro    — animated hero section with brushstroke flourish
+//   • AboutImageDivider.astro — image 1 (landscape) as cinematic full-width strip
+//                               (reused from the about-page component system)
+//   • CustomworkGallery.astro — asymmetric dual-image editorial composition
+//                               (image 1 landscape left + image 2 portrait right)
+//   • CustomworkText.astro    — commission description, editorial sidebar layout
+//   • CustomworkClosing.astro — closing quote + contact CTA
+//
+// All components are pure Astro (zero client-side JS beyond the scroll observer).
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import CustomworkHero from '../components/CustomworkHero.astro';
+import CustomworkGallery from '../components/CustomworkGallery.astro';
+import CustomworkText from '../components/CustomworkText.astro';
+import CustomworkClosing from '../components/CustomworkClosing.astro';
+---
+
+<Layout title="Auftragsarbeiten – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — animated title with brushstroke flourish
+  ════════════════════════════════════════════════════════ -->
+  <CustomworkHero />
+
+  <!-- ═══════════════════════════════════════════════════════
+       GALLERY — asymmetric editorial dual-image composition:
+       image 1 (landscape) left + image 2 (portrait) offset right.
+  ════════════════════════════════════════════════════════ -->
+  <CustomworkGallery />
+
+  <!-- ═══════════════════════════════════════════════════════
+       TEXT — commission description, sidebar + body layout
+  ════════════════════════════════════════════════════════ -->
+  <CustomworkText />
+
+  <!-- ═══════════════════════════════════════════════════════
+       CLOSING — artist quote + contact CTA
+  ════════════════════════════════════════════════════════ -->
+  <CustomworkClosing />
+
+</Layout>
+
+<style>
+  :global(.cw-revealed) {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+  }
+</style>
+
+<script>
+  /*
+   * Lightweight intersection observer: adds .cw-revealed to sections as they
+   * enter the viewport, providing scroll-triggered reveals.
+   */
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('cw-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.07, rootMargin: '0px 0px -50px 0px' }
+  );
+
+  document
+    .querySelectorAll<HTMLElement>('.cwg-root, .cwt-root, .cwc-root')
+    .forEach((el) => observer.observe(el));
+</script>

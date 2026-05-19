@@ -1,0 +1,161 @@
+---
+// src/components/CustomworkClosing.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Closing quote / CTA section for the Auftragsarbeiten page.
+// Mirrors the pattern of AboutClosing.astro.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="cwc-root" aria-label="Abschluss">
+
+  <!-- Decorative full-width rule -->
+  <div class="cwc-rule" aria-hidden="true">
+    <span class="cwc-rule__line"></span>
+    <span class="cwc-rule__diamond">✦</span>
+    <span class="cwc-rule__line cwc-rule__line--rev"></span>
+  </div>
+
+  <blockquote class="cwc-quote">
+    <p class="cwc-quote__text">
+      „Jede Erinnerung verdient<br />
+      ein Bild, das sie bewahrt."
+    </p>
+    <footer class="cwc-quote__footer">
+      <span class="cwc-quote__dash" aria-hidden="true">—</span>
+      <cite>Hannah Milena Pilack</cite>
+    </footer>
+  </blockquote>
+
+  <!-- Contact CTA -->
+  <div class="cwc-contact">
+    <p class="cwc-contact__text">Interesse an einem Auftragswerk?</p>
+    <a href="/kontakt" class="cwc-contact__link">
+      Schreib mir
+      <span class="cwc-contact__arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+
+</section>
+
+<style>
+  .cwc-root {
+    padding: 5rem 2rem 7rem;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  /* ── Rule ── */
+  .cwc-rule {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: min(440px, 80%);
+  }
+
+  .cwc-rule__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.2));
+  }
+
+  .cwc-rule__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.2));
+  }
+
+  .cwc-rule__diamond {
+    font-size: 0.55rem;
+    color: var(--color-accent);
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+
+  /* ── Quote ── */
+  .cwc-quote {
+    max-width: 600px;
+    margin: 0;
+  }
+
+  .cwc-quote__text {
+    font-family: var(--font-display);
+    font-size: clamp(1.5rem, 3.2vw, 2.2rem);
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.55;
+    color: var(--color-muted);
+    margin: 0 0 1.2rem;
+    letter-spacing: 0.01em;
+  }
+
+  .cwc-quote__footer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,118,112,0.4);
+    font-style: normal;
+  }
+
+  .cwc-quote__dash {
+    color: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  cite { font-style: normal; }
+
+  /* ── Contact CTA ── */
+  .cwc-contact {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .cwc-contact__text {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,118,112,0.5);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  .cwc-contact__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-accent);
+    text-decoration: none;
+    padding: 0.75rem 1.8rem;
+    border: 1px solid rgba(201,169,110,0.3);
+    border-radius: 3px;
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  }
+
+  .cwc-contact__link:hover {
+    background: rgba(201,169,110,0.06);
+    border-color: rgba(201,169,110,0.55);
+    transform: translateY(-2px);
+  }
+
+  .cwc-contact__arrow {
+    transition: transform 0.25s;
+  }
+
+  .cwc-contact__link:hover .cwc-contact__arrow {
+    transform: translateX(4px);
+  }
+</style>

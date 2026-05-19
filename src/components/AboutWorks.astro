@@ -1,0 +1,341 @@
+---
+// src/components/AboutWorks.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// "Zu meinen Werken" section for the Über mich page.
+// Image 3 is used as a large dramatic pull-image to the right of the text,
+// with an overlapping offset effect.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="aw-root" aria-labelledby="aw-heading">
+
+  <!-- Section separator -->
+  <div class="aw-sep" aria-hidden="true">
+    <span class="aw-sep__line"></span>
+    <span class="aw-sep__glyph">✦</span>
+    <span class="aw-sep__line aw-sep__line--rev"></span>
+  </div>
+
+  <!-- Two-column: text left, image right — image dramatically oversized -->
+  <div class="aw-grid">
+
+    <!-- ── Text column ── -->
+    <div class="aw-content">
+      <header class="aw-header">
+        <p class="aw-numeral" aria-hidden="true">II</p>
+        <h2 class="aw-heading" id="aw-heading">Zu meinen Werken</h2>
+        <p class="aw-sub">Jede Tour beginnt mit einem Schritt –<br/>und oft endet sie in einem Bild.</p>
+      </header>
+
+      <p class="aw-text">
+        Die Berge sind für mich nicht nur Ziele, sondern eine Quelle. In meinen
+        Arbeiten verarbeite ich Erlebnisse aus den Bergen, wie das Gefühl von Freiheit,
+        Ehrfurcht vor der Natur, Übergänge zwischen Himmel und Fels, Stille und
+        Bewegung sowie Gefahr und Schönheit.
+      </p>
+
+      <!-- Thematic motif tags -->
+      <ul class="aw-motifs" aria-label="Themen meiner Werke">
+        <li class="aw-motif">Freiheit</li>
+        <li class="aw-motif">Ehrfurcht vor der Natur</li>
+        <li class="aw-motif">Himmel &amp; Fels</li>
+        <li class="aw-motif">Stille &amp; Bewegung</li>
+        <li class="aw-motif">Gefahr &amp; Schönheit</li>
+      </ul>
+
+      <p class="aw-invitation">
+        Ich lade dich ein, die Bilder in Ruhe auf dich wirken zu lassen – vielleicht
+        entdeckst du darin nicht nur dir bekannte Gipfel, sondern auch Ideen für neue
+        Bergabenteuer.
+      </p>
+
+      <div class="aw-cta-wrap">
+        <a href="/works" class="aw-cta">
+          <span>Zur Galerie</span>
+          <span class="aw-cta__arrow" aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- ── Image 3 — large pull-image, overlapping top boundary ── -->
+    <figure class="aw-img-figure">
+      <div class="aw-img-frame">
+        <img
+          src="/images/about/3.jpg"
+          alt="Bergmalerei – Natur und Kunst verbunden"
+          loading="lazy"
+          decoding="async"
+          width="5472"
+          height="3648"
+          class="aw-img"
+        />
+        <div class="aw-img-overlay" aria-hidden="true"></div>
+      </div>
+      <!-- corner accents -->
+      <div class="aw-img-corner aw-img-corner--tr" aria-hidden="true"></div>
+      <div class="aw-img-corner aw-img-corner--bl" aria-hidden="true"></div>
+
+      <!-- Vertical editorial label -->
+      <span class="aw-img-label" aria-hidden="true">Öl · Aquarell · Fotografie</span>
+    </figure>
+
+  </div>
+
+</section>
+
+<style>
+  .aw-root {
+    padding: 2rem 2rem 6rem;
+    max-width: 1240px;
+    margin: 0 auto;
+    overflow: visible;
+  }
+
+  /* ── Section separator ── */
+  .aw-sep {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin-bottom: 5rem;
+    animation: aw-fadeUp 0.9s 0.1s both;
+  }
+
+  .aw-sep__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.06));
+  }
+
+  .aw-sep__line--rev {
+    background: linear-gradient(to left, transparent, rgba(255,255,255,0.06));
+  }
+
+  .aw-sep__glyph {
+    font-size: 0.52rem;
+    color: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  /* ── Two-column grid ── */
+  .aw-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 4rem;
+    align-items: center;
+    animation: aw-fadeUp 0.9s 0.2s both;
+  }
+
+  /* ── Text column ── */
+  .aw-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+  }
+
+  .aw-header { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .aw-numeral {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.18;
+    letter-spacing: -0.03em;
+    margin: 0;
+  }
+
+  .aw-heading {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.015em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .aw-sub {
+    font-size: 0.88rem;
+    letter-spacing: 0.06em;
+    color: var(--color-accent);
+    font-weight: 300;
+    font-style: italic;
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  .aw-text {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--color-muted);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  /* ── Motif pills ── */
+  .aw-motifs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+
+  .aw-motif {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 400;
+    color: var(--color-accent);
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(201,169,110,0.2);
+    border-radius: 50px;
+    background: rgba(201,169,110,0.04);
+    transition: background 0.2s, border-color 0.2s;
+  }
+
+  .aw-motif:hover {
+    background: rgba(201,169,110,0.09);
+    border-color: rgba(201,169,110,0.38);
+  }
+
+  .aw-invitation {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--color-muted);
+    font-weight: 300;
+    font-style: italic;
+    margin: 0;
+    padding-left: 1.4rem;
+    border-left: 1px solid rgba(201,169,110,0.2);
+  }
+
+  .aw-cta-wrap { padding-top: 0.3rem; }
+
+  .aw-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.85rem 2rem;
+    background: transparent;
+    border: 1px solid rgba(201,169,110,0.35);
+    border-radius: 3px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: background 0.25s, border-color 0.25s, transform 0.2s;
+  }
+
+  .aw-cta:hover {
+    background: rgba(201,169,110,0.06);
+    border-color: rgba(201,169,110,0.6);
+    transform: translateY(-1px);
+  }
+
+  .aw-cta__arrow { transition: transform 0.25s; }
+  .aw-cta:hover .aw-cta__arrow { transform: translateX(4px); }
+
+  /* ── Pull image ── */
+  .aw-img-figure {
+    position: relative;
+    margin: -4rem 0 -4rem 0; /* deliberately overflows section padding for drama */
+  }
+
+  .aw-img-frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.13);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.35);
+    aspect-ratio: 3 / 4; /* tall portrait crop of the landscape */
+  }
+
+  .aw-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center 20%;
+    filter: brightness(0.8) contrast(1.06) saturate(0.87);
+    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.7s ease;
+  }
+
+  .aw-img-figure:hover .aw-img {
+    transform: scale(1.03);
+    filter: brightness(0.88) contrast(1.03) saturate(0.95);
+  }
+
+  .aw-img-overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, rgba(10,10,9,0.2) 0%, transparent 35%, transparent 65%, rgba(10,10,9,0.4) 100%);
+    pointer-events: none;
+  }
+
+  /* Gold corner accents */
+  .aw-img-corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    pointer-events: none;
+    opacity: 0.38;
+  }
+
+  .aw-img-corner--tr {
+    top: -6px; right: -6px;
+    border-top: 1px solid var(--color-accent);
+    border-right: 1px solid var(--color-accent);
+  }
+
+  .aw-img-corner--bl {
+    bottom: -6px; left: -6px;
+    border-bottom: 1px solid var(--color-accent);
+    border-left: 1px solid var(--color-accent);
+  }
+
+  /* Vertical editorial label */
+  .aw-img-label {
+    position: absolute;
+    left: -2rem;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    transform-origin: center center;
+    font-size: 0.6rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.4);
+    font-weight: 400;
+    white-space: nowrap;
+    user-select: none;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .aw-grid {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .aw-img-figure {
+      margin: 0;
+      order: -1; /* image first on mobile */
+    }
+
+    .aw-img-frame {
+      aspect-ratio: 16 / 9;
+    }
+
+    .aw-img-label { display: none; }
+  }
+
+  @keyframes aw-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

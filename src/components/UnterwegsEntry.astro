@@ -1,0 +1,444 @@
+---
+// src/components/UnterwegsEntry.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// A single journey entry: title, body text, and a grid of images.
+//
+// Props:
+//   index        — 1-based entry number (used for chapter numeral & CSS class)
+//   title        — entry title string
+//   body         — entry body text (HTML allowed)
+//   images       — array of { src, alt, width, height }
+//   layout       — 'landscape' | 'portrait' | 'mixed' | 'single'
+//                  controls the image grid variant
+//   pullQuote?   — optional short pull-quote string extracted from the text
+//   reversed?    — if true, image panel appears left of text on wide screens
+// ─────────────────────────────────────────────────────────────────────────────
+
+interface Image {
+  src: string;
+  alt: string;
+  width: number;
+  height: number;
+}
+
+interface Props {
+  index: number;
+  title: string;
+  body: string;
+  images: Image[];
+  layout?: 'landscape' | 'portrait' | 'mixed' | 'single';
+  pullQuote?: string;
+  reversed?: boolean;
+}
+
+const {
+  index,
+  title,
+  body,
+  images,
+  layout = 'landscape',
+  pullQuote,
+  reversed = false,
+} = Astro.props;
+
+// Roman numeral helper (supports I–XII for this page)
+const ROMAN = ['I','II','III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+const numeral = ROMAN[(index - 1) % ROMAN.length];
+
+// BEM modifier for image grid
+const gridMod = `ue-gallery--${layout}`;
+
+// Unique root class for targeted scroll reveal
+const rootClass = `ue-root ue-root--${index}`;
+---
+
+<article class={rootClass} aria-labelledby={`ue-title-${index}`}>
+
+  <!-- ── Entry inner wrapper ── -->
+  <div class:list={['ue-inner', reversed && 'ue-inner--reversed']}>
+
+    <!-- ── Editorial sidebar ── -->
+    <aside class="ue-sidebar">
+      <div class="ue-chapter">
+        <span class="ue-chapter__num" aria-hidden="true">{numeral}</span>
+        <span class="ue-chapter__rule" aria-hidden="true"></span>
+        <span class="ue-chapter__label" aria-hidden="true">Unterwegs</span>
+      </div>
+
+      {pullQuote && (
+        <blockquote class="ue-pullquote">
+          <p>„{pullQuote}"</p>
+        </blockquote>
+      )}
+    </aside>
+
+    <!-- ── Main content column ── -->
+    <div class="ue-content">
+
+      <!-- Title -->
+      <h2 class="ue-title" id={`ue-title-${index}`}>{title}</h2>
+
+      <!-- Body text -->
+      <div class="ue-body">
+        <p class="ue-body__text" set:html={body} />
+      </div>
+
+      <!-- Image gallery -->
+      <figure class:list={['ue-gallery', gridMod]} aria-label={`Bilder: ${title}`}>
+        {images.map((img, i) => (
+          <div class:list={['ue-gallery__item', `ue-gallery__item--${i + 1}`]}>
+            <div class="ue-gallery__frame">
+              <img
+                src={img.src}
+                alt={img.alt}
+                width={img.width}
+                height={img.height}
+                loading="lazy"
+                decoding="async"
+                class="ue-gallery__img"
+              />
+              <div class="ue-gallery__overlay" aria-hidden="true"></div>
+            </div>
+            <!-- Gold corner accents on first image -->
+            {i === 0 && (
+              <>
+                <div class="ue-corner ue-corner--tl" aria-hidden="true"></div>
+                <div class="ue-corner ue-corner--br" aria-hidden="true"></div>
+              </>
+            )}
+          </div>
+        ))}
+      </figure>
+
+    </div>
+  </div>
+
+  <!-- Ornamental section divider (hidden on last entry via CSS on page) -->
+  <div class="ue-divider" aria-hidden="true">
+    <span class="ue-divider__line"></span>
+    <span class="ue-divider__glyph">✦</span>
+    <span class="ue-divider__line ue-divider__line--rev"></span>
+  </div>
+
+</article>
+
+<style>
+  /* ══════════════════════════════════════════════════════════════
+     ROOT
+  ══════════════════════════════════════════════════════════════ */
+  .ue-root {
+    padding: 5rem 2rem 0;
+    max-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.85s cubic-bezier(0.25,0.46,0.45,0.94),
+                transform 0.85s cubic-bezier(0.25,0.46,0.45,0.94);
+  }
+
+  /* ── Inner grid ── */
+  .ue-inner {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0 4.5rem;
+    align-items: start;
+  }
+
+  .ue-inner--reversed {
+    direction: rtl; /* flip columns */
+  }
+
+  .ue-inner--reversed > * {
+    direction: ltr; /* restore text direction inside */
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     SIDEBAR
+  ══════════════════════════════════════════════════════════════ */
+  .ue-sidebar {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .ue-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.65rem;
+  }
+
+  .ue-chapter__num {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.16;
+    letter-spacing: -0.03em;
+  }
+
+  .ue-chapter__rule {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.35;
+  }
+
+  .ue-chapter__label {
+    font-size: 0.72rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    opacity: 0.7;
+  }
+
+  .ue-pullquote {
+    margin: 0;
+    padding: 0 0 0 1.1rem;
+    border-left: 1px solid rgba(201,169,110,0.2);
+  }
+
+  .ue-pullquote p {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     CONTENT
+  ══════════════════════════════════════════════════════════════ */
+  .ue-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+    padding-top: 0.3rem;
+  }
+
+  .ue-title {
+    font-family: var(--font-display);
+    font-size: clamp(1.55rem, 3vw, 2.3rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .ue-body__text {
+    font-size: 1rem;
+    line-height: 1.88;
+    color: var(--color-muted);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     GALLERY — base
+  ══════════════════════════════════════════════════════════════ */
+  .ue-gallery {
+    margin: 0;
+    display: grid;
+    gap: 0.8rem;
+  }
+
+  .ue-gallery__item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .ue-gallery__frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.1);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 2px 6px rgba(0,0,0,0.25);
+  }
+
+  .ue-gallery__img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.82) contrast(1.05) saturate(0.85);
+    transition:
+      transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94),
+      filter 0.7s ease;
+  }
+
+  .ue-gallery__item:hover .ue-gallery__img {
+    transform: scale(1.03);
+    filter: brightness(0.9) contrast(1.02) saturate(0.95);
+  }
+
+  .ue-gallery__overlay {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to bottom, transparent 55%, rgba(10,10,9,0.4) 100%),
+      linear-gradient(to right, rgba(10,10,9,0.15) 0%, transparent 25%, transparent 75%, rgba(10,10,9,0.1) 100%);
+    pointer-events: none;
+  }
+
+  /* Gold corner accents */
+  .ue-corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    opacity: 0.35;
+    z-index: 2;
+  }
+
+  .ue-corner--tl {
+    top: -4px; left: -4px;
+    border-top: 1px solid var(--color-accent);
+    border-left: 1px solid var(--color-accent);
+  }
+
+  .ue-corner--br {
+    bottom: -4px; right: -4px;
+    border-bottom: 1px solid var(--color-accent);
+    border-right: 1px solid var(--color-accent);
+  }
+
+  /* ── GALLERY VARIANTS ── */
+
+  /* Single image */
+  .ue-gallery--single .ue-gallery__frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Landscape: 3 images side-by-side or 1 big + 2 small */
+  .ue-gallery--landscape {
+    grid-template-columns: 1fr 1fr 1fr;
+  }
+
+  .ue-gallery--landscape .ue-gallery__frame {
+    aspect-ratio: 3 / 2;
+  }
+
+  /* Portrait: 1 large + 2 stacked portrait */
+  .ue-gallery--portrait {
+    grid-template-columns: 1.6fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .ue-gallery--portrait .ue-gallery__item--1 {
+    grid-row: 1 / 3;
+  }
+
+  .ue-gallery--portrait .ue-gallery__frame {
+    aspect-ratio: 3 / 4;
+    height: 100%;
+  }
+
+  .ue-gallery--portrait .ue-gallery__item--2 .ue-gallery__frame,
+  .ue-gallery--portrait .ue-gallery__item--3 .ue-gallery__frame {
+    aspect-ratio: 4 / 3;
+    height: auto;
+  }
+
+  /* Mixed: 1 wide hero + 3 small below */
+  .ue-gallery--mixed {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ue-gallery--mixed .ue-gallery__item--1 {
+    grid-column: 1 / 3;
+  }
+
+  .ue-gallery--mixed .ue-gallery__item--1 .ue-gallery__frame {
+    aspect-ratio: 16 / 7;
+  }
+
+  .ue-gallery--mixed .ue-gallery__item--2 .ue-gallery__frame,
+  .ue-gallery--mixed .ue-gallery__item--3 .ue-gallery__frame,
+  .ue-gallery--mixed .ue-gallery__item--4 .ue-gallery__frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     DIVIDER
+  ══════════════════════════════════════════════════════════════ */
+  .ue-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    max-width: 1200px;
+    margin: 5rem auto 0;
+    padding: 0 2rem;
+  }
+
+  .ue-divider__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.14));
+  }
+
+  .ue-divider__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.14));
+  }
+
+  .ue-divider__glyph {
+    font-size: 0.52rem;
+    color: var(--color-accent);
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     RESPONSIVE
+  ══════════════════════════════════════════════════════════════ */
+  @media (max-width: 900px) {
+    .ue-inner {
+      grid-template-columns: 1fr;
+      direction: ltr;
+      gap: 2.5rem;
+    }
+
+    .ue-sidebar {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 1.5rem;
+    }
+
+    .ue-chapter {
+      flex-direction: row;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .ue-gallery--portrait {
+      grid-template-columns: 1fr;
+    }
+
+    .ue-gallery--portrait .ue-gallery__item--1 {
+      grid-row: auto;
+    }
+
+    .ue-gallery--landscape {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .ue-gallery--landscape,
+    .ue-gallery--mixed {
+      grid-template-columns: 1fr;
+    }
+
+    .ue-gallery--mixed .ue-gallery__item--1 {
+      grid-column: 1;
+    }
+  }
+</style>

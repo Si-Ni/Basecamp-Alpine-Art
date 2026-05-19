@@ -1,0 +1,233 @@
+---
+// src/components/CustomworkGallery.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Editorial image gallery for the Auftragsarbeiten page.
+// Presents two custom-work images in a dramatic asymmetric layout:
+//   • Image 1 (landscape 5472 × 3648) — wide cinematic strip, left-anchored
+//   • Image 2 (portrait 3648 × 5472)  — tall panel, offset right, overlapping
+// The composition bleeds slightly to suggest depth and movement.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="cwg-root" aria-label="Auftragsarbeiten – Beispiele">
+
+  <!-- Chapter marker -->
+  <div class="cwg-chapter" aria-hidden="true">
+    <span class="cwg-chapter__num">I</span>
+    <span class="cwg-chapter__rule"></span>
+    <p class="cwg-chapter__label">Aus der Praxis</p>
+  </div>
+
+  <div class="cwg-stage">
+
+    <!-- ── Image 1: landscape — left, top ── -->
+    <figure class="cwg-fig cwg-fig--landscape">
+      <div class="cwg-frame cwg-frame--landscape">
+        <img
+          src="/images/customwork/1.jpg"
+          alt="Auftragsarbeit in Öl- oder Aquarellmalerei"
+          loading="lazy"
+          decoding="async"
+          width="5472"
+          height="3648"
+          class="cwg-img"
+        />
+        <div class="cwg-vignette" aria-hidden="true"></div>
+      </div>
+      <div class="cwg-corner cwg-corner--tl" aria-hidden="true"></div>
+      <div class="cwg-corner cwg-corner--br" aria-hidden="true"></div>
+    </figure>
+
+    <!-- ── Image 2: portrait — right, overlapping ── -->
+    <figure class="cwg-fig cwg-fig--portrait">
+      <div class="cwg-frame cwg-frame--portrait">
+        <img
+          src="/images/customwork/2.jpg"
+          alt="Individuelles Aquarellwerk als persönliches Auftragswerk"
+          loading="lazy"
+          decoding="async"
+          width="3648"
+          height="5472"
+          class="cwg-img"
+        />
+        <div class="cwg-vignette" aria-hidden="true"></div>
+      </div>
+      <div class="cwg-corner cwg-corner--tl" aria-hidden="true"></div>
+      <div class="cwg-corner cwg-corner--br" aria-hidden="true"></div>
+    </figure>
+
+  </div>
+
+</section>
+
+<style>
+  .cwg-root {
+    padding: 4rem 2rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  /* ── Chapter marker ── */
+  .cwg-chapter {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 3rem;
+  }
+
+  .cwg-chapter__num {
+    font-family: var(--font-display);
+    font-size: 4rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.15;
+    letter-spacing: -0.03em;
+    display: block;
+  }
+
+  .cwg-chapter__rule {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .cwg-chapter__label {
+    font-size: 0.78rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  /* ── Composition stage ── */
+  .cwg-stage {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    grid-template-rows: auto;
+    gap: 0;
+    align-items: start;
+    position: relative;
+  }
+
+  /* ── Shared figure shell ── */
+  .cwg-fig {
+    position: relative;
+    margin: 0;
+  }
+
+  /* ── Landscape image (left, spans top) ── */
+  .cwg-fig--landscape {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    margin-right: -60px; /* intentional overlap with portrait */
+    z-index: 1;
+  }
+
+  .cwg-frame--landscape {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.12);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 4px 12px rgba(0,0,0,0.35);
+    aspect-ratio: 3 / 2;
+  }
+
+  /* ── Portrait image (right, offset down, overlaps) ── */
+  .cwg-fig--portrait {
+    grid-column: 2 / 3;
+    grid-row: 1;
+    margin-top: 5rem;   /* push down to create visual tension */
+    z-index: 2;
+    box-shadow: -12px 0 40px rgba(0,0,0,0.45);
+  }
+
+  .cwg-frame--portrait {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.12);
+    box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 4px 12px rgba(0,0,0,0.35);
+    aspect-ratio: 2 / 3;
+  }
+
+  /* ── Shared image styles ── */
+  .cwg-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    filter: brightness(0.82) contrast(1.05) saturate(0.88);
+    transition: transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.7s ease;
+  }
+
+  .cwg-fig:hover .cwg-img {
+    transform: scale(1.03);
+    filter: brightness(0.9) contrast(1.03) saturate(0.95);
+  }
+
+  /* ── Vignette ── */
+  .cwg-vignette {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse at center, transparent 40%, rgba(10,10,9,0.45) 100%),
+      linear-gradient(to bottom, transparent 55%, rgba(10,10,9,0.55) 100%);
+    pointer-events: none;
+  }
+
+  /* ── Corner accents ── */
+  .cwg-corner {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  .cwg-corner--tl {
+    top: -4px; left: -4px;
+    border-top: 1px solid var(--color-accent);
+    border-left: 1px solid var(--color-accent);
+  }
+
+  .cwg-corner--br {
+    bottom: -4px; right: -4px;
+    border-bottom: 1px solid var(--color-accent);
+    border-right: 1px solid var(--color-accent);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .cwg-stage {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto auto;
+      gap: 2.5rem;
+    }
+
+    .cwg-fig--landscape {
+      grid-column: 1;
+      grid-row: 1;
+      margin-right: 0;
+    }
+
+    .cwg-fig--portrait {
+      grid-column: 1;
+      grid-row: 2;
+      margin-top: 0;
+      max-width: 65%;
+      margin-left: auto;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .cwg-fig--portrait {
+      max-width: 85%;
+    }
+  }
+</style>

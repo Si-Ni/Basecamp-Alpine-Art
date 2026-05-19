@@ -1,0 +1,382 @@
+---
+// src/layouts/Layout.astro
+export interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Hannah Pilack – Kunst & Fotografie' } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content={description} />
+  <title>BasecampAlpineArt</title>
+  <link rel="icon" type="image/svg+xml" href="/images/logo.jpg" />
+  <link rel="stylesheet" href="/src/styles/global.css" />
+</head>
+<body>
+  <slot name="header-overlay" />
+
+  <header id="site-header">
+    <div class="header-inner">
+      <a href="/" class="logo" aria-label="BasecampAlpineArt">
+        <span class="logo-name">BasecampAlpineArt</span>
+      </a>
+
+      <nav class="desktop-nav" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="/" class="nav-link">Home</a></li>
+          <li><a href="/ueber-mich" class="nav-link">Über mich</a></li>
+          <li><a href="/werke" class="nav-link">Werke</a></li>
+          <li><a href="/unterwegs" class="nav-link">Unterwegs</a></li>
+          <li><a href="/auftragsarbeiten" class="nav-link">Auftragsarbeiten</a></li>
+          <li><a href="/ausstellungen" class="nav-link">Ausstellungen</a></li>
+          <li><a href="/kontakt" class="nav-link nav-link--cta">Kontakt</a></li>
+        </ul>
+      </nav>
+
+      <button
+        class="hamburger"
+        aria-label="Menü öffnen"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+        id="hamburger-btn"
+      >
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+    <nav aria-label="Mobile Navigation">
+      <ul>
+        <li><a href="/" class="mobile-nav-link">Home</a></li>
+        <li><a href="/ueber-mich" class="mobile-nav-link">Über mich</a></li>
+        <li><a href="/werke" class="mobile-nav-link">Werke</a></li>
+        <li><a href="/unterwegs" class="mobile-nav-link">Unterwegs</a></li>
+        <li><a href="/auftragsarbeiten" class="mobile-nav-link">Auftragsarbeiten</a></li>
+        <li><a href="/ausstellungen" class="mobile-nav-link">Ausstellungen</a></li>
+        <li><a href="/kontakt" class="mobile-nav-link">Kontakt</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p class="footer-copy">© 2026 Hannah Pilack. Alle Rechte vorbehalten.</p>
+      <nav class="footer-links" aria-label="Footer Navigation">
+        <a href="/impressum">Impressum</a>
+        <a href="https://www.instagram.com/basecampalpineart/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="mailto:basecampalpineart@gmx.de">E-Mail</a>
+      </nav>
+    </div>
+  </footer>
+</body>
+</html>
+
+<style>
+  /* ── Header ── */
+  #site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    height: var(--header-height);
+    background: rgba(10, 10, 9, 0.55);
+    backdrop-filter: blur(18px) saturate(160%);
+    -webkit-backdrop-filter: blur(18px) saturate(160%);
+    border-bottom: 1px solid var(--color-border);
+    transition: background var(--transition-base);
+  }
+
+  .header-inner {
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+  }
+
+  /* Logo */
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+  }
+
+  .logo-name {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    transition: color var(--transition-base);
+  }
+
+  .logo:hover .logo-name {
+    color: var(--color-accent);
+  }
+
+  /* Desktop nav */
+  .desktop-nav ul {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    list-style: none;
+  }
+
+  .nav-link {
+    font-size: 0.78rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    padding: 0.4rem 0.75rem;
+    border-radius: var(--radius-sm);
+    transition: color var(--transition-base), background var(--transition-base);
+    position: relative;
+  }
+
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 1px;
+    background: var(--color-accent);
+    transition: width var(--transition-base);
+  }
+
+  .nav-link:hover {
+    color: var(--color-text);
+  }
+
+  .nav-link:hover::after {
+    width: 60%;
+  }
+
+  .nav-link--cta {
+    color: var(--color-accent);
+    border: 1px solid rgba(201, 169, 110, 0.3);
+    padding: 0.4rem 1rem;
+  }
+
+  .nav-link--cta:hover {
+    background: rgba(201, 169, 110, 0.1);
+    color: var(--color-accent);
+  }
+
+  .nav-link--cta::after { display: none; }
+
+  /* Active state */
+  .nav-link[aria-current="page"] {
+    color: var(--color-text);
+  }
+  .nav-link[aria-current="page"]::after {
+    width: 60%;
+  }
+
+  /* ── Hamburger ── */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    cursor: pointer;
+    border-radius: var(--radius-sm);
+    transition: background var(--transition-base);
+  }
+
+  .hamburger:hover {
+    background: rgba(255,255,255,0.05);
+  }
+
+  .hamburger-bar {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--color-text);
+    border-radius: 1px;
+    transition: transform var(--transition-base), opacity var(--transition-base), width var(--transition-base);
+    transform-origin: center;
+  }
+
+  .hamburger[aria-expanded="true"] .hamburger-bar:nth-child(1) {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+  .hamburger[aria-expanded="true"] .hamburger-bar:nth-child(2) {
+    opacity: 0;
+    width: 0;
+  }
+  .hamburger[aria-expanded="true"] .hamburger-bar:nth-child(3) {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* ── Mobile Menu ── */
+  .mobile-menu {
+    position: fixed;
+    inset: 0;
+    z-index: 99;
+    background: rgba(10, 10, 9, 0.97);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--transition-base);
+  }
+
+  .mobile-menu.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-menu nav ul {
+    list-style: none;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mobile-nav-link {
+    font-family: var(--font-display);
+    font-size: clamp(2rem, 6vw, 3.5rem);
+    font-weight: 300;
+    color: var(--color-muted);
+    letter-spacing: 0.05em;
+    transition: color var(--transition-base);
+    display: block;
+    padding: 0.25rem 1rem;
+  }
+
+  .mobile-nav-link:hover {
+    color: var(--color-accent);
+  }
+
+  /* ── Main ── */
+  #main-content {
+    min-height: calc(100vh - var(--header-height));
+    padding-top: var(--header-height);
+  }
+
+  /* ── Footer ── */
+  .site-footer {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer-inner {
+    padding: 1.5rem 2rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .footer-copy {
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    color: var(--color-muted);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 2rem;
+  }
+
+  .footer-links a {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    transition: color var(--transition-base);
+  }
+
+  .footer-links a:hover {
+    color: var(--color-accent);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 1010px) {
+    .desktop-nav {
+      display: none;
+    }
+
+    .hamburger {
+      display: flex;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .header-inner {
+      padding: 0 1.25rem;
+    }
+
+    .footer-inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .footer-links {
+      gap: 1.25rem;
+    }
+  }
+</style>
+
+<script>
+  // Hamburger toggle
+  const btn = document.getElementById('hamburger-btn');
+  const menu = document.getElementById('mobile-menu');
+
+  btn?.addEventListener('click', () => {
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    btn.setAttribute('aria-expanded', String(!expanded));
+    btn.setAttribute('aria-label', expanded ? 'Menü öffnen' : 'Menü schließen');
+    menu?.classList.toggle('open', !expanded);
+    menu?.setAttribute('aria-hidden', String(expanded));
+    document.body.style.overflow = expanded ? '' : 'hidden';
+  });
+
+  // Close on mobile nav link click
+  menu?.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      btn?.setAttribute('aria-expanded', 'false');
+      btn?.setAttribute('aria-label', 'Menü öffnen');
+      menu.classList.remove('open');
+      menu.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    });
+  });
+
+  // Set active nav link
+  const currentPath = window.location.pathname;
+  document.querySelectorAll('.nav-link, .mobile-nav-link').forEach((link) => {
+    const href = link.getAttribute('href');
+    if (href && (href === currentPath || (href !== '/' && currentPath.startsWith(href)))) {
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+</script>

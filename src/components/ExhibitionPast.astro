@@ -1,0 +1,406 @@
+---
+// src/components/ExhibitionPast.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Past exhibitions section for the Ausstellungen page.
+// Editorial sidebar layout: chapter marker left, content right.
+// Displays the flyer image alongside the structured exhibition details.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="exp-root" aria-labelledby="exp-heading">
+  <div class="exp-inner">
+
+    <!-- ── Sidebar ── -->
+    <aside class="exp-sidebar">
+      <div class="exp-chapter">
+        <span class="exp-chapter__num" aria-hidden="true">I</span>
+        <span class="exp-chapter__rule" aria-hidden="true"></span>
+        <p class="exp-chapter__label" id="exp-heading">Vergangene Ausstellungen</p>
+      </div>
+      <blockquote class="exp-pullquote">
+        <p>„Ein Gemälde hält fest, was kein Foto einfangen kann."</p>
+      </blockquote>
+    </aside>
+
+    <!-- ── Body ── -->
+    <div class="exp-body">
+
+      <!-- Exhibition card -->
+      <article class="exp-card" aria-label="Ausstellung März 2026">
+
+        <!-- Flyer image -->
+        <figure class="exp-flyer">
+          <div class="exp-flyer__frame">
+            <img
+              src="/images/exhibition/flyer.png"
+              alt="Ausstellungsflyer – Ölgemälde und Aquarelle Hannah Pilack, März 2026"
+              loading="lazy"
+              decoding="async"
+              class="exp-flyer__img"
+            />
+            <div class="exp-flyer__overlay" aria-hidden="true"></div>
+          </div>
+          <div class="exp-flyer__corner exp-flyer__corner--tl" aria-hidden="true"></div>
+          <div class="exp-flyer__corner exp-flyer__corner--br" aria-hidden="true"></div>
+        </figure>
+
+        <!-- Details -->
+        <div class="exp-details">
+
+          <header class="exp-details__header">
+            <p class="exp-details__label">Ausstellung</p>
+            <h2 class="exp-details__title">Ölgemälde und Aquarelle</h2>
+            <p class="exp-details__artist">Hannah Pilack</p>
+          </header>
+
+          <div class="exp-divider" aria-hidden="true">
+            <span class="exp-divider__line"></span>
+            <span class="exp-divider__glyph">✦</span>
+            <span class="exp-divider__line exp-divider__line--rev"></span>
+          </div>
+
+          <dl class="exp-meta">
+            <div class="exp-meta__row">
+              <dt class="exp-meta__key">Datum</dt>
+              <dd class="exp-meta__val">8. März 2026, ab 15:00 Uhr</dd>
+            </div>
+            <div class="exp-meta__row">
+              <dt class="exp-meta__key">Ort</dt>
+              <dd class="exp-meta__val">DAV Kletterzentrum Waldkraiburg</dd>
+            </div>
+            <div class="exp-meta__row">
+              <dt class="exp-meta__key">Adresse</dt>
+              <dd class="exp-meta__val">
+                Franz-Liszt-Straße 32<br />
+                84478 Waldkraiburg
+              </dd>
+            </div>
+          </dl>
+
+          <!-- Past marker badge -->
+          <div class="exp-badge" aria-label="Vergangene Ausstellung">
+            <span class="exp-badge__dot" aria-hidden="true"></span>
+            Vergangen
+          </div>
+
+        </div>
+
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<style>
+  .exp-root {
+    padding: 5rem 2rem 4rem;
+    max-width: 1140px;
+    margin: 0 auto;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+
+  .exp-inner {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 0 5rem;
+    align-items: start;
+  }
+
+  /* ── Sidebar ── */
+  .exp-sidebar {
+    position: sticky;
+    top: 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.2rem;
+  }
+
+  .exp-chapter { display: flex; flex-direction: column; gap: 0.7rem; }
+
+  .exp-chapter__num {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 300;
+    line-height: 1;
+    color: var(--color-accent);
+    opacity: 0.18;
+    letter-spacing: -0.03em;
+  }
+
+  .exp-chapter__rule {
+    display: block;
+    width: 28px;
+    height: 1px;
+    background: var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .exp-chapter__label {
+    font-size: 0.8rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .exp-pullquote {
+    margin: 0;
+    padding: 0 0 0 1.2rem;
+    border-left: 1px solid rgba(201,169,110,0.25);
+  }
+
+  .exp-pullquote p {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-style: italic;
+    font-weight: 300;
+    line-height: 1.65;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  /* ── Body ── */
+  .exp-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    padding-top: 0.4rem;
+  }
+
+  /* ── Exhibition card ── */
+  .exp-card {
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 3.5rem;
+    align-items: start;
+    padding: 2.5rem;
+    border: 1px solid rgba(201,169,110,0.1);
+    background: rgba(201,169,110,0.02);
+    border-radius: 2px;
+    position: relative;
+    /* Subtle inner shadow for depth */
+    box-shadow: inset 0 1px 0 rgba(201,169,110,0.06), 0 8px 32px rgba(0,0,0,0.25);
+  }
+
+  /* Top-left corner accent on the card itself */
+  .exp-card::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 32px; height: 32px;
+    border-top: 1px solid rgba(201,169,110,0.35);
+    border-left: 1px solid rgba(201,169,110,0.35);
+    pointer-events: none;
+  }
+
+  .exp-card::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; right: -1px;
+    width: 32px; height: 32px;
+    border-bottom: 1px solid rgba(201,169,110,0.35);
+    border-right: 1px solid rgba(201,169,110,0.35);
+    pointer-events: none;
+  }
+
+  /* ── Flyer ── */
+  .exp-flyer {
+    position: relative;
+    margin: 0;
+  }
+
+  .exp-flyer__frame {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(201,169,110,0.13);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.5), 0 2px 8px rgba(0,0,0,0.3);
+    /* Respect whatever aspect ratio the flyer has */
+    line-height: 0;
+  }
+
+  .exp-flyer__img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: brightness(0.9) contrast(1.03) saturate(0.9);
+    transition: transform 0.9s cubic-bezier(0.25,0.46,0.45,0.94), filter 0.7s ease;
+  }
+
+  .exp-flyer:hover .exp-flyer__img {
+    transform: scale(1.02);
+    filter: brightness(0.96) contrast(1.01) saturate(0.96);
+  }
+
+  .exp-flyer__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 65%, rgba(10,10,9,0.4) 100%);
+    pointer-events: none;
+  }
+
+  .exp-flyer__corner {
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    pointer-events: none;
+    opacity: 0.35;
+  }
+
+  .exp-flyer__corner--tl { top: -4px;    left: -4px;    border-top: 1px solid var(--color-accent); border-left:   1px solid var(--color-accent); }
+  .exp-flyer__corner--br { bottom: -4px; right: -4px;   border-bottom: 1px solid var(--color-accent); border-right: 1px solid var(--color-accent); }
+
+  /* ── Details ── */
+  .exp-details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    justify-content: center;
+  }
+
+  .exp-details__header { display: flex; flex-direction: column; gap: 0.4rem; }
+
+  .exp-details__label {
+    font-size: 0.65rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    margin: 0;
+    opacity: 0.7;
+  }
+
+  .exp-details__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.4rem, 2.8vw, 2rem);
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .exp-details__artist {
+    font-family: var(--font-display);
+    font-size: 0.95rem;
+    font-style: italic;
+    font-weight: 300;
+    color: var(--color-muted);
+    margin: 0;
+  }
+
+  /* ── Inline divider ── */
+  .exp-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .exp-divider__line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.18));
+  }
+
+  .exp-divider__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.18));
+  }
+
+  .exp-divider__glyph {
+    font-size: 0.5rem;
+    color: var(--color-accent);
+    opacity: 0.5;
+    flex-shrink: 0;
+  }
+
+  /* ── Meta definition list ── */
+  .exp-meta {
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+  }
+
+  .exp-meta__row {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 1rem;
+    align-items: baseline;
+  }
+
+  .exp-meta__key {
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(201,169,110,0.45);
+    font-weight: 400;
+    margin: 0;
+  }
+
+  .exp-meta__val {
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* ── Past badge ── */
+  .exp-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(122,118,112,0.45);
+    font-weight: 400;
+    padding: 0.4rem 0.9rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 50px;
+    background: rgba(255,255,255,0.02);
+    align-self: flex-start;
+  }
+
+  .exp-badge__dot {
+    display: block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: rgba(122,118,112,0.35);
+    flex-shrink: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 860px) {
+    .exp-inner {
+      grid-template-columns: 1fr;
+      gap: 3rem;
+    }
+
+    .exp-sidebar {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      gap: 2rem;
+    }
+
+    .exp-chapter {
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .exp-card {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      padding: 1.8rem 1.4rem;
+    }
+  }
+</style>
