@@ -1,23 +1,30 @@
 // src/lib/rateLimiter.ts
 // ─────────────────────────────────────────────────────────────────────────────
-// Sliding-window rate limiter.
+// Sliding-window rate limiter backed by Cloudflare KV.
 //
 // Two independent limiters protect the contact endpoint:
-//   • Per-IP    – cap burst from one network source  (default: 5 req / 10 min)
+//   • Per-IP    – cap burst from one network source  (default: 3 req / 60 min)
 //   • Per-email – cap submissions for one address    (default: 3 req / 60 min)
 //
-// Store: in-process Map (works for single-instance / serverless cold starts).
-// To scale horizontally, swap the store for Redis by setting REDIS_URL and
-// installing ioredis — the interface is identical; only getStore() changes.
+// KV binding:
+//   The Cloudflare KV namespace must be bound as "RATE_LIMIT" in wrangler.toml
+//   and in the Cloudflare Pages dashboard (Settings → Functions → KV bindings).
 //
-// Environment variables:
-//   RL_IP_MAX              (default: 5)
-//   RL_IP_WINDOW_SECONDS   (default: 600   = 10 min)
-//   RL_EMAIL_MAX           (default: 3)
-//   RL_EMAIL_WINDOW_SECONDS(default: 3600  = 60 min)
+// Each KV entry stores a JSON array of timestamps (ms).
+// TTL is set to the window length so Cloudflare auto-expires stale entries.
 // ─────────────────────────────────────────────────────────────────────────────
 
-// ── Config ───────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
+
+/** Minimal interface for the KV namespace — matches the Cloudflare Workers KV API. */
+export interface KVNamespace {
+  get(key: string): Promise<string | null>;
+  put(
+    key: string,
+    value: string,
+    options?: { expirationTtl?: number },
+  ): Promise<void>;
+}
 
 export interface LimiterConfig {
   max: number;
@@ -25,76 +32,65 @@ export interface LimiterConfig {
   keyPrefix: string;
 }
 
+export interface RateLimitResult {
+  allowed: boolean;
+  count: number;
+  limit: number;
+  retryAfterSeconds: number;
+}
+
+// ── Default config ────────────────────────────────────────────────────────────
+// Hardcoded here because import.meta.env is not reliable at module init time
+// in Cloudflare Workers. Pass overrides via the config objects if needed.
+
 export const IP_CONFIG: LimiterConfig = {
-  max: Number(import.meta.env.RL_IP_MAX ?? 3),
-  windowMs: Number(import.meta.env.RL_IP_WINDOW_SECONDS ?? 3600) * 1000,
+  max: 3,
+  windowMs: 60 * 60 * 1000, // 60 min
   keyPrefix: "ip:",
 };
 
 export const EMAIL_CONFIG: LimiterConfig = {
-  max: Number(import.meta.env.RL_EMAIL_MAX ?? 3),
-  windowMs: Number(import.meta.env.RL_EMAIL_WINDOW_SECONDS ?? 3600) * 1000,
+  max: 3,
+  windowMs: 60 * 60 * 1000, // 60 min
   keyPrefix: "em:",
 };
 
-// ── Result ────────────────────────────────────────────────────────────────────
-
-export interface RateLimitResult {
-  allowed: boolean;
-  /** Current count within the window */
-  count: number;
-  limit: number;
-  /** Seconds until the oldest request falls out of the window */
-  retryAfterSeconds: number;
-}
-
-// ── In-memory sliding-window store ───────────────────────────────────────────
-// Each key maps to a sorted list of timestamps (ms).
-
-const store = new Map<string, number[]>();
-
-/** Prune keys whose last timestamp is older than their window to prevent leaks. */
-function prune(key: string, windowMs: number): void {
-  const now = Date.now();
-  const cutoff = now - windowMs;
-  const times = store.get(key);
-  if (!times) return;
-  const fresh = times.filter((t) => t > cutoff);
-  if (fresh.length === 0) store.delete(key);
-  else store.set(key, fresh);
-}
-
-// ── Core function ─────────────────────────────────────────────────────────────
+// ── Core ──────────────────────────────────────────────────────────────────────
 
 /**
- * Records one request for `identifier` under the given config and returns
- * whether it is within the allowed limit.
- *
- * @param config  - Limiter configuration (use IP_CONFIG or EMAIL_CONFIG)
- * @param identifier - Raw key value (IP address, email address, etc.)
+ * Records one request and returns whether it falls within the allowed limit.
+ * All state lives in KV — safe across every Cloudflare edge instance.
  */
-export function checkRateLimit(
+export async function checkRateLimit(
+  kv: KVNamespace,
   config: LimiterConfig,
   identifier: string,
-): RateLimitResult {
-  // Normalise & namespace the key
+): Promise<RateLimitResult> {
   const key = config.keyPrefix + identifier.trim().toLowerCase().slice(0, 256);
   const now = Date.now();
   const cutoff = now - config.windowMs;
+  const windowSeconds = Math.ceil(config.windowMs / 1000);
 
-  // Fetch + prune existing timestamps
-  const existing = (store.get(key) ?? []).filter((t) => t > cutoff);
+  // Read existing timestamps from KV
+  const raw = await kv.get(key);
+  const allTimestamps: number[] = raw ? (JSON.parse(raw) as number[]) : [];
 
-  // Calculate retry-after BEFORE appending the new timestamp
+  // Prune timestamps outside the current window
+  const existing = allTimestamps.filter((t) => t > cutoff);
+
+  // Calculate retry-after BEFORE appending
   const oldestInWindow = existing[0] ?? now;
   const retryAfterMs = Math.max(0, oldestInWindow + config.windowMs - now);
 
   const allowed = existing.length < config.max;
 
   if (allowed) {
-    // Only record allowed requests — rejected ones don't count toward the window
+    // Only record allowed requests
     existing.push(now);
-    store.set(key, existing);
+    // TTL = window length so KV auto-cleans entries with no recent activity
+    await kv.put(key, JSON.stringify(existing), {
+      expirationTtl: windowSeconds,
+    });
   }
 
   return {
@@ -106,18 +102,19 @@ export function checkRateLimit(
 }
 
 /**
- * Convenience wrapper that checks both IP and email limits.
- * Returns the most restrictive result (first failure wins).
+ * Checks both IP and email limits.
+ * Returns the first failure, or the IP result if both pass.
  */
-export function checkContactLimits(
+export async function checkContactLimits(
+  kv: KVNamespace,
   ip: string,
   email: string,
-): RateLimitResult & { blockedBy?: "ip" | "email" } {
-  const ipResult = checkRateLimit(IP_CONFIG, ip);
+): Promise<RateLimitResult & { blockedBy?: "ip" | "email" }> {
+  const ipResult = await checkRateLimit(kv, IP_CONFIG, ip);
   if (!ipResult.allowed) return { ...ipResult, blockedBy: "ip" };
 
-  const emailResult = checkRateLimit(EMAIL_CONFIG, email);
+  const emailResult = await checkRateLimit(kv, EMAIL_CONFIG, email);
   if (!emailResult.allowed) return { ...emailResult, blockedBy: "email" };
 
-  return ipResult; // both allowed → return IP result (has correct count/limit)
+  return ipResult;
 }

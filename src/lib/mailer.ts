@@ -1,55 +1,9 @@
 // src/lib/mailer.ts
-// ─────────────────────────────────────────────────────────────────────────────
-// Nodemailer transport singleton + email template builder.
-//
-// Required environment variables (.env):
-//   SMTP_HOST     e.g. smtp.gmail.com
-//   SMTP_PORT     e.g. 587 (STARTTLS) or 465 (TLS)
-//   SMTP_USER     sender / auth username
-//   SMTP_PASS     app password or OAuth2 secret
-//   CONTACT_TO    recipient address (the artist's inbox)
-//   CONTACT_FROM  "From" header, e.g. "Website <noreply@example.de>"
-// ─────────────────────────────────────────────────────────────────────────────
-
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 import type { ContactPayload } from "../types/contact";
 import { escapeHtml, safeMultiline } from "./sanitize";
 
-// ── Transport singleton ───────────────────────────────────────────────────────
-
-let _transport: ReturnType<typeof nodemailer.createTransport> | null = null;
-
-function getTransport() {
-  if (_transport) return _transport;
-
-  const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS } = import.meta.env;
-
-  if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS) {
-    throw new Error(
-      "Mailer: SMTP_HOST, SMTP_USER and SMTP_PASS must be set in environment variables.",
-    );
-  }
-
-  const port = Number(SMTP_PORT ?? 587);
-  const secure = port === 465; // true = TLS wrapper; false = STARTTLS
-
-  _transport = nodemailer.createTransport({
-    host: SMTP_HOST,
-    port,
-    secure,
-    auth: {
-      user: SMTP_USER,
-      pass: SMTP_PASS,
-    },
-    tls: {
-      rejectUnauthorized: true,
-    },
-  });
-
-  return _transport;
-}
-
-// ── HTML template ─────────────────────────────────────────────────────────────
+// ── HTML template (unchanged) ─────────────────────────────────────────────────
 
 function buildHtml(p: ContactPayload): string {
   const name = escapeHtml(p.name);
@@ -123,23 +77,29 @@ function buildText(p: ContactPayload): string {
     .join("\n");
 }
 
-// ── Public send function ──────────────────────────────────────────────────────
+// ── Send ──────────────────────────────────────────────────────────────────────
 
-export async function sendContactMail(p: ContactPayload): Promise<void> {
-  const transport = getTransport();
+export async function sendContactMail(
+  p: ContactPayload,
+  env: Record<string, string | undefined>,
+): Promise<void> {
+  const apiKey = env.RESEND_API_KEY;
+  if (!apiKey) throw new Error("Mailer: RESEND_API_KEY must be set.");
+
+  const resend = new Resend(apiKey);
 
   const subjectLine = p.subject
     ? `[Kontakt] ${p.subject} – ${p.name}`
     : `[Kontakt] Neue Nachricht von ${p.name}`;
 
-  const info = await transport.sendMail({
-    from: import.meta.env.CONTACT_FROM ?? import.meta.env.SMTP_USER,
-    to: import.meta.env.CONTACT_TO ?? import.meta.env.SMTP_USER,
+  const { error } = await resend.emails.send({
+    from: env.CONTACT_FROM ?? "noreply@hannahmilenapilack.de",
+    to: env.CONTACT_TO ?? "hannah@hannahmilenapilack.de",
     replyTo: `"${p.name}" <${p.email}>`,
     subject: subjectLine,
     text: buildText(p),
     html: buildHtml(p),
   });
 
-  console.log("[mailer] sendMail result:", info);
+  if (error) throw new Error(`Resend error: ${error.message}`);
 }

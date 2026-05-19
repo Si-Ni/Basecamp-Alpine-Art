@@ -11,10 +11,10 @@
 //   6. Zod schema validation (types, lengths, patterns)
 //   7. Honeypot check (bot trap)
 //   8. Defence-in-depth sanitisation (strip tags, escape HTML)
-//   9. Nodemailer send (TLS enforced)
+//   9. Resend send (TLS enforced by Resend internally)
 //
 // Returns JSON { ok, message } in all cases.
-// Error responses never leak internal details (stack traces, SMTP config, etc.)
+// Error responses never leak internal details.
 // ─────────────────────────────────────────────────────────────────────────────
 
 import type { APIContext } from "astro";
@@ -27,10 +27,9 @@ import { sendContactMail } from "../../lib/mailer";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 
-/** Hard cap on request body size (bytes) — blocks payload flooding */
-const MAX_BODY_BYTES = 8_192; // 8 KB is plenty for a contact form
+const MAX_BODY_BYTES = 8_192;
 
-// ── Security headers applied to every response ────────────────────────────────
+// ── Security headers ──────────────────────────────────────────────────────────
 
 const SECURITY_HEADERS: Record<string, string> = {
   "Content-Type": "application/json; charset=utf-8",
@@ -64,7 +63,6 @@ function err(message: string, status: number, fields?: Record<string, string>) {
 // ── IP extraction ─────────────────────────────────────────────────────────────
 
 function getClientIp(request: Request): string {
-  // Trust Cloudflare / common reverse-proxy headers first
   return (
     request.headers.get("cf-connecting-ip") ??
     request.headers.get("x-real-ip") ??
@@ -75,8 +73,14 @@ function getClientIp(request: Request): string {
 
 // ── Handler ───────────────────────────────────────────────────────────────────
 
-export async function POST({ request }: APIContext): Promise<Response> {
-  // 1. Content-Type guard — only accept JSON (sent by our fetch call)
+export async function POST(context: APIContext): Promise<Response> {
+  const { request } = context;
+
+  // Cloudflare exposes env bindings here at request time (not module init time)
+  const cfEnv: Record<string, string | undefined> =
+    (context.locals as any)?.runtime?.env ?? {};
+
+  // 1. Content-Type guard
   const ct = request.headers.get("content-type") ?? "";
   if (!ct.includes("application/json")) {
     return err("Ungültiger Content-Type.", 415);
@@ -88,7 +92,7 @@ export async function POST({ request }: APIContext): Promise<Response> {
     return err("Anfrage ist zu groß.", 413);
   }
 
-  // 3. Parse JSON body — catch malformed JSON
+  // 3. Parse JSON body
   let raw: unknown;
   try {
     const text = await request.text();
@@ -98,10 +102,9 @@ export async function POST({ request }: APIContext): Promise<Response> {
     return err("Ungültiges JSON.", 400);
   }
 
-  // 4. Zod validation — parse and type-check every field
+  // 4. Zod validation
   const parsed = ContactSchema.safeParse(raw);
   if (!parsed.success) {
-    // Map Zod issues to a flat { fieldName: firstError } object
     const fields: Record<string, string> = {};
     for (const issue of parsed.error.issues) {
       const key = issue.path[0]?.toString();
@@ -112,42 +115,50 @@ export async function POST({ request }: APIContext): Promise<Response> {
 
   const data = parsed.data;
 
-  // 5. Honeypot check — bots fill hidden fields; humans never do
+  // 5. Honeypot check
   if (data.website && data.website.trim().length > 0) {
-    // Silent accept: don't tell bots they were detected
     return ok("Nachricht gesendet.");
   }
 
-  // 6. Rate limiting (after parsing so we have the real email address)
+  // 6. Rate limiting
   const ip = getClientIp(request);
-  const rlResult = checkContactLimits(ip, data.email);
+  const kv = cfEnv.RATE_LIMIT as any; // KV namespace injected by Cloudflare runtime
 
-  if (!rlResult.allowed) {
-    return json(
-      {
-        ok: false,
-        message: `Zu viele Anfragen. Bitte warte ${rlResult.retryAfterSeconds} Sekunden.`,
-      },
-      429,
-      { "Retry-After": String(rlResult.retryAfterSeconds) },
+  if (!kv) {
+    // KV not bound — fail open in dev, log loudly
+    console.warn(
+      "[contact API] RATE_LIMIT KV namespace not bound — skipping rate limit",
     );
   }
 
-  // 7. Defence-in-depth sanitisation (after Zod — belt AND suspenders)
+  if (kv) {
+    const rlResult = await checkContactLimits(kv, ip, data.email);
+    if (!rlResult.allowed) {
+      return json(
+        {
+          ok: false,
+          message: `Zu viele Anfragen. Bitte warte ${rlResult.retryAfterSeconds} Sekunden.`,
+        },
+        429,
+        { "Retry-After": String(rlResult.retryAfterSeconds) },
+      );
+    }
+  }
+
+  // 7. Sanitisation
   const sanitized = {
     name: sanitizeText(data.name, 100),
-    email: data.email, // already validated and lowercased by Zod
+    email: data.email,
     subject: sanitizeText(data.subject ?? "", 200),
     message: sanitizeText(data.message, 4000),
     website: "",
   };
 
-  // 8. Send email
+  // 8. Send email via Resend
   try {
-    await sendContactMail(sanitized);
+    await sendContactMail(sanitized, cfEnv);
     return ok("Nachricht gesendet.");
   } catch (error) {
-    // Log server-side but never expose SMTP internals to the client
     console.error("[contact API] sendMail failed:", error);
     return err(
       "E-Mail konnte nicht gesendet werden. Bitte versuche es später erneut.",
@@ -156,7 +167,8 @@ export async function POST({ request }: APIContext): Promise<Response> {
   }
 }
 
-// All other HTTP methods → 405 Method Not Allowed
+// ── All other methods → 405 ───────────────────────────────────────────────────
+
 export function GET() {
   return new Response(null, { status: 405, headers: SECURITY_HEADERS });
 }
