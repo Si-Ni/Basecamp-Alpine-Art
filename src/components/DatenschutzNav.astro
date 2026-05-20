@@ -1,0 +1,181 @@
+---
+// src/components/DatenschutzNav.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Sticky in-page navigation rail for the Datenschutzerklärung.
+// On desktop: fixed left column that highlights the active section as the
+// user scrolls. On mobile: collapses and hides (the content is linear).
+// Uses an IntersectionObserver — no framework dependency.
+// ─────────────────────────────────────────────────────────────────────────────
+
+const sections = [
+  { id: 'ds-praembel',       label: 'Präambel' },
+  { id: 'ds-verantwortlich', label: 'Verantwortlicher' },
+  { id: 'ds-uebersicht',     label: 'Übersicht' },
+  { id: 'ds-rechtsgrundlagen', label: 'Rechtsgrundlagen' },
+  { id: 'ds-sicherheit',     label: 'Sicherheit' },
+  { id: 'ds-uebermittlung',  label: 'Übermittlung' },
+  { id: 'ds-international',  label: 'Internationales' },
+  { id: 'ds-speicherung',    label: 'Speicherung' },
+  { id: 'ds-rechte',         label: 'Ihre Rechte' },
+  { id: 'ds-leistungen',     label: 'Leistungen' },
+  { id: 'ds-hosting',        label: 'Hosting' },
+  { id: 'ds-kontakt',        label: 'Kontakt' },
+  { id: 'ds-social',         label: 'Social Media' },
+  { id: 'ds-plugins',        label: 'Plug-ins' },
+  { id: 'ds-aenderung',      label: 'Änderungen' },
+  { id: 'ds-begriffe',       label: 'Begriffe' },
+];
+---
+
+<nav class="dn-root" aria-label="Seitennavigation Datenschutz">
+
+  <div class="dn-header" aria-hidden="true">
+    <span class="dn-header__rule"></span>
+    <span class="dn-header__glyph">✦</span>
+  </div>
+
+  <p class="dn-label">Inhalt</p>
+
+  <ol class="dn-list" role="list">
+    {sections.map(({ id, label }) => (
+      <li class="dn-item">
+        <a class="dn-link" href={`#${id}`} data-target={id}>
+          <span class="dn-link__dot" aria-hidden="true"></span>
+          <span class="dn-link__text">{label}</span>
+        </a>
+      </li>
+    ))}
+  </ol>
+
+</nav>
+
+<script>
+  // Highlight the nav link whose section is currently most visible
+  const links = document.querySelectorAll<HTMLAnchorElement>('.dn-link[data-target]');
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          links.forEach((l) => l.classList.remove('dn-link--active'));
+          const active = document.querySelector(`.dn-link[data-target="${entry.target.id}"]`);
+          active?.classList.add('dn-link--active');
+        }
+      });
+    },
+    { rootMargin: '-20% 0px -70% 0px', threshold: 0 }
+  );
+
+  links.forEach((link) => {
+    const target = document.getElementById(link.dataset.target ?? '');
+    if (target) observer.observe(target);
+  });
+</script>
+
+<style>
+  .dn-root {
+    position: sticky;
+    top: 7rem;
+    padding-top: 1rem;
+    animation: dn-fadeIn 1s 0.2s both;
+  }
+
+  /* ── Header ornament ── */
+  .dn-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 1.2rem;
+  }
+  .dn-header__rule {
+    display: block;
+    width: 20px; height: 1px;
+    background: var(--color-accent);
+    opacity: 0.35;
+  }
+  .dn-header__glyph {
+    font-size: 0.46rem;
+    color: var(--color-accent);
+    opacity: 0.5;
+  }
+
+  /* ── Label ── */
+  .dn-label {
+    font-size: 0.6rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    opacity: 0.65;
+    margin: 0 0 1.4rem;
+  }
+
+  /* ── List ── */
+  .dn-list {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    border-left: 1px solid rgba(201,169,110,0.08);
+  }
+
+  .dn-item { margin: 0; padding: 0; }
+
+  /* ── Links ── */
+  .dn-link {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.38rem 0 0.38rem 1rem;
+    text-decoration: none;
+    color: var(--color-muted);
+    font-size: 0.76rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    line-height: 1.4;
+    transition: color 0.2s;
+    position: relative;
+  }
+
+  .dn-link:hover { color: var(--color-text); }
+
+  .dn-link--active { color: var(--color-text); }
+
+  /* Active accent bar */
+  .dn-link--active::before {
+    content: '';
+    position: absolute;
+    left: -1px; top: 0; bottom: 0;
+    width: 1px;
+    background: var(--color-accent);
+  }
+
+  /* ── Dot indicator ── */
+  .dn-link__dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    opacity: 0.25;
+    flex-shrink: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .dn-link:hover .dn-link__dot,
+  .dn-link--active .dn-link__dot {
+    opacity: 0.8;
+    transform: scale(1.5);
+  }
+
+  .dn-link__text { flex: 1; }
+
+  /* ── Hide on mobile ── */
+  @media (max-width: 900px) {
+    .dn-root { display: none; }
+  }
+
+  @keyframes dn-fadeIn {
+    from { opacity: 0; transform: translateX(-12px); }
+    to   { opacity: 1; transform: translateX(0); }
+  }
+</style>

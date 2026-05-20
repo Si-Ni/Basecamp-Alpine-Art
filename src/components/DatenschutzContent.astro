@@ -1,0 +1,991 @@
+---
+// src/components/DatenschutzContent.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Full Datenschutzerklärung content.
+// Each GDPR section is an <article> with the same numbered-marker layout
+// used in ImpressumLegal.astro. Sub-sections use the il-sub-block pattern.
+//
+// Section IDs must match DatenschutzNav.astro's `sections` array exactly.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<main class="dc-root" aria-label="Datenschutzerklärung Inhalt">
+  <div class="dc-inner">
+
+    <!-- ════════════════════════════════ 01 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-praembel" aria-labelledby="ds-praembel-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">01</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-praembel-h">Präambel</h2>
+        <p class="dc-block__text">
+          Mit der folgenden Datenschutzerklärung möchten wir Sie darüber aufklären,
+          welche Arten Ihrer personenbezogenen Daten wir zu welchen Zwecken und in
+          welchem Umfang verarbeiten. Die Datenschutzerklärung gilt für alle von uns
+          durchgeführten Verarbeitungen personenbezogener Daten, sowohl im Rahmen der
+          Erbringung unserer Leistungen als auch insbesondere auf unseren Webseiten, in
+          mobilen Applikationen sowie innerhalb externer Onlinepräsenzen, wie z.&nbsp;B.
+          unserer Social-Media-Profile.
+        </p>
+        <p class="dc-block__text">Die verwendeten Begriffe sind nicht geschlechtsspezifisch.</p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 02 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-verantwortlich" aria-labelledby="ds-verantwortlich-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">02</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-verantwortlich-h">Verantwortlicher</h2>
+        <address class="dc-address">
+          Hannah Milena Pilack<br />
+          Kurfer Str. 24<br />
+          83093 Bad Endorf
+        </address>
+        <p class="dc-block__text">
+          E-Mail:
+          <a class="dc-link" href="mailto:basecampalpineart@gmx.de">basecampalpineart@gmx.de</a>
+          &ensp;·&ensp;
+          Impressum: <a class="dc-link" href="/impressum">impressum</a>
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 03 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-uebersicht" aria-labelledby="ds-uebersicht-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">03</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-uebersicht-h">Übersicht der Verarbeitungen</h2>
+        <p class="dc-block__text">
+          Die nachfolgende Übersicht fasst die Arten der verarbeiteten Daten und
+          die Zwecke ihrer Verarbeitung zusammen.
+        </p>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Arten der verarbeiteten Daten</h3>
+          <ul class="dc-list">
+            <li>Bestandsdaten</li><li>Zahlungsdaten</li><li>Kontaktdaten</li>
+            <li>Inhaltsdaten</li><li>Vertragsdaten</li><li>Nutzungsdaten</li>
+            <li>Meta-, Kommunikations- und Verfahrensdaten</li><li>Protokolldaten</li>
+          </ul>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Kategorien betroffener Personen</h3>
+          <ul class="dc-list">
+            <li>Leistungsempfänger und Auftraggeber</li><li>Interessenten</li>
+            <li>Kommunikationspartner</li><li>Nutzer</li>
+            <li>Geschäfts- und Vertragspartner</li>
+          </ul>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Zwecke der Verarbeitung</h3>
+          <ul class="dc-list">
+            <li>Erbringung vertraglicher Leistungen</li><li>Kommunikation</li>
+            <li>Sicherheitsmaßnahmen</li><li>Reichweitenmessung</li>
+            <li>Tracking</li><li>Büro- und Organisationsverfahren</li>
+            <li>Zielgruppenbildung</li><li>Marketing</li>
+            <li>Bereitstellung des Onlineangebots</li>
+            <li>Informationstechnische Infrastruktur</li><li>Öffentlichkeitsarbeit</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 04 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-rechtsgrundlagen" aria-labelledby="ds-rechtsgrundlagen-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">04</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-rechtsgrundlagen-h">Maßgebliche Rechtsgrundlagen</h2>
+        <p class="dc-block__text">
+          Im Folgenden erhalten Sie eine Übersicht der Rechtsgrundlagen der DSGVO,
+          auf deren Basis wir personenbezogene Daten verarbeiten.
+        </p>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Art. 6 DSGVO – Rechtsgrundlagen</h3>
+          <ul class="dc-list dc-list--definitions">
+            <li>
+              <strong>Einwilligung (lit.&nbsp;a)</strong> — Die betroffene Person hat
+              ihre Einwilligung für einen spezifischen Zweck gegeben.
+            </li>
+            <li>
+              <strong>Vertragserfüllung (lit.&nbsp;b)</strong> — Die Verarbeitung ist
+              für die Erfüllung eines Vertrags oder vorvertraglicher Maßnahmen
+              erforderlich.
+            </li>
+            <li>
+              <strong>Rechtliche Verpflichtung (lit.&nbsp;c)</strong> — Die Verarbeitung
+              ist zur Erfüllung einer rechtlichen Verpflichtung erforderlich.
+            </li>
+            <li>
+              <strong>Berechtigte Interessen (lit.&nbsp;f)</strong> — Die Verarbeitung
+              ist zur Wahrung der berechtigten Interessen des Verantwortlichen notwendig.
+            </li>
+          </ul>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Nationale Regelungen (BDSG)</h3>
+          <p class="dc-block__text">
+            Zusätzlich zu den Datenschutzregelungen der DSGVO gelten nationale
+            Regelungen zum Datenschutz in Deutschland, insbesondere das
+            Bundesdatenschutzgesetz (BDSG) sowie die Landesdatenschutzgesetze der
+            einzelnen Bundesländer.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 05 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-sicherheit" aria-labelledby="ds-sicherheit-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">05</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-sicherheit-h">Sicherheitsmaßnahmen</h2>
+        <p class="dc-block__text">
+          Wir treffen nach Maßgabe der gesetzlichen Vorgaben geeignete technische
+          und organisatorische Maßnahmen, um ein dem Risiko angemessenes Schutzniveau
+          zu gewährleisten. Zu den Maßnahmen gehören die Sicherung der Vertraulichkeit,
+          Integrität und Verfügbarkeit von Daten durch Kontrolle des physischen und
+          elektronischen Zugangs.
+        </p>
+        <p class="dc-block__text">
+          Online-Verbindungen werden durch TLS-/SSL-Verschlüsselungstechnologie (HTTPS)
+          gesichert. Wenn eine Website durch ein SSL-/TLS-Zertifikat gesichert ist, wird
+          dies durch HTTPS in der URL signalisiert.
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 06 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-uebermittlung" aria-labelledby="ds-uebermittlung-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">06</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-uebermittlung-h">Übermittlung von personenbezogenen Daten</h2>
+        <p class="dc-block__text">
+          Im Rahmen unserer Verarbeitung kommt es vor, dass personenbezogene Daten
+          an andere Stellen, Unternehmen oder Personen übermittelt werden. Zu den
+          Empfängern können z.&nbsp;B. IT-Dienstleister oder Anbieter von Diensten
+          gehören, die in eine Website eingebunden sind. In solchen Fällen beachten wir
+          die gesetzlichen Vorgaben und schließen entsprechende Verträge zum Schutz
+          Ihrer Daten ab.
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 07 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-international" aria-labelledby="ds-international-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">07</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-international-h">Internationale Datentransfers</h2>
+        <p class="dc-block__text">
+          Sofern wir Daten in ein Drittland (außerhalb der EU oder des EWR) übermitteln,
+          erfolgt dies stets im Einklang mit den gesetzlichen Vorgaben.
+        </p>
+        <p class="dc-block__text">
+          Für Datenübermittlungen in die USA stützen wir uns vorrangig auf das
+          Data Privacy Framework (DPF), welches durch einen Angemessenheitsbeschluss
+          der EU-Kommission vom 10.07.2023 anerkannt wurde. Zusätzlich haben wir mit
+          den jeweiligen Anbietern Standardvertragsklauseln abgeschlossen.
+        </p>
+        <p class="dc-block__text">
+          Weitere Informationen und eine Liste zertifizierter Unternehmen:
+          <a class="dc-link" href="https://www.dataprivacyframework.gov/" target="_blank" rel="noopener">
+            dataprivacyframework.gov
+          </a>
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 08 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-speicherung" aria-labelledby="ds-speicherung-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">08</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-speicherung-h">Datenspeicherung und Löschung</h2>
+        <p class="dc-block__text">
+          Wir löschen personenbezogene Daten gemäß den gesetzlichen Bestimmungen,
+          sobald die zugrundeliegenden Einwilligungen widerrufen werden oder keine
+          weiteren rechtlichen Grundlagen für die Verarbeitung bestehen.
+        </p>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Gesetzliche Aufbewahrungsfristen (Deutschland)</h3>
+          <ul class="dc-list dc-list--definitions">
+            <li><strong>10 Jahre</strong> — Bücher, Aufzeichnungen, Jahresabschlüsse (§&nbsp;147 AO, §&nbsp;257 HGB).</li>
+            <li><strong>8 Jahre</strong> — Buchungsbelege wie Rechnungen und Kostenbelege.</li>
+            <li><strong>6 Jahre</strong> — Übrige Geschäftsunterlagen, Geschäftsbriefe.</li>
+            <li><strong>3 Jahre</strong> — Daten zur Geltendmachung von Gewährleistungsansprüchen (§§&nbsp;195, 199 BGB).</li>
+          </ul>
+        </div>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 09 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-rechte" aria-labelledby="ds-rechte-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">09</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-rechte-h">Rechte der betroffenen Personen</h2>
+        <p class="dc-block__text">
+          Ihnen stehen als Betroffene nach der DSGVO verschiedene Rechte zu
+          (Art.&nbsp;15 bis 21 DSGVO):
+        </p>
+        <ul class="dc-list dc-list--definitions">
+          <li>
+            <strong>Widerspruchsrecht</strong> — Sie haben das Recht, aus Gründen
+            Ihrer besonderen Situation jederzeit gegen die Verarbeitung Widerspruch
+            einzulegen (Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;e/f DSGVO), insbesondere
+            gegen Direktwerbung.
+          </li>
+          <li>
+            <strong>Widerrufsrecht</strong> — Sie haben das Recht, erteilte
+            Einwilligungen jederzeit zu widerrufen.
+          </li>
+          <li>
+            <strong>Auskunftsrecht</strong> — Sie können eine Bestätigung verlangen,
+            ob Ihre Daten verarbeitet werden, sowie Auskunft und Kopie der Daten.
+          </li>
+          <li>
+            <strong>Recht auf Berichtigung</strong> — Sie können die
+            Vervollständigung oder Berichtigung unrichtiger Daten verlangen.
+          </li>
+          <li>
+            <strong>Recht auf Löschung &amp; Einschränkung</strong> — Sie können die
+            unverzügliche Löschung oder alternativ die Einschränkung der Verarbeitung
+            verlangen.
+          </li>
+          <li>
+            <strong>Datenübertragbarkeit</strong> — Sie haben das Recht, Ihre Daten
+            in einem maschinenlesbaren Format zu erhalten oder deren Übermittlung
+            an einen anderen Verantwortlichen zu fordern.
+          </li>
+          <li>
+            <strong>Beschwerde bei Aufsichtsbehörde</strong> — Sie haben das Recht
+            auf Beschwerde bei einer Aufsichtsbehörde, insbesondere in dem Mitgliedstaat
+            Ihres gewöhnlichen Aufenthaltsorts.
+          </li>
+        </ul>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 10 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-leistungen" aria-labelledby="ds-leistungen-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">10</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-leistungen-h">Geschäftliche Leistungen</h2>
+        <p class="dc-block__text">
+          Wir verarbeiten personenbezogene Daten unserer Vertrags- und
+          Geschäftspartner zur Anbahnung, Durchführung und Abwicklung von
+          Vertragsverhältnissen. Verarbeitet werden Stammdaten, Kontaktdaten,
+          Vertrags- und Leistungsdaten sowie Zahlungs- und Abrechnungsdaten.
+        </p>
+        <p class="dc-block__text">
+          <strong>Rechtsgrundlagen:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b DSGVO
+          (Vertragserfüllung), lit.&nbsp;c (gesetzliche Verpflichtung),
+          lit.&nbsp;f (berechtigte Interessen).
+        </p>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Onlineshop &amp; E-Commerce</h3>
+          <p class="dc-block__text">
+            Wir verarbeiten Kundendaten, um den Erwerb von Produkten und deren
+            Bezahlung sowie Bereitstellung zu ermöglichen. Für Lieferungen setzen wir
+            Post- und Versandunternehmen ein. Für Zahlungen nehmen wir Banken und
+            Zahlungsdienstleister in Anspruch.
+          </p>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Projekt- und Entwicklungsleistungen</h3>
+          <p class="dc-block__text">
+            Wir verarbeiten Daten unserer Kunden, um ihnen die Beauftragung und
+            Abwicklung von Projekt- und Entwicklungsleistungen zu ermöglichen.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 11 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-hosting" aria-labelledby="ds-hosting-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">11</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-hosting-h">Bereitstellung des Onlineangebots &amp; Webhosting</h2>
+        <p class="dc-block__text">
+          Wir verarbeiten die IP-Adresse der Nutzer, um unsere Online-Dienste
+          bereitstellen zu können.
+          <strong>Rechtsgrundlage:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO.
+        </p>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Server-Logfiles</h3>
+          <p class="dc-block__text">
+            Der Zugriff wird in Server-Logfiles protokolliert (abgerufene Webseiten,
+            Datum/Uhrzeit, Datenmengen, Browsertyp, Betriebssystem, Referrer-URL,
+            IP-Adresse). Logfile-Informationen werden für maximal 30 Tage gespeichert
+            und danach gelöscht oder anonymisiert.
+          </p>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">E-Mail-Versand &amp; -Hosting</h3>
+          <p class="dc-block__text">
+            Unsere Webhosting-Leistungen umfassen den Versand, Empfang und die
+            Speicherung von E-Mails. Bitte beachten Sie, dass E-Mails im Internet
+            grundsätzlich nicht Ende-zu-Ende verschlüsselt werden.
+          </p>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Content-Delivery-Network (CDN)</h3>
+          <p class="dc-block__text">
+            Wir setzen ein CDN ein, um Inhalte schneller und sicherer auszuliefern.
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 12 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-kontakt" aria-labelledby="ds-kontakt-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">12</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-kontakt-h">Kontakt- und Anfrageverwaltung</h2>
+        <p class="dc-block__text">
+          Bei der Kontaktaufnahme über unser Kontaktformular, per E-Mail oder
+          anderen Kommunikationswegen verarbeiten wir die übermittelten
+          personenbezogenen Daten zur Beantwortung des jeweiligen Anliegens.
+          Dies umfasst in der Regel Name, Kontaktinformationen und weitere
+          mitgeteilte Angaben.
+        </p>
+        <p class="dc-block__text">
+          <strong>Rechtsgrundlagen:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;b
+          (vorvertragliche Anfragen) und lit.&nbsp;f DSGVO (berechtigte Interessen).
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 13 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-social" aria-labelledby="ds-social-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">13</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-social-h">Präsenzen in sozialen Netzwerken</h2>
+        <p class="dc-block__text">
+          Wir unterhalten Onlinepräsenzen in sozialen Netzwerken und verarbeiten
+          Nutzerdaten, um mit aktiven Nutzern zu kommunizieren. Nutzerdaten können
+          dabei außerhalb der EU verarbeitet werden.
+        </p>
+
+        <div class="dc-provider-grid">
+
+          <div class="dc-provider">
+            <p class="dc-provider__name">Instagram</p>
+            <p class="dc-provider__detail">
+              Meta Platforms Ireland Limited, Merrion Road, Dublin 4, Irland.
+              DPF-zertifiziert.
+            </p>
+            <a class="dc-link" href="https://privacycenter.instagram.com/policy/" target="_blank" rel="noopener">
+              Datenschutzerklärung
+            </a>
+          </div>
+
+          <div class="dc-provider">
+            <p class="dc-provider__name">YouTube</p>
+            <p class="dc-provider__detail">
+              Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland.
+              DPF-zertifiziert.
+            </p>
+            <a class="dc-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+              Datenschutzerklärung
+            </a>
+          </div>
+
+        </div>
+
+        <p class="dc-block__text">
+          <strong>Rechtsgrundlage:</strong> Art.&nbsp;6 Abs.&nbsp;1 lit.&nbsp;f DSGVO.
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 14 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-plugins" aria-labelledby="ds-plugins-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">14</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-plugins-h">Plug-ins und eingebettete Inhalte</h2>
+        <p class="dc-block__text">
+          Wir binden Funktions- und Inhaltselemente in unser Onlineangebot ein,
+          die von Drittanbietern bezogen werden. Die Einbindung setzt voraus, dass
+          diese Anbieter die IP-Adresse der Nutzer verarbeiten.
+        </p>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Drittsoftware &amp; Frameworks</h3>
+          <p class="dc-block__text">
+            Wir binden Software von Servern anderer Anbieter ein (z.&nbsp;B.
+            Funktionsbibliotheken). Die Anbieter können IP-Adressen zu Sicherheits-
+            und Optimierungszwecken verarbeiten.
+          </p>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">Google Fonts</h3>
+          <p class="dc-block__text">
+            Schriftarten werden von Google-Servern bezogen. Dabei wird die IP-Adresse
+            sowie technische Browserdaten übermittelt. Laut Google werden IP-Adressen
+            weder gespeichert noch analysiert.
+            <strong>Anbieter:</strong> Google Ireland Limited, Dublin.
+            DPF-zertifiziert. ·
+            <a class="dc-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+              Datenschutzerklärung
+            </a>
+          </p>
+        </div>
+
+        <div class="dc-sub-block">
+          <h3 class="dc-sub-title">YouTube-Videos</h3>
+          <p class="dc-block__text">
+            <strong>Anbieter:</strong> Google Ireland Limited, Dublin.
+            <strong>Rechtsgrundlage:</strong> Einwilligung (Art.&nbsp;6 Abs.&nbsp;1
+            lit.&nbsp;a DSGVO). ·
+            <a class="dc-link" href="https://policies.google.com/privacy" target="_blank" rel="noopener">
+              Datenschutzerklärung
+            </a>
+          </p>
+        </div>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 15 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-aenderung" aria-labelledby="ds-aenderung-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">15</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-aenderung-h">Änderung und Aktualisierung</h2>
+        <p class="dc-block__text">
+          Wir bitten Sie, sich regelmäßig über den Inhalt unserer
+          Datenschutzerklärung zu informieren. Wir passen die Erklärung an, sobald
+          Änderungen der von uns durchgeführten Datenverarbeitungen dies erfordern.
+          Sofern die Änderungen eine Mitwirkungshandlung Ihrerseits erfordern, werden
+          wir Sie gesondert informieren.
+        </p>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ════════════════════════════════ 16 ════════════════════════════════ -->
+    <article class="dc-block" id="ds-begriffe" aria-labelledby="ds-begriffe-h">
+      <div class="dc-block__marker" aria-hidden="true">
+        <span class="dc-block__num">16</span>
+        <span class="dc-block__rule"></span>
+      </div>
+      <div class="dc-block__content">
+        <h2 class="dc-block__title" id="ds-begriffe-h">Begriffsdefinitionen</h2>
+        <dl class="dc-glossary">
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Bestandsdaten</dt>
+            <dd class="dc-glossary__def">Wesentliche Informationen zur Identifikation und Verwaltung von Vertragspartnern, wie Namen, Kontaktinformationen und Identifikatoren.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Inhaltsdaten</dt>
+            <dd class="dc-glossary__def">Informationen aus der Erstellung und Veröffentlichung von Inhalten — Texte, Bilder, Videos — einschließlich Metadaten.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Kontaktdaten</dt>
+            <dd class="dc-glossary__def">Telefonnummern, Adressen, E-Mail-Adressen und Social-Media-Handles.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Nutzungsdaten</dt>
+            <dd class="dc-glossary__def">Informationen über die Interaktion mit digitalen Produkten: besuchte Seiten, Klickpfade, Verweildauer, IP-Adressen, Geräteinformationen.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Personenbezogene Daten</dt>
+            <dd class="dc-glossary__def">Alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen (Art.&nbsp;4 Nr.&nbsp;1 DSGVO).</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Protokolldaten</dt>
+            <dd class="dc-glossary__def">Aufgezeichnete Ereignisse und Aktivitäten in einem System — Zeitstempel, IP-Adressen, Fehlermeldungen, Benutzeraktionen.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Tracking</dt>
+            <dd class="dc-glossary__def">Nachvollziehung des Nutzerverhaltens über mehrere Onlineangebote hinweg, um Interessenprofile zu erstellen.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Verarbeitung</dt>
+            <dd class="dc-glossary__def">Jeder Vorgang im Zusammenhang mit personenbezogenen Daten — Erheben, Auswerten, Speichern, Übermitteln, Löschen (Art.&nbsp;4 Nr.&nbsp;2 DSGVO).</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Vertragsdaten</dt>
+            <dd class="dc-glossary__def">Spezifische Informationen über Vereinbarungen — Laufzeiten, Leistungsart, Preisvereinbarungen, Zahlungsbedingungen.</dd>
+          </div>
+
+          <div class="dc-glossary__entry">
+            <dt class="dc-glossary__term">Zahlungsdaten</dt>
+            <dd class="dc-glossary__def">Informationen zur Abwicklung von Zahlungstransaktionen — Bankverbindungen, Transaktionsdaten, Verifizierungsnummern.</dd>
+          </div>
+
+        </dl>
+      </div>
+    </article>
+
+    <div class="dc-sep" aria-hidden="true">
+      <span class="dc-sep__line"></span>
+      <span class="dc-sep__glyph">✦</span>
+      <span class="dc-sep__line dc-sep__line--rev"></span>
+    </div>
+
+    <!-- ── Generator credit ── -->
+    <p class="dc-credit">
+      Erstellt mit dem kostenlosen
+      <a class="dc-link" href="https://datenschutz-generator.de/" target="_blank" rel="noopener noreferrer nofollow">
+        Datenschutz-Generator.de
+      </a>
+      von Dr. Thomas Schwenke.
+    </p>
+
+  </div>
+</main>
+
+<style>
+  /* ── Root ── */
+  .dc-root {
+    padding-top: 1rem;
+    animation: dc-fadeUp 1s 0.15s both;
+  }
+
+  .dc-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  /* ════ Article blocks ════ */
+  .dc-block {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0 3rem;
+    padding: 3.5rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: start;
+  }
+
+  .dc-block:first-child { padding-top: 0.5rem; }
+
+  /* ── Left marker ── */
+  .dc-block__marker {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.7rem;
+    padding-top: 0.35rem;
+    position: sticky;
+    top: 6rem;
+  }
+
+  .dc-block__num {
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    color: var(--color-accent);
+    font-weight: 400;
+    opacity: 0.6;
+  }
+
+  .dc-block__rule {
+    display: block;
+    width: 24px; height: 1px;
+    background: var(--color-accent);
+    opacity: 0.25;
+  }
+
+  /* ── Content ── */
+  .dc-block__content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .dc-block__title {
+    font-family: var(--font-display);
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
+    font-weight: 300;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    color: var(--color-text);
+    margin: 0;
+  }
+
+  .dc-block__text {
+    font-size: 0.92rem;
+    line-height: 1.82;
+    color: var(--color-muted);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin: 0;
+  }
+
+  /* ── Address ── */
+  .dc-address {
+    font-size: 0.92rem;
+    line-height: 1.82;
+    color: var(--color-muted);
+    font-weight: 300;
+    font-style: normal;
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Sub-blocks ── */
+  .dc-sub-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+    padding-top: 0.4rem;
+  }
+
+  .dc-sub-title {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    opacity: 0.75;
+    margin: 0;
+  }
+
+  /* ── Lists ── */
+  .dc-list {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .dc-list li {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+    font-weight: 300;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  .dc-list li::before {
+    content: '✦';
+    position: absolute;
+    left: 0;
+    top: 0.05em;
+    font-size: 0.38rem;
+    color: var(--color-accent);
+    opacity: 0.5;
+    line-height: 1.9;
+  }
+
+  .dc-list--definitions li { padding-left: 0; }
+  .dc-list--definitions li::before { display: none; }
+
+  .dc-list--definitions li + li {
+    border-top: 1px solid rgba(255,255,255,0.04);
+    padding-top: 0.5rem;
+  }
+
+  /* ── Social provider cards ── */
+  .dc-provider-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 0.4rem;
+  }
+
+  .dc-provider {
+    padding: 1.4rem;
+    border: 1px solid rgba(201,169,110,0.1);
+    background: rgba(201,169,110,0.02);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    position: relative;
+  }
+
+  /* Minimal gold corner on provider cards */
+  .dc-provider::before {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px;
+    width: 14px; height: 14px;
+    border-top: 1px solid var(--color-accent);
+    border-left: 1px solid var(--color-accent);
+    opacity: 0.4;
+  }
+
+  .dc-provider__name {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    font-weight: 400;
+    opacity: 0.8;
+    margin: 0;
+  }
+
+  .dc-provider__detail {
+    font-size: 0.83rem;
+    line-height: 1.65;
+    color: var(--color-muted);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* ── Glossary ── */
+  .dc-glossary {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .dc-glossary__entry {
+    display: grid;
+    grid-template-columns: 160px 1fr;
+    gap: 0 2rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    align-items: baseline;
+  }
+
+  .dc-glossary__entry:first-child { border-top: 1px solid rgba(255,255,255,0.04); }
+
+  .dc-glossary__term {
+    font-size: 0.72rem;
+    font-weight: 400;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    opacity: 0.75;
+    padding-top: 0.05rem;
+  }
+
+  .dc-glossary__def {
+    font-size: 0.88rem;
+    line-height: 1.72;
+    color: var(--color-muted);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  /* ── Links ── */
+  .dc-link {
+    color: var(--color-text);
+    font-weight: 300;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.08em;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .dc-link:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* ── Section separators ── */
+  .dc-sep {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    margin: 0;
+  }
+
+  .dc-sep__line {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.05));
+  }
+
+  .dc-sep__line--rev {
+    background: linear-gradient(to left, transparent, rgba(255,255,255,0.05));
+  }
+
+  .dc-sep__glyph {
+    font-size: 0.5rem;
+    color: var(--color-accent);
+    opacity: 0.3;
+    flex-shrink: 0;
+  }
+
+  /* ── Generator credit ── */
+  .dc-credit {
+    padding: 3rem 0 0;
+    font-size: 0.8rem;
+    line-height: 1.7;
+    color: var(--color-muted);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin: 0;
+    opacity: 0.65;
+  }
+
+  /* ════ Responsive ════ */
+  @media (max-width: 680px) {
+    .dc-block {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    .dc-block__marker {
+      flex-direction: row;
+      align-items: center;
+      position: static;
+    }
+
+    .dc-provider-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .dc-glossary__entry {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+
+  @keyframes dc-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>

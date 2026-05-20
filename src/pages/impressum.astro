@@ -1,0 +1,38 @@
+---
+// src/pages/impressum.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Impressum page for Hannah Milena Pilack.
+//
+// Architecture:
+//   • ImpressumHero.astro    — compact artistic hero with title + § reference
+//   • ImpressumContact.astro — name, address, contact in editorial card layout
+//   • ImpressumLegal.astro   — all legal text blocks with numbered sections
+//
+// No images on this page — the visual weight comes from typography, space,
+// and the site's consistent ornamental language (gold accents, ✦, rules).
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import ImpressumHero from '../components/ImpressumHero.astro';
+import ImpressumContact from '../components/ImpressumContact.astro';
+import ImpressumLegal from '../components/ImpressumLegal.astro';
+---
+
+<Layout title="Impressum – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — compact page title with ornamental treatment
+  ════════════════════════════════════════════════════════ -->
+  <ImpressumHero />
+
+  <!-- ═══════════════════════════════════════════════════════
+       CONTACT — identity card: name, address, phone, email
+  ════════════════════════════════════════════════════════ -->
+  <ImpressumContact />
+
+  <!-- ═══════════════════════════════════════════════════════
+       LEGAL — all required legal sections, numbered
+  ════════════════════════════════════════════════════════ -->
+  <ImpressumLegal />
+
+</Layout>

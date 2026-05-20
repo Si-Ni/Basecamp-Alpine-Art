@@ -34,7 +34,7 @@ function buildHtml(p: ContactPayload): string {
   <div class="wrap">
     <div class="hdr">
       <p class="eye">Neue Kontaktanfrage</p>
-      <h1 class="ttl">hannahmilenapilack.de</h1>
+      <h1 class="ttl">basecamp-alpine-art.de</h1>
     </div>
     <div class="bdy">
       <div class="row">
@@ -51,7 +51,7 @@ function buildHtml(p: ContactPayload): string {
         <p class="val msg">${message}</p>
       </div>
     </div>
-    <div class="ftr">Automatisch generiert &middot; hannahmilenapilack.de</div>
+    <div class="ftr">Automatisch generiert &middot; basecamp-alpine-art.de</div>
   </div>
 </body>
 </html>`;
@@ -61,7 +61,7 @@ function buildHtml(p: ContactPayload): string {
 
 function buildText(p: ContactPayload): string {
   return [
-    "NEUE KONTAKTANFRAGE — hannahmilenapilack.de",
+    "NEUE KONTAKTANFRAGE — basecamp-alpine-art.de",
     "─".repeat(48),
     `Name:    ${p.name}`,
     `E-Mail:  ${p.email}`,
@@ -71,7 +71,7 @@ function buildText(p: ContactPayload): string {
     p.message,
     "",
     "─".repeat(48),
-    "Automatisch generiert · hannahmilenapilack.de",
+    "Automatisch generiert · basecamp-alpine-art.de",
   ]
     .filter((l) => l !== null)
     .join("\n");
@@ -95,8 +95,8 @@ export async function sendContactMail(p: ContactPayload): Promise<void> {
     : `[Kontakt] Neue Nachricht von ${p.name}`;
 
   const { error } = await resend.emails.send({
-    from: env.CONTACT_FROM ?? "noreply@hannahmilenapilack.de",
-    to: env.CONTACT_TO ?? "hannah@hannahmilenapilack.de",
+    from: env.CONTACT_FROM ?? "noreply@basecamp-alpine-art.de",
+    to: env.CONTACT_TO ?? "basecampalpineart@gmx.de",
     replyTo: `"${p.name}" <${p.email}>`,
     subject: subjectLine,
     text: buildText(p),

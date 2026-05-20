@@ -1,0 +1,55 @@
+---
+// src/pages/datenschutz.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Datenschutzerklärung page for Hannah Milena Pilack.
+//
+// Architecture:
+//   • DatenschutzHero.astro    — compact artistic hero, parallel to ImpressumHero
+//   • DatenschutzNav.astro     — sticky in-page table-of-contents / anchor rail
+//   • DatenschutzContent.astro — all GDPR sections as numbered editorial articles
+//
+// Visual language: gold accents (--color-accent), ✦ ornament glyphs,
+// display font headings, muted-weight body copy — identical to the Impressum.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import Layout from '../layouts/Layout.astro';
+import DatenschutzHero    from '../components/DatenschutzHero.astro';
+import DatenschutzNav     from '../components/DatenschutzNav.astro';
+import DatenschutzContent from '../components/DatenschutzContent.astro';
+---
+
+<Layout title="Datenschutzerklärung – Hannah Milena Pilack">
+
+  <!-- ═══════════════════════════════════════════════════════
+       HERO — compact page title with ornamental treatment
+  ════════════════════════════════════════════════════════ -->
+  <DatenschutzHero />
+
+  <!-- ═══════════════════════════════════════════════════════
+       BODY — side-nav + main content two-column layout
+  ════════════════════════════════════════════════════════ -->
+  <div class="ds-layout">
+    <DatenschutzNav />
+    <DatenschutzContent />
+  </div>
+
+</Layout>
+
+<style>
+  .ds-layout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 0 5rem;
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 2rem 8rem;
+    align-items: start;
+  }
+
+  @media (max-width: 900px) {
+    .ds-layout {
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+  }
+</style>

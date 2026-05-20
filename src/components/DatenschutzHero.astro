@@ -1,0 +1,176 @@
+---
+// src/components/DatenschutzHero.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Compact hero for the Datenschutzerklärung page.
+// Mirrors ImpressumHero exactly in structure, with its own split-word title
+// treatment and a sub-line referencing the DSGVO.
+// ─────────────────────────────────────────────────────────────────────────────
+---
+
+<section class="dh-root" aria-labelledby="dh-heading">
+
+  <div class="dh-bg" aria-hidden="true">
+    <div class="dh-stroke dh-stroke--1"></div>
+    <div class="dh-stroke dh-stroke--2"></div>
+    <div class="dh-stroke dh-stroke--3"></div>
+  </div>
+  <div class="dh-noise" aria-hidden="true"></div>
+
+  <div class="dh-ornament" aria-hidden="true">
+    <span class="dh-ornament__line"></span>
+    <span class="dh-ornament__glyph">✦</span>
+    <span class="dh-ornament__line dh-ornament__line--rev"></span>
+  </div>
+
+  <div class="dh-content">
+    <p class="dh-eyebrow">Hannah Milena Pilack</p>
+
+    <h1 class="dh-title" id="dh-heading">
+      <span class="dh-title__light">Datenschutz</span><span class="dh-title__main">erklärung</span>
+    </h1>
+
+    <div class="dh-meta" aria-hidden="true">
+      <span class="dh-meta__rule"></span>
+      <p class="dh-sub">Gemäß DSGVO &amp; BDSG · Stand: 20. Mai 2026</p>
+      <span class="dh-meta__rule dh-meta__rule--rev"></span>
+    </div>
+  </div>
+
+</section>
+
+<style>
+  .dh-root {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 42vh;
+    padding: 8rem 2rem 4rem;
+    overflow: hidden;
+    text-align: center;
+    background: var(--color-bg);
+  }
+
+  /* ── Background brush strokes ── */
+  .dh-bg { position: absolute; inset: 0; pointer-events: none; }
+
+  .dh-stroke {
+    position: absolute;
+    border-radius: 2px;
+    background: var(--color-accent);
+  }
+  .dh-stroke--1 {
+    top: -20%; left: -6%;
+    width: 22%; height: 120%;
+    transform: rotate(-8deg);
+    opacity: 0.028;
+  }
+  .dh-stroke--2 {
+    bottom: -20%; right: -4%;
+    width: 16%; height: 90%;
+    transform: rotate(6deg);
+    opacity: 0.02;
+  }
+  .dh-stroke--3 {
+    top: 10%; left: 40%;
+    width: 40%; height: 1px;
+    transform: rotate(-1.5deg);
+    opacity: 0.06;
+  }
+
+  /* ── Film-grain noise overlay ── */
+  .dh-noise {
+    position: absolute; inset: 0; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.028;
+    pointer-events: none;
+  }
+
+  /* ── Top ornament rule ── */
+  .dh-ornament {
+    position: relative; z-index: 2;
+    display: flex; align-items: center; gap: 0.8rem;
+    width: min(300px, 80%);
+    margin-bottom: 2rem;
+    animation: dh-fadeUp 0.9s 0.1s both;
+  }
+  .dh-ornament__line {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.22));
+  }
+  .dh-ornament__line--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.22));
+  }
+  .dh-ornament__glyph {
+    font-size: 0.52rem;
+    color: var(--color-accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Main content ── */
+  .dh-content { position: relative; z-index: 2; }
+
+  .dh-eyebrow {
+    font-size: 0.68rem; font-weight: 400;
+    letter-spacing: 0.28em; text-transform: uppercase;
+    color: var(--color-accent);
+    margin: 0 0 1.2rem;
+    animation: dh-fadeUp 0.9s 0.2s both;
+  }
+
+  .dh-title {
+    font-family: var(--font-display);
+    font-weight: 300;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    color: var(--color-text);
+    margin: 0 0 1.8rem;
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.08em;
+  }
+
+  .dh-title__light {
+    font-style: italic;
+    color: var(--color-muted);
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    animation: dh-fadeUp 0.9s 0.35s both;
+  }
+  .dh-title__main {
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    animation: dh-fadeUp 0.9s 0.5s both;
+  }
+
+  /* ── Date / subtitle line ── */
+  .dh-meta {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    justify-content: center;
+    animation: dh-fadeUp 0.9s 0.65s both;
+  }
+  .dh-meta__rule {
+    display: block;
+    width: 28px; height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.3));
+  }
+  .dh-meta__rule--rev {
+    background: linear-gradient(to left, transparent, rgba(201,169,110,0.3));
+  }
+
+  .dh-sub {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+    font-weight: 300;
+    margin: 0;
+  }
+
+  @keyframes dh-fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
