@@ -19,7 +19,6 @@ const {
 } = Astro.props;
 
 const siteName = 'BasecampAlpineArt';
-const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 ---
 <!DOCTYPE html>
 <html lang="de">
@@ -28,7 +27,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <!-- Primäres SEO -->
-  <title>{fullTitle}</title>
+  <title>{title}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
   <meta name="robots" content="index, follow">
@@ -36,7 +35,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
   <!-- Open Graph (Facebook, WhatsApp, …) -->
   <meta property="og:type" content={type} />
   <meta property="og:site_name" content={siteName} />
-  <meta property="og:title" content={fullTitle} />
+  <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
   <meta property="og:image" content={new URL(image, Astro.site).href} />
   <meta property="og:url" content={canonicalUrl} />
@@ -44,7 +43,7 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content={fullTitle} />
+  <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
   <meta name="twitter:image" content={new URL(image, Astro.site).href} />
 
