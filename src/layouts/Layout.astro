@@ -31,13 +31,14 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonicalUrl} />
+  <meta name="robots" content="index, follow">
 
   <!-- Open Graph (Facebook, WhatsApp, …) -->
   <meta property="og:type" content={type} />
   <meta property="og:site_name" content={siteName} />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(image, 'https://www.basecamp-alpine-art.de').href} />
+  <meta property="og:image" content={new URL(image, Astro.site).href} />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:locale" content="de_DE" />
 
@@ -45,12 +46,11 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={fullTitle} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={new URL(image, 'https://www.basecamp-alpine-art.de').href} />
+  <meta name="twitter:image" content={new URL(image, Astro.site).href} />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-  <link rel="icon" type="image/png" href="/favicon.png" />
-  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <link rel="icon" type="image/jpeg" href="/images/logo.jpg" />
+  <link rel="apple-touch-icon" href="/images/logo.jpg" />
 
   <!-- Strukturierte Daten (Google Rich Results) -->
   <script type="application/ld+json">
