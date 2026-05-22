@@ -401,36 +401,54 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 </style>
 
 <script>
-  // Hamburger toggle
-  const btn = document.getElementById('hamburger-btn');
-  const menu = document.getElementById('mobile-menu');
+  document.addEventListener('DOMContentLoaded', () => {
+    // Hamburger toggle
+    const btn = document.getElementById('hamburger-btn');
+    const menu = document.getElementById('mobile-menu');
 
-  btn?.addEventListener('click', () => {
-    const expanded = btn.getAttribute('aria-expanded') === 'true';
-    btn.setAttribute('aria-expanded', String(!expanded));
-    btn.setAttribute('aria-label', expanded ? 'Menü öffnen' : 'Menü schließen');
-    menu?.classList.toggle('open', !expanded);
-    menu?.setAttribute('aria-hidden', String(expanded));
-    document.body.style.overflow = expanded ? '' : 'hidden';
-  });
+    btn?.addEventListener('click', () => {
+      const expanded = btn.getAttribute('aria-expanded') === 'true';
 
-  // Close on mobile nav link click
-  menu?.querySelectorAll('.mobile-nav-link').forEach(link => {
-    link.addEventListener('click', () => {
-      btn?.setAttribute('aria-expanded', 'false');
-      btn?.setAttribute('aria-label', 'Menü öffnen');
-      menu.classList.remove('open');
-      menu.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
+      btn.setAttribute('aria-expanded', String(!expanded));
+      btn.setAttribute(
+        'aria-label',
+        expanded ? 'Menü öffnen' : 'Menü schließen'
+      );
+
+      menu?.classList.toggle('open', !expanded);
+      menu?.setAttribute('aria-hidden', String(expanded));
+
+      document.body.style.overflow = expanded ? '' : 'hidden';
     });
-  });
 
-  // Set active nav link
-  const currentPath = window.location.pathname;
-  document.querySelectorAll('.nav-link, .mobile-nav-link').forEach((link) => {
-    const href = link.getAttribute('href');
-    if (href && (href === currentPath || (href !== '/' && currentPath.startsWith(href)))) {
-      link.setAttribute('aria-current', 'page');
-    }
+    // Close on mobile nav link click
+    menu?.querySelectorAll('.mobile-nav-link').forEach((link) => {
+      link.addEventListener('click', () => {
+        btn?.setAttribute('aria-expanded', 'false');
+        btn?.setAttribute('aria-label', 'Menü öffnen');
+
+        menu?.classList.remove('open');
+        menu?.setAttribute('aria-hidden', 'true');
+
+        document.body.style.overflow = '';
+      });
+    });
+
+    // Set active nav link
+    const currentPath = window.location.pathname;
+
+    document
+      .querySelectorAll('.nav-link, .mobile-nav-link')
+      .forEach((link) => {
+        const href = link.getAttribute('href');
+
+        if (
+          href &&
+          (href === currentPath ||
+            (href !== '/' && currentPath.startsWith(href)))
+        ) {
+          link.setAttribute('aria-current', 'page');
+        }
+      });
   });
 </script>
