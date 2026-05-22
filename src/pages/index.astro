@@ -5,13 +5,6 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="BasecampAlpineArt – Kunst & Fotografie">
   <div class="hero">
-    <!-- Collage of art images -->
-    <!-- <div class="collage" aria-hidden="true">
-      <div class="collage-piece collage-piece--1"></div>
-      <div class="collage-piece collage-piece--2"></div>
-      <div class="collage-piece collage-piece--3"></div>
-      <div class="collage-piece collage-piece--4"></div>
-    </div> -->
 
     <!-- Noise texture overlay -->
     <div class="hero-noise" aria-hidden="true"></div>
@@ -53,68 +46,6 @@ import Layout from '../layouts/Layout.astro';
     justify-content: center;
     overflow: hidden;
     background: var(--color-bg);
-  }
-
-  /* ── Collage ── */
-  .collage {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-  }
-
-  .collage-piece {
-    position: absolute;
-    background-size: cover;
-    background-position: center;
-    border-radius: 2px;
-  }
-
-  /* top left */
-  .collage-piece--1 {
-    top: -5%;
-    left: -4%;
-    width: 38%;
-    height: 64%;
-    background-image: url('/images/oil/monochrome_einsamkeit.jpg');
-    background-color: #1a1208;
-    transform: rotate(-2.5deg);
-    filter: brightness(0.7) saturate(0.85);
-  }
-
-  /* bottom right */
-  .collage-piece--2 {
-    bottom: -8%;
-    right: -3%;
-    width: 37.5%;
-    height: 65%;
-    background-image: url('/images/background_rope.png');
-    background-color: #1a1008;
-    transform: rotate(1.8deg);
-    filter: brightness(0.5) saturate(0.9);
-  }
-
-  /* top right */
-  .collage-piece--3 {
-    top: -2%;
-    right: -1%;
-    width: 38.5%;
-    height: 48%;
-    background-image: url('/images/photography/taubenstein_2021.jpg');
-    background-color: #100a18;
-    transform: rotate(3deg);
-    filter: brightness(1) saturate(1);
-  }
-
-  /* bottom left */
-  .collage-piece--4 {
-    bottom: -4%;
-    left: 0;
-    width: 29%;
-    height: 45.5%;
-    background-image: url('/images/customwork/1.jpg');
-    background-color: #0a100e;
-    transform: rotate(-1.2deg);
-    filter: brightness(0.7) saturate(0.7);
   }
 
   /* ── Noise texture ── */
