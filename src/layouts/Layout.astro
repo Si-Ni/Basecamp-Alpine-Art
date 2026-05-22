@@ -18,6 +18,21 @@ const {
   type = 'website',
 } = Astro.props;
 
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Hannah Milena Pilack",
+  "url": "https://www.basecamp-alpine-art.de",
+  "jobTitle": "Künstlerin & Fotografin",
+  "brand": {
+    "@type": "Brand",
+    "name": "Basecamp Alpine Art"
+  },
+  "sameAs": [
+    "https://www.instagram.com/basecampalpineart/"
+  ]
+};
+
 const siteName = 'BasecampAlpineArt';
 ---
 <!DOCTYPE html>
@@ -52,22 +67,7 @@ const siteName = 'BasecampAlpineArt';
   <link rel="apple-touch-icon" href="/images/logo.jpg" />
 
   <!-- Strukturierte Daten (Google Rich Results) -->
-  <script type="application/ld+json">
-    {JSON.stringify({
-      "@context": "https://schema.org",
-      "@type": "Person",
-      "name": "Hannah Milena Pilack",
-      "url": "https://www.basecamp-alpine-art.de",
-      "jobTitle": "Künstlerin & Fotografin",
-      "brand": {
-        "@type": "Brand",
-        "name": "Basecamp Alpine Art"
-      },
-      "sameAs": [
-        "https://www.instagram.com/basecampalpineart/"
-      ]
-    })}
-  </script>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
 </head>
 <body>
   <slot name="header-overlay" />
