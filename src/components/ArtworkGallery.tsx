@@ -562,7 +562,7 @@ const STYLES = `
   font-weight: 400;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #7a7670;
+  color: var(--color-muted);;
   background: none;
   border: none;
   border-bottom: 2px solid transparent;
@@ -606,7 +606,7 @@ const STYLES = `
   font-size: 0.62rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: #7a7670;
+  color: var(--color-muted);
 }
 .filter-label--inline { margin: 0; }
 
@@ -618,7 +618,7 @@ const STYLES = `
   left: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #7a7670;
+  color: var(--color-muted);
   pointer-events: none;
 }
 
@@ -663,7 +663,7 @@ const STYLES = `
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #7a7670;
+  color: var(--color-muted);;
   border: 1px solid rgba(255,255,255,0.1);
   border-radius: 4px;
   padding: 0.55rem 0.9rem;
@@ -676,7 +676,7 @@ const STYLES = `
 
 .filter-count {
   font-size: 0.72rem;
-  color: #7a7670;
+  color: var(--color-muted);
   letter-spacing: 0.05em;
   margin-top: 1.25rem;
   text-align: right;
@@ -860,9 +860,9 @@ const STYLES = `
 
 .card-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 400;
-  color: #e8e4dc;
+  color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -871,7 +871,7 @@ const STYLES = `
 }
 
 .card-price {
-  font-size: 0.75rem;
+  font-size: 0.8rem;
   font-weight: 400;
   color: #c9a96e;
   white-space: nowrap;
@@ -879,14 +879,14 @@ const STYLES = `
 }
 
 .card-price--sold {
-  color: #7a7670;
+  color: var(--color-muted);
   text-decoration: line-through;
-  text-decoration-color: rgba(122,118,112,0.5);
+  text-decoration-color: var(--color-muted);
 }
 
 .card-meta {
-  font-size: 0.65rem;
-  color: rgba(122,118,112,0.9);
+  font-size: 0.7rem;
+  color: var(--color-muted);
   letter-spacing: 0.03em;
   margin-top: 0.15rem;
   white-space: nowrap;
@@ -910,7 +910,7 @@ const STYLES = `
   font-size: 0.6rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #7a7670;
+  color: var(--color-muted);
 }
 
 /* ── Skeleton ── */
@@ -956,12 +956,12 @@ const STYLES = `
 .gallery-empty-title {
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.8rem;
-  color: #e8e4dc;
+  color: var(--color-text);
   margin-bottom: 0.75rem;
 }
 .gallery-empty-sub {
   font-size: 0.85rem;
-  color: #7a7670;
+  color: var(--color-muted);
 }
 
 /* ── Modal ──────────────────────────────────────────────────────────────── */
@@ -1068,7 +1068,7 @@ const STYLES = `
   border-radius: 50%;
   background: rgba(10,10,9,0.75);
   border: 1px solid rgba(255,255,255,0.1);
-  color: #e8e4dc;
+  color: var(--color-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1094,7 +1094,7 @@ const STYLES = `
 
 .modal-year-badge {
   font-size: 0.8rem;
-  color: #7a7670;
+  color: var(--color-muted);
   letter-spacing: 0.05em;
 }
 
@@ -1103,7 +1103,7 @@ const STYLES = `
   font-size: 2.3rem;
   font-weight: 400;
   line-height: 1.15;
-  color: #e8e4dc;
+  color: var(--color-text);
   margin-bottom: 1.1rem;
 }
 
@@ -1120,7 +1120,7 @@ const STYLES = `
   font-size: 1rem;
 }
 .detail-row dt {
-  color: #7a7670;
+  color: var(--color-muted);
   min-width: 50px;
   flex-shrink: 0;
 }
@@ -1128,7 +1128,7 @@ const STYLES = `
 
 .modal-description {
   font-size: 1rem;
-  color: #9a968e;
+  color: var(--color-muted);
   line-height: 1.75;
   padding-top: 1.1rem;
   border-top: 1px solid rgba(255,255,255,0.06);
@@ -1150,14 +1150,14 @@ const STYLES = `
   font-family: 'Cormorant Garamond', Georgia, serif;
   font-size: 1.7rem;
   font-weight: 400;
-  color: #e8e4dc;
+  color: var(--color-text);
 }
 .modal-price--sold {
   font-family: 'Jost', sans-serif;
   font-size: 0.75rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7a7670;
+  color: var(--color-muted);
 }
 
 .btn-inquire {
@@ -1185,7 +1185,7 @@ const STYLES = `
   font-size: 0.62rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: #7a7670;
+  color: var(--color-muted);
   border: 1px solid rgba(255,255,255,0.07);
   border-radius: 50px;
   padding: 0.18rem 0.55rem;

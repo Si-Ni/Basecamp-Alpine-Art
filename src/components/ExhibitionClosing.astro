@@ -1,12 +1,12 @@
 ---
 // src/components/ExhibitionClosing.astro
 // ─────────────────────────────────────────────────────────────────────────────
-// Closing quote / CTA for the Ausstellungen page.
-// Mirrors AboutClosing and CustomworkClosing.
+// Closing section for the Ausstellungen page.
+// Features current exhibition announcement + CTA links.
 // ─────────────────────────────────────────────────────────────────────────────
 ---
 
-<section class="exc-root" aria-label="Abschluss">
+<section class="exc-root" aria-label="Aktuelle Ausstellung & Abschluss">
 
   <!-- Decorative full-width rule -->
   <div class="exc-rule" aria-hidden="true">
@@ -15,17 +15,39 @@
     <span class="exc-rule__line exc-rule__line--rev"></span>
   </div>
 
-  <blockquote class="exc-quote">
-    <p class="exc-quote__text">
-      „Kunst lebt davon, gesehen zu werden"
-    </p>
-    <footer class="exc-quote__footer">
-      <span class="exc-quote__dash" aria-hidden="true">—</span>
-      <cite>Hannah Milena Pilack</cite>
-    </footer>
-  </blockquote>
+  <!-- Exhibition Announcement Card -->
+  <article class="exc-announcement" aria-label="Aktuelle Ausstellung">
 
-  <!-- Links -->
+    <!-- Eyebrow label -->
+    <p class="exc-announcement__eyebrow">
+      <span class="exc-announcement__dot" aria-hidden="true"></span>
+      Derzeit ausgestellt
+    </p>
+
+    <!-- Main headline -->
+    <h2 class="exc-announcement__headline">
+      <span class="exc-announcement__headline-top">Kunst trifft</span>
+      <span class="exc-announcement__headline-bottom">Klettern</span>
+    </h2>
+
+    <!-- Venue line -->
+    <p class="exc-announcement__body">
+      Einige meiner Werke sind derzeit in der </br>
+      <a
+        href="https://www.kletterzentrum-waldkraiburg.de/"
+        class="exc-link--inline"
+        target="_blank"
+        rel="noopener noreferrer"
+      >Kletterhalle Waldkraiburg</a>
+      ausgestellt.
+    </p>
+
+    <!-- Decorative accent bar -->
+    <div class="exc-announcement__accent" aria-hidden="true"></div>
+
+  </article>
+
+  <!-- Action links -->
   <div class="exc-actions">
     <a href="/werke" class="exc-link exc-link--primary">
       Zur Galerie
@@ -39,20 +61,21 @@
 </section>
 
 <style>
+  /* ── Root ── */
   .exc-root {
     padding: 5rem 2rem 7rem;
-    border-top: 1px solid rgba(255,255,255,0.05);
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 3.5rem;
     opacity: 0;
     transform: translateY(20px);
     transition: opacity 0.9s ease, transform 0.9s ease;
   }
 
-  /* ── Rule ── */
+  /* ── Decorative rule ── */
   .exc-rule {
     display: flex;
     align-items: center;
@@ -63,11 +86,11 @@
   .exc-rule__line {
     flex: 1;
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(201,169,110,0.2));
+    background: linear-gradient(to right, transparent, rgba(201, 169, 110, 0.2));
   }
 
   .exc-rule__line--rev {
-    background: linear-gradient(to left, transparent, rgba(201,169,110,0.2));
+    background: linear-gradient(to left, transparent, rgba(201, 169, 110, 0.2));
   }
 
   .exc-rule__diamond {
@@ -77,37 +100,139 @@
     flex-shrink: 0;
   }
 
-  /* ── Quote ── */
-  .exc-quote {
-    max-width: 620px;
+  /* ── Announcement card ── */
+  .exc-announcement {
+    position: relative;
+    max-width: 560px;
+    padding: 2.8rem 3rem 3rem;
+    border: 1px solid rgba(201, 169, 110, 0.12);
+    border-radius: 2px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+
+    /* Subtle glow on the card border */
+    box-shadow:
+      0 0 0 1px rgba(201, 169, 110, 0.04),
+      inset 0 1px 0 rgba(201, 169, 110, 0.06);
+
+    /* Corner marks — purely decorative */
+    background-image:
+      linear-gradient(var(--color-accent), var(--color-accent)),
+      linear-gradient(var(--color-accent), var(--color-accent)),
+      linear-gradient(var(--color-accent), var(--color-accent)),
+      linear-gradient(var(--color-accent), var(--color-accent));
+    background-size:
+      8px 1px,
+      1px 8px,
+      8px 1px,
+      1px 8px;
+    background-position:
+      top left, top left,
+      bottom right, bottom right;
+    background-repeat: no-repeat;
+    background-color: transparent;
+
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.8s ease 0.25s, transform 0.8s ease 0.25s;
+  }
+
+  /* ── Eyebrow ── */
+  .exc-announcement__eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    font-size: 0.63rem;
+    letter-spacing: 0.26em;
+    text-transform: uppercase;
+    color: var(--color-accent);
     margin: 0;
   }
 
-  .exc-quote__text {
-    font-family: var(--font-display);
-    font-size: clamp(1.45rem, 3.1vw, 2.1rem);
-    font-style: italic;
-    font-weight: 300;
-    line-height: 1.55;
-    color: var(--color-muted);
-    margin: 0 0 1.2rem;
-    letter-spacing: 0.01em;
+  /* Pulsing dot */
+  .exc-announcement__dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--color-accent);
+    animation: dot-pulse 2.4s ease-in-out infinite;
   }
 
-  .exc-quote__footer {
+  @keyframes dot-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.35); }
+  }
+
+  /* ── Headline ── */
+  .exc-announcement__headline {
+    margin: 0.2rem 0 0;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 0.68rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: rgba(122,118,112,0.4);
-    font-style: normal;
+    gap: 0.1rem;
+    line-height: 1.1;
   }
 
-  .exc-quote__dash { color: var(--color-accent); opacity: 0.4; }
-  cite { font-style: normal; }
+  .exc-announcement__headline-top {
+    font-family: var(--font-display);
+    font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
+    text-transform: uppercase;
+  }
+
+  .exc-announcement__headline-bottom {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.04em;
+    color: var(--color-text, #e8e4de);
+    line-height: 1;
+  }
+
+  /* ── Body text ── */
+  .exc-announcement__body {
+    margin: 0;
+    font-size: 0.82rem;
+    line-height: 1.75;
+    color: var(--color-muted);
+    letter-spacing: 0.01em;
+    max-width: 38ch;
+  }
+
+  /* ── Inline link (inside body text) ── */
+  .exc-link--inline {
+    color: var(--color-text, #e8e4de);
+    font-weight: 300;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 0.08em;
+    transition: color 0.2s, border-color 0.2s;
+  }
+
+  .exc-link--inline:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  /* ── Accent bar ── */
+  .exc-announcement__accent {
+    width: 2rem;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(201, 169, 110, 0.55),
+      transparent
+    );
+    margin-top: 0.4rem;
+  }
 
   /* ── Action links ── */
   .exc-actions {
@@ -134,26 +259,58 @@
 
   .exc-link--primary {
     color: var(--color-accent);
-    border: 1px solid rgba(201,169,110,0.3);
+    border: 1px solid rgba(201, 169, 110, 0.3);
   }
 
   .exc-link--primary:hover {
-    background: rgba(201,169,110,0.06);
-    border-color: rgba(201,169,110,0.55);
+    background: rgba(201, 169, 110, 0.06);
+    border-color: rgba(201, 169, 110, 0.55);
     transform: translateY(-2px);
   }
 
   .exc-link--secondary {
-    color: rgba(122,118,112,0.55);
-    border: 1px solid rgba(255,255,255,0.06);
+    color: rgba(122, 118, 112, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .exc-link--secondary:hover {
     color: var(--color-muted);
-    border-color: rgba(255,255,255,0.12);
+    border-color: rgba(255, 255, 255, 0.12);
     transform: translateY(-2px);
   }
 
-  .exc-link__arrow { transition: transform 0.25s; }
-  .exc-link--primary:hover .exc-link__arrow { transform: translateX(4px); }
+  .exc-link__arrow {
+    transition: transform 0.25s;
+  }
+
+  .exc-link--primary:hover .exc-link__arrow {
+    transform: translateX(4px);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 480px) {
+    .exc-announcement {
+      padding: 2rem 1.6rem 2.2rem;
+    }
+  }
 </style>
+
+<script>
+  // Reveal on scroll (matches site-wide IntersectionObserver pattern)
+  const section = document.querySelector('.exc-root');
+  const card    = document.querySelector('.exc-announcement');
+
+  const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      const el = entry.target as HTMLElement;
+      el.style.opacity   = '1';
+      el.style.transform = 'translateY(0)';
+      observer.unobserve(el);
+    }
+  });
+});
+
+  if (section) observer.observe(section);
+  if (card)    observer.observe(card);
+</script>

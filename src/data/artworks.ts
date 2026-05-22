@@ -28,7 +28,7 @@ function orientation(w: number, h: number): Orientation {
 export const artworks: Artwork[] = [
   // ── Ölgemälde ──────────────────────────────────────────────
   {
-    id: "oil-01",
+    id: "oil-10",
     title: "Erlebtes in Farbe",
     category: "oil",
     year: 2026,
@@ -40,7 +40,7 @@ export const artworks: Artwork[] = [
     image: "/images/oil/erlebtes_in_farbe.jpg",
   },
   {
-    id: "oil-02",
+    id: "oil-09",
     title: "Monochrome Einsamkeit",
     category: "oil",
     year: 2026,
@@ -52,8 +52,8 @@ export const artworks: Artwork[] = [
     image: "/images/oil/monochrome_einsamkeit.jpg",
   },
   {
-    id: "oil-03",
-    title: "Über den Wolken Wilder Kaiser",
+    id: "oil-08",
+    title: "Über den Wolken – Wilder Kaiser",
     category: "oil",
     year: 2025,
     width: 80,
@@ -64,7 +64,7 @@ export const artworks: Artwork[] = [
     image: "/images/oil/ueber_den_wolken_wilder_kaiser.jpg",
   },
   {
-    id: "oil-04",
+    id: "oil-07",
     title: "König der Lüfte",
     category: "oil",
     year: 2025,
@@ -76,7 +76,7 @@ export const artworks: Artwork[] = [
     image: "/images/oil/koenig_der_luefte.jpg",
   },
   {
-    id: "oil-05",
+    id: "oil-06",
     title: "Blick vom Triglav",
     category: "oil",
     year: 2025,
@@ -88,7 +88,7 @@ export const artworks: Artwork[] = [
     image: "/images/oil/blick_vom_triglav.jpg",
   },
   {
-    id: "oil-06",
+    id: "oil-05",
     title: "Goldener Moment über dem Kaisergebirge",
     category: "oil",
     year: 2025,
@@ -100,7 +100,7 @@ export const artworks: Artwork[] = [
     image: "/images/oil/goldener_moment_ueber_dem_kaisergebirge.jpg",
   },
   {
-    id: "oil-07",
+    id: "oil-04",
     title: "An Höhe gewinnen",
     category: "oil",
     year: 2025,
@@ -112,7 +112,19 @@ export const artworks: Artwork[] = [
     image: "/images/oil/an_hoehe_gewinnen.jpg",
   },
   {
-    id: "oil-08",
+    id: "oil-03",
+    title: "Spannung",
+    category: "oil",
+    year: 2025,
+    width: 103,
+    height: 36,
+    price: 550,
+    description:
+      "Das Ölgemälde zeigt eine kletternde Person kurz bevor ein Griff losgelassen und ein neuer sicherer Halt gesucht wird. Eine Interpretation für die Freude am Klettern, bei dem Körper und Geist, wie Fokus und Kraft zusammenfinden und dabei fast jede Muskelgruppe unter Spannung steht.\n Unsere Partner motivieren, helfen uns mit meist ziemlich verrückten Bewegungen am Boden und feiern mit uns Erfolge.\n Die beim Klettern und Bouldern erlernten Fähig- und Fertigkeiten wie Angstbewältigung, Grenzen überwinden, Körpergefühl und vieles mehr, fördern unsere mentale und körperliche Stärke im Alltag.",
+    image: "/images/oil/spannung.jpg",
+  },
+  {
+    id: "oil-02",
     title: "Höhenflug am Bergkamm",
     category: "oil",
     year: 2025,
@@ -124,7 +136,7 @@ export const artworks: Artwork[] = [
     image: "/images/oil/hoehenflug_am_bergkamm.jpg",
   },
   {
-    id: "oil-09",
+    id: "oil-01",
     title: "Topografische Eigenkomposition",
     category: "oil",
     year: 2024,
@@ -150,7 +162,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/zwischen_mensch_und_fels.jpg",
   },
   {
-    id: "wc-01",
+    id: "wc-08",
     title: "Kampenwand schwebend über der Bergwelt",
     category: "watercolor",
     year: 2026,
@@ -162,7 +174,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/kampenwand_schwebend_ueber_der_bergwelt.jpg",
   },
   {
-    id: "wc-02",
+    id: "wc-07",
     title: "Über der letzten Exe",
     category: "watercolor",
     year: 2025,
@@ -174,7 +186,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/ueber_der_letzten_exe.jpg",
   },
   {
-    id: "wc-03",
+    id: "wc-06",
     title: "Umkehr",
     category: "watercolor",
     year: 2025,
@@ -186,7 +198,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/umkehr.jpg",
   },
   {
-    id: "wc-04",
+    id: "wc-05",
     title: "Zwischen Aufbruch und Rückkehr",
     category: "watercolor",
     year: 2025,
@@ -198,7 +210,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/zwischen_aufbruch_und_rueckkehr.jpg",
   },
   {
-    id: "wc-05",
+    id: "wc-04",
     title: "Aus dem Schatten der Nacht dem Matterhorn entgegen",
     category: "watercolor",
     year: 2025,
@@ -211,7 +223,7 @@ export const artworks: Artwork[] = [
       "/images/watercolor/aus_dem_schatten_der_nacht_dem_matterhorn_entgegen.jpg",
   },
   {
-    id: "wc-06",
+    id: "wc-03",
     title: "Versteinerte Königsfamilie",
     category: "watercolor",
     year: 2025,
@@ -223,7 +235,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/versteinerte_koenigsfamilie.jpg",
   },
   {
-    id: "wc-07",
+    id: "wc-02",
     title: "Bergmeere",
     category: "watercolor",
     year: 2025,
@@ -235,7 +247,7 @@ export const artworks: Artwork[] = [
     image: "/images/watercolor/bergmeere.jpg",
   },
   {
-    id: "wc-08",
+    id: "wc-01",
     title: "Enrosadira",
     category: "watercolor",
     year: 2024,
