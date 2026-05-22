@@ -14,18 +14,21 @@ const {
   title,
   description = 'Hannah Milena Pilack – Kunst & Fotografie. Entdecke originale Gemälde, Illustrationen und künstlerische Fotografie auf BasecampAlpineArt.',
   image = '/images/logo.jpg',
-  canonicalUrl = Astro.url.href,
+  canonicalUrl = new URL(Astro.url.pathname, Astro.site).href,
   type = 'website',
 } = Astro.props;
 
-const schema = {
+const imageUrl = new URL(image, Astro.site).href;
+const faviconUrl = new URL('/favicon.png', Astro.site).href;
+
+const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   "name": "Hannah Milena Pilack",
   "url": "https://www.basecamp-alpine-art.de",
   "jobTitle": "Künstlerin & Fotografin",
-  "brand": {
-    "@type": "Brand",
+  "worksFor": {
+    "@type": "Organization",
     "name": "Basecamp Alpine Art"
   },
   "sameAs": [
@@ -33,7 +36,28 @@ const schema = {
   ]
 };
 
-const siteName = 'BasecampAlpineArt';
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Basecamp Alpine Art",
+  "url": "https://www.basecamp-alpine-art.de",
+  "logo": {
+    "@type": "ImageObject",
+    "url": faviconUrl,
+    "width": 512,
+    "height": 512
+  }
+};
+
+const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Basecamp Alpine Art",
+  "alternateName": "BasecampAlpineArt",
+  "url": "https://www.basecamp-alpine-art.de"
+};
+
+const siteName = 'Basecamp Alpine Art';
 ---
 <!DOCTYPE html>
 <html lang="de">
@@ -47,27 +71,34 @@ const siteName = 'BasecampAlpineArt';
   <link rel="canonical" href={canonicalUrl} />
   <meta name="robots" content="index, follow">
 
-  <!-- Open Graph (Facebook, WhatsApp, …) -->
+
+  <!-- Open Graph -->
   <meta property="og:type" content={type} />
   <meta property="og:site_name" content={siteName} />
   <meta property="og:title" content={title} />
   <meta property="og:description" content={description} />
-  <meta property="og:image" content={new URL(image, Astro.site).href} />
+  <meta property="og:image" content={imageUrl} />
+  <meta property="og:image:type" content="image/jpeg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
   <meta property="og:url" content={canonicalUrl} />
   <meta property="og:locale" content="de_DE" />
 
-  <!-- Twitter Card -->
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content={title} />
   <meta name="twitter:description" content={description} />
-  <meta name="twitter:image" content={new URL(image, Astro.site).href} />
+  <meta name="twitter:image" content={imageUrl} />
+  <meta name="twitter:site" content="@basecampalpineart" />
 
   <!-- Favicon -->
-  <link rel="icon" type="image/jpeg" href="/images/logo.jpg" />
-  <link rel="apple-touch-icon" href="/images/logo.jpg" />
+  <link rel="icon" type="image/png" sizes="512x512" href="/favicon.png" />
+  <link rel="apple-touch-icon" href="/favicon.png" />
 
   <!-- Strukturierte Daten (Google Rich Results) -->
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(personSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(organizationSchema)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteSchema)} />
 </head>
 <body>
   <slot name="header-overlay" />
@@ -75,7 +106,25 @@ const siteName = 'BasecampAlpineArt';
   <header id="site-header">
     <div class="header-inner">
       <a href="/" class="logo" aria-label="BasecampAlpineArt">
-        <span class="logo-name">BasecampAlpineArt</span>
+        <div class="logo__row1">
+          <span class="logo__basecamp">Basecamp</span>
+
+          <span class="logo__glyph" aria-hidden="true">
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 9 L6 2 L9 5.5 L11.5 2.5 L15 9"
+                    stroke="currentColor" stroke-width="1"
+                    stroke-linejoin="round" stroke-linecap="round"/>
+            </svg>
+          </span>
+
+          <span class="logo__alpine">Alpine</span>
+        </div>
+
+        <div class="logo__row2">
+          <span class="logo__art-rule" aria-hidden="true"></span>
+          <span class="logo__art">Art</span>
+          <span class="logo__art-rule" aria-hidden="true"></span>
+        </div>
       </a>
 
       <nav class="desktop-nav" aria-label="Hauptnavigation">
@@ -172,18 +221,76 @@ const siteName = 'BasecampAlpineArt';
     flex-shrink: 0;
   }
 
-  .logo-name {
+  .logo {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+
+  .logo__row1 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    line-height: 1;
+  }
+
+  .logo__basecamp {
     font-family: var(--font-display);
-    font-size: 1.35rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    color: var(--color-text);
+    font-size: 1rem;
+    font-weight: 300;
+    font-style: italic;
+    letter-spacing: 0.12em;
+    color: var(--color-muted);
     transition: color var(--transition-base);
   }
 
-  .logo:hover .logo-name {
+  .logo__glyph {
+    display: flex;
+    align-items: center;
     color: var(--color-accent);
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
   }
+
+  .logo__alpine {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 400;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    transition: letter-spacing var(--transition-base);
+  }
+
+  .logo__row2 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-left: 1px;
+  }
+
+  .logo__art {
+    font-size: 0.58rem;
+    font-weight: 300;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+    color: var(--color-muted);
+  }
+
+  .logo__art-rule {
+    display: block;
+    height: 1px;
+    width: 22px;
+    background: rgba(201, 169, 110, 0.35);
+    transition: width var(--transition-base);
+  }
+
+  /* Hover: warm the whole mark */
+  .logo:hover .logo__basecamp { color: var(--color-accent); }
+  .logo:hover .logo__glyph    { opacity: 1; }
+  .logo:hover .logo__alpine   { letter-spacing: 0.22em; }
+  .logo:hover .logo__art-rule { width: 34px; }
 
   /* Desktop nav */
   .desktop-nav ul {
