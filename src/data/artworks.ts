@@ -46,7 +46,7 @@ export const artworks: Artwork[] = [
     year: 2026,
     width: 50,
     height: 70,
-    price: 600,
+    price: 840,
     description:
       "In der stillen Winternacht ragen die Drei Zinnen in unzähligen grauen Nuancen wie Schattenriesen empor.\n Die Strukturmasse lässt jedes Relief, jede Rille und jede Kante spürbar werden. Schwarz-Weiß reduziert die Szene auf das Wesentliche: Licht, Schatten, Kontraste und die einsame Stimmung des Skifahrers vor den gigantischen Nordwänden der Drei Zinnen.\n Der angedeutete Rahmen hält die Szene zusammen. Im Einklang mit den bewusst mittig platzierten Mond und Skifahrer bringt er eine ruhige Ordnung in die dramatische Wildnis.",
     image: "/images/oil/monochrome_einsamkeit.jpg",
@@ -58,7 +58,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 80,
     height: 40,
-    price: 550,
+    price: 840,
     description:
       "Dieses Ölgemälde zeigt den weiten Blick vom Zahmen Kaiser hinüber zu den schroffen Kalkzacken des Wilden Kaisers, die wie eine mächtige Mauer aus dem Wolkenmeer aufragen. Inspiriert wurde ich von der kurz zuvor gegangenen eindrucksvollen Sieben-Gipfel-Tour, die vom Grinnerkof über die Pyramidenspitze bis zum Rosskaiser führte. Ich wollte unbedingt die Stimmung eines traumhaften Tages über den Wolken einfangen und wie die Route mit Kletterschwierigkeiten bis UIAA II Kondition, absolute Schwindelfreiheit und Trittsicherheit im teils weglosen Gelände abverlangte.",
     image: "/images/oil/ueber_den_wolken_wilder_kaiser.jpg",
@@ -70,7 +70,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 80,
     height: 40,
-    price: 550,
+    price: 840,
     description:
       "Vom Grat der zurückliegenden Gipfeltour, zwischen Geigelstein und Breitenstein öffnet sich der Blick auf den Wilden Kaiser. Vor Ihm liegen die noch schneebedeckten Hänge, eingebettet in kräftigen Farben.\n Der Himmel selbst ist kein stiller Hintergrund, sondern Hauptdarsteller. Kräftiges Blau mischt sich mit weißen und dunklen Wolken, in denen sich erster Niederschlag andeutet. Zwei Steinadler spiegeln die Dynamik der Wolken wider und verleihen der Szene noch mehr Lebendigkeit.\n Das Gemälde hält den Augenblick fest, in dem der Frühling allmählich Einzug hält.",
     image: "/images/oil/koenig_der_luefte.jpg",
@@ -82,7 +82,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 48,
     height: 48,
-    price: 500,
+    price: 650,
     description:
       "Das Ölgemälde zeigt den Ausblick nach vielen Höhenmetern vom wunderschönen Dach Sloweniens. Vom felsigen Gipfel öffnet sich das Triglavtal mit seiner grünen Landschaft, durchzogen vom Lauf der Soča. Mithilfe von Spachteltechniken habe ich dem Gemälde zusätzliche Struktur verliehen.\n Steinböcke prägen inzwischen wieder die Hochgebirgsregionen rund um den Triglav und gehören selbstverständlich in das Gemälde.",
     image: "/images/oil/blick_vom_triglav.jpg",
@@ -94,7 +94,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 107,
     height: 47,
-    price: 650,
+    price: 970,
     description:
       "Dieses Ölgemälde zeigt den Wilden Kaiser, wie ich ihn im Sonnenuntergang über den Wolken erlebt habe. Glühende Orangetöne treffen auf kühles Blau, während die schroffen Felsformen langsam im Abendlicht zur Ruhe kommen. Das Ölgemälde fängt jenen flüchtigen Moment ein, in dem der Tag vergeht und gleichzeitig sich die Welt über den Wolken grenzenlos und frei anfühlt.",
     image: "/images/oil/goldener_moment_ueber_dem_kaisergebirge.jpg",
@@ -106,7 +106,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 130,
     height: 62,
-    price: 750,
+    price: 1250,
     description:
       "Von Eiger, Mönch, Jungfrau und Weisshorn in der Schweiz, über die Mont-Blanc-Gruppe zwischen Frankreich und Italien, bis zum Großglockner und dem Watzmann in meiner Heimat – diese Berge erzählen von Stille, Kraft und Weite.\n Die Ölfarben tragen das Spiel von Licht und Schatten sowie von Schnee und Felsen auf die Leinwand, sie machen die majestätische Ruhe der Höhen, die Schroffheit und die Erhabenheit der Alpenlandschaften spürbar. Gleichzeitig erzählt das Werk von dem Staunen über die Natur, die uns so viel Energie und Inspiration schenkt.",
     image: "/images/oil/an_hoehe_gewinnen.jpg",
@@ -118,7 +118,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 103,
     height: 36,
-    price: 550,
+    price: 870,
     description:
       "Das Ölgemälde zeigt eine kletternde Person kurz bevor ein Griff losgelassen und ein neuer sicherer Halt gesucht wird. Eine Interpretation für die Freude am Klettern, bei dem Körper und Geist, wie Fokus und Kraft zusammenfinden und dabei fast jede Muskelgruppe unter Spannung steht.\n Unsere Partner motivieren, helfen uns mit meist ziemlich verrückten Bewegungen am Boden und feiern mit uns Erfolge.\n Die beim Klettern und Bouldern erlernten Fähig- und Fertigkeiten wie Angstbewältigung, Grenzen überwinden, Körpergefühl und vieles mehr, fördern unsere mentale und körperliche Stärke im Alltag.",
     image: "/images/oil/spannung.jpg",
@@ -130,7 +130,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 66,
     height: 35,
-    price: 550,
+    price: 670,
     description:
       "Ein kühler Morgenhimmel, in dem noch Sterne glimmen, trägt die ersten warmen Strahlen der Sonne auf den Wolken.\n Währenddessen ragen die schroffen Gipfel aus einem sanften Nebelmeer empor.\n Der markante exponierte Grat im Vordergrund verbindet die beiden Teile des Gemäldes. Er ist ein Symbol für einen Wegweiser, Balance und den Mut, sich auf schmalem Pfad hoch über den Tiefen zu bewegen.\n Zwei Vögel ziehen ihre Kreise darüber und verleihen dem Bild mehr Dynamik und Leichtigkeit.",
     image: "/images/oil/hoehenflug_am_bergkamm.jpg",
@@ -140,9 +140,9 @@ export const artworks: Artwork[] = [
     title: "Topografische Eigenkomposition",
     category: "oil",
     year: 2024,
-    width: 110,
-    height: 90,
-    price: 500,
+    width: 70,
+    height: 50,
+    price: 840,
     description:
       "Die frei komponierte Hochgebirgslandschaft entfaltet sich in gestaffelten Bergketten und die dazwischenliegenden Wasserflächen spiegeln die umliegenden Formen.\n Ich wählte eine reduzierte Farbpalette aus kühlen Blau-, Grau- und Erdtönen, um die Atmosphäre von Ruhe und Zeitlosigkeit zu verstärken.\n Beim Malen begann ich zu träumen, die Lofoten zu bereisen, die ich bisher jedoch nur aus Erzählungen und Bildern kenne – daher erinnert sie den einen oder anderen vielleicht eher an Mittelerde aus Herr der Ringe?",
     image: "/images/oil/topografische_eigenkomposition.jpg",
@@ -156,19 +156,19 @@ export const artworks: Artwork[] = [
     year: 2026,
     width: 100,
     height: 44,
-    price: 600,
+    price: 720,
     description:
       "Mein dreiteiliges Aquarell zeigt die wichtigen Verbindungspunkte zwischen Mensch, Fels und Sicherung. Mastwurf, Halbmastwurf und Achterknoten stehen dabei für Verantwortung und Vertrauen – für ein stilles Versprechen: Ich passe auf dich auf. Aus diesem Vertrauen kann eine tiefe Verbundenheit entstehen, die im Alltag selten geworden ist. Besonders in Mehrseillängen lerne ich, mit Angst umzugehen, meine Gefühle bewusst zu beeinflussen und darin eine neue Form von Freiheit zu entdecken. Es geht darum, Unsicherheit auszuhalten und dennoch handlungsfähig bleiben zu können.\n Die zarten Aquarellfarben und der Blick vom Fels in die Berglandschaft unterstreichen diese Erfahrung: Nichts ist hart abgegrenzt, und man erkennt sich selbst als Teil dieser Natur.",
     image: "/images/watercolor/zwischen_mensch_und_fels.jpg",
   },
   {
     id: "wc-08",
-    title: "Kampenwand schwebend über der Bergwelt",
+    title: "Kampenwand – schwebend über der Bergwelt",
     category: "watercolor",
     year: 2026,
     width: 44,
     height: 32,
-    price: 300,
+    price: 390,
     description:
       "Dieses Aquarell zeigt die Kampenwand, die ich oft bestiegen habe und sehr schätze, im strahlenden Sonnenlicht. Besonders empfehlenswert finde ich die spektakuläre Gratüberschreitung, die ihre markanten Gipfel und Türme miteinander verbindet. Über dem Grat schwebt ein Gleitschirmflieger, eingebettet in einen klaren blauen Himmel mit von der Sonne angestrahlten Wolken.",
     image: "/images/watercolor/kampenwand_schwebend_ueber_der_bergwelt.jpg",
@@ -180,7 +180,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 32,
     height: 42,
-    price: 300,
+    price: 390,
     description:
       "Das Aquarellbild fängt das Gefühl des Kletterns in der Natur ein: den Fels unter den Händen, das Vertrauen in unscheinbare Tritte, das konzentrierte Suchen nach den nächsten Griffen und Tritten.\n Beim Vorstiegsklettern wächst bei mir die Spannung, besonders sobald ich über die letzte Exe hinaus klettere – frei, etwas ängstlich, lebendig.",
     image: "/images/watercolor/ueber_der_letzten_exe.jpg",
@@ -204,7 +204,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 60,
     height: 40,
-    price: 500,
+    price: 540,
     description:
       "Bergsteiger- und Kletterausrüstung hängen auf einer Wäscheleine und heben sich durch leuchtende Farben vom dunklen Hintergrund ab.\n Die Wäscheleine symbolisiert den Übergang des Abenteuers in den Alltag – man hängt gedanklich noch der letzten Tour nach, während die nächste bereits geplant wird.",
     image: "/images/watercolor/zwischen_aufbruch_und_rueckkehr.jpg",
@@ -216,7 +216,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 32,
     height: 44,
-    price: 300,
+    price: 390,
     description:
       "Wenn der Bergsteiger in der Dunkelheit startet, liegt die Welt noch still. Jeder Blick Richtung Gipfel ein Versprechen von Glück und Freiheit.\n Das Aquarell fängt diesen Moment des Aufbruchs ein: von Schatten zu Licht, von Stille zu Höhe.\n Ein Bild von Aufstieg, Entwicklung, von der inneren Reise und dem Streben nach Perspektive.",
     image:
@@ -241,7 +241,7 @@ export const artworks: Artwork[] = [
     year: 2025,
     width: 107,
     height: 47,
-    price: 600,
+    price: 790,
     description:
       "Das Aquarell zeigt Bergketten, die wie Wellen über das Gemälde ziehen. Helle Töne im Hintergrund und kräftigere Farben im Vordergrund erzeugen Tiefe.\n Die bewusste Schlichtheit der Farbwahl lenkt den Blick auf die Form und Struktur der Berge und verleiht der Landschaft eine ruhige, meditative Ausstrahlung.",
     image: "/images/watercolor/bergmeere.jpg",
@@ -253,7 +253,7 @@ export const artworks: Artwork[] = [
     year: 2024,
     width: 43,
     height: 33,
-    price: 300,
+    price: 390,
     description:
       "Das Dolomitgestein, geformt aus einem urzeitlichen tropischen Korallenmeer, lässt die Berge bei Sonnenauf- und -untergang in einem unverwechselbaren, warmen Licht erstrahlen (das berühmte „Enrosadira“).\n Dieses natürliche Schauspiel inspirierte mich zu diesem Aquarell. Besonders faszinierend ist Seceda mit ihren messerscharfen, grasbewachsenen Graten, die ich deswegen als Motiv wählte, um die einzigartige Schönheit der Dolomiten einzufangen.",
     image: "/images/watercolor/enrosadira.jpg",
