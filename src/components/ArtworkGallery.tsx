@@ -880,8 +880,6 @@ const STYLES = `
 
 .card-price--sold {
   color: var(--color-muted);
-  text-decoration: line-through;
-  text-decoration-color: var(--color-muted);
 }
 
 .card-meta {

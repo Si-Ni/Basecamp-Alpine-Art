@@ -28,6 +28,18 @@ function orientation(w: number, h: number): Orientation {
 export const artworks: Artwork[] = [
   // ── Ölgemälde ──────────────────────────────────────────────
   {
+    id: "oil-11",
+    title: "Wo der Frühling erwacht und der Watzmann wacht",
+    category: "oil",
+    year: 2026,
+    width: 70,
+    height: 50,
+    price: 940,
+    description:
+      "Während warme Sonnenstrahlen die Hügel grün leuchten lassen, wacht die versteinerte Watzmannfamilie über die Wallfahrtskirche Maria Gern und die erwachende Heimat zu ihren Füßen.\n Die mächtigen Gipfel der Watzmannfamilie stehen für Beständigkeit und Schutz, während die Wallfahrtskirche Maria Gern einen Ort der Ruhe und Einkehr zeigt. So vereint das Gemälde die Schönheit des Berchtesgadener Landes mit der Verbindung von Natur und Mensch und ihren Glauben.",
+    image: "/images/oil/wo_der_frühling_erwacht_und_der_watzmann_wacht.jpg",
+  },
+  {
     id: "oil-10",
     title: "Erlebtes in Farbe",
     category: "oil",
