@@ -273,6 +273,26 @@ export const artworks: Artwork[] = [
 
   // ── Fotografie ──────────────────────────────────────────────
   {
+    id: "foto-15",
+    title: "Sonnwendfeuer Wilder Kaiser",
+    category: "photography",
+    year: 2026,
+    width: 4925,
+    height: 3278,
+    location: "Feldberg, Österreich",
+    image: "/images/photography/sonnwendfeuer_wilder_kaiser_2026.jpg",
+  },
+  {
+    id: "foto-14",
+    title: "Die Watzmann Ostwand",
+    category: "photography",
+    year: 2026,
+    width: 5472,
+    height: 3648,
+    location: "Königssee, Berchtesgaden",
+    image: "/images/photography/die_watzmann_ostwand_2026.jpg",
+  },
+  {
     id: "foto-13",
     title: "Hohenaschau",
     category: "photography",
