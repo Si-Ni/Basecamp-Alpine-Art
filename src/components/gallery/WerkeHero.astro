@@ -1,0 +1,164 @@
+---
+// src/components/WerkeHero.astro
+// ─────────────────────────────────────────────────────────────────────────────
+// Hero for the Werke (gallery) page. Renders the title block plus one banner
+// layer per category. All layers are stacked; only the one matching the active
+// filter category carries the `visible` class. ArtworkGallery (React) toggles
+// that class on category change via the `data-werke-banner` hook — the heavy
+// images stay server-rendered here rather than inside the hydrated island.
+// ─────────────────────────────────────────────────────────────────────────────
+
+import type { Category } from "../../data/artworks";
+
+interface Banner {
+  category: Category | "all";
+  src: string;
+}
+
+// The first entry ("all") matches the gallery's default category, so it is
+// visible on load — no flash before hydration.
+const banners: Banner[] = [
+  { category: "all", src: "/images/banner/works.jpg" },
+  { category: "oil", src: "/images/banner/oil.jpg" },
+  { category: "watercolor", src: "/images/banner/watercolor.jpg" },
+  { category: "photography", src: "/images/banner/photography.jpg" },
+];
+---
+
+<section class="werke-hero">
+  <div class="werke-hero-inner">
+    <p class="werke-eyebrow">Galerie</p>
+    <h1>Werke</h1>
+    <p class="werke-subtitle">
+      Eine kuratierte Sammlung aus Ölgemälden, Aquarellen und Fotografien.
+    </p>
+  </div>
+
+  {
+    banners.map((banner, i) => (
+      <div
+        class:list={["werke-hero-photo", { visible: i === 0 }]}
+        data-werke-banner={banner.category}
+      >
+        <img
+          src={banner.src}
+          alt=""
+          aria-hidden="true"
+          loading={i === 0 ? "eager" : "lazy"}
+          decoding="async"
+        />
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .werke-hero {
+    padding: 10rem 2rem 5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .werke-hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(201, 169, 110, 0.08),
+        transparent 40%
+      ),
+      radial-gradient(
+        circle at bottom right,
+        rgba(255, 255, 255, 0.03),
+        transparent 35%
+      );
+    pointer-events: none;
+  }
+
+  .werke-hero-inner {
+    position: relative;
+    z-index: 1;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .werke-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #c9a96e;
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: clamp(3.5rem, 7vw, 6rem);
+    line-height: 0.95;
+    font-weight: 400;
+    color: #e8e4dc;
+    margin: 0;
+  }
+
+  .werke-subtitle {
+    max-width: 640px;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #9a968e;
+  }
+
+  @media (max-width: 768px) {
+    .werke-hero {
+      padding: 7rem 1rem 3rem;
+    }
+
+    .werke-subtitle {
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+  }
+
+  .werke-hero-photo {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+  }
+
+  .werke-hero-photo.visible {
+    opacity: 1;
+  }
+
+  .werke-hero-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    filter:
+      brightness(0.5)
+      contrast(1.05)
+      saturate(0.85);
+
+    transform: scale(1.04);
+  }
+
+  /* cinematic overlay */
+  .werke-hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+      linear-gradient(
+        to top,
+        rgba(5,5,5,0.9) 0%,
+        rgba(5,5,5,0.35) 45%,
+        rgba(5,5,5,0.15) 100%
+      );
+
+    pointer-events: none;
+  }
+</style>
