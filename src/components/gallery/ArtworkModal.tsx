@@ -7,6 +7,7 @@ import type { Artwork } from "../../data/artworks";
 import { getOrientation } from "../../data/artworks";
 import { categoryLabel } from "./utils";
 import { CloseIcon } from "./icons";
+import PhotographyNote from "./PhotographyNote";
 
 interface Props {
   art: Artwork;
@@ -15,6 +16,7 @@ interface Props {
 
 export default function ArtworkModal({ art, onClose }: Props) {
   const orientation = getOrientation(art);
+  const isPhotography = art.category === "photography";
   const [imgLoaded, setImgLoaded] = useState(false);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -82,8 +84,7 @@ export default function ArtworkModal({ art, onClose }: Props) {
             <div className="detail-row">
               <dt>Format</dt>
               <dd>
-                {art.width} × {art.height}{" "}
-                {art.category !== "photography" ? "cm" : "px"}
+                {art.width} × {art.height} {isPhotography ? "px" : "cm"}
               </dd>
             </div>
             {art.location && (
@@ -98,20 +99,26 @@ export default function ArtworkModal({ art, onClose }: Props) {
             <p className="modal-description">{art.description}</p>
           )}
 
-          <div className="modal-footer">
-            {art.category === "photography" ? null : art.sold ? (
-              <span className="modal-price modal-price--sold">Verkauft</span>
-            ) : (
-              <>
-                <span className="modal-price">
-                  €{art.price?.toLocaleString("de-DE")}
-                </span>
-                <a href="/kontakt" className="btn-inquire">
-                  Anfragen
-                </a>
-              </>
-            )}
-          </div>
+          {/* Photographs are offered as prints on request; everything else
+              keeps the regular price / inquiry footer. */}
+          {isPhotography ? (
+            <PhotographyNote />
+          ) : (
+            <div className="modal-footer">
+              {art.sold ? (
+                <span className="modal-price modal-price--sold">Verkauft</span>
+              ) : (
+                <>
+                  <span className="modal-price">
+                    €{art.price?.toLocaleString("de-DE")}
+                  </span>
+                  <a href="/kontakt" className="btn-inquire">
+                    Anfragen
+                  </a>
+                </>
+              )}
+            </div>
+          )}
 
           {art.tags && art.tags.length > 0 && (
             <div className="modal-tags" aria-label="Tags">
